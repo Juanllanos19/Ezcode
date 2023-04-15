@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Departamento(models.Model):
     nombre = models.CharField(max_length=100)
-    def __str__(self):
+    def _str_(self):
         return self.nombre
 
 class Profesor(models.Model):
@@ -15,25 +15,25 @@ class Profesor(models.Model):
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     correo = models.EmailField()
     contrasena = models.CharField('Contraseña', max_length=500)
-    def __str__(self) :
+    def _str_(self) :
         return self.nombre + ' ' + self.apellidoPat + ' ' + self.apellidoMat
 
 class Periodo(models.Model):
     fechaInicio = models.DateField('Fecha de inicio')
     fechaFin = models.DateField('Fecha de fin')
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.fechaInicio + ' - ' + self.fechaFin
 
 class Tema(models.Model):
     tipo: models.CharField(max_length=100)
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.tipo
     
 class Pregunta(models.Model):
     titulo = models.CharField(max_length=500)
     tema = models.ForeignKey(Tema, on_delete=models.CASCADE)
-    contenido = models.JSONField(upload_to = 'data_base/JSONdoc/')
-    def __str__(self) -> str:
+    contenido = models.FileField(upload_to = 'data_base/JSONdoc/')
+    def _str_(self) :
         return self.titulo
 
 class Admin(models.Model):
@@ -43,7 +43,7 @@ class Admin(models.Model):
     apellidoMat = models.CharField(max_length=50)
     correo = models.EmailField()
     contrasena = models.CharField('Contraseña', max_length=500)
-    def __str__(self) :
+    def _str_(self) :
         return self.nombre + ' ' + self.apellidoPat + ' ' + self.apellidoMat
     
 class Actividad(models.Model):
@@ -52,7 +52,7 @@ class Actividad(models.Model):
     fechaFin = models.DateField('Fecha de fin')
     duracion = models.DurationField()
     pregunta = models.ManyToManyField(Pregunta)
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.nombre
 
 class Grupo(models.Model):
@@ -61,14 +61,14 @@ class Grupo(models.Model):
     cupo = models.IntegerField()
     estado = models.BooleanField()
     profesor = models.ManyToManyField(Profesor)
-    periodo = models.ForeignKey(Periodo)
+    periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     actividad = models.ManyToManyField(Actividad)
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.nombre + '.' + self.uf
     
 class Carrera(models.Model):
     siglas = models.CharField(max_length=3)
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.siglas
 
 class Estudiante(models.Model):
@@ -81,7 +81,7 @@ class Estudiante(models.Model):
     correo = models.EmailField()
     contrasena = models.CharField('Contraseña', max_length=500)
     calificacion = models.ManyToManyField(Actividad, through='Calificacion')
-    def __str__(self) -> str:
+    def _str_(self) :
         return self.matricula + ': ' + self.nombre + ' ' + self.apellidoPat
 
 class Calificacion(models.Model):
@@ -89,5 +89,5 @@ class Calificacion(models.Model):
     estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE, related_name='calificaciones')
     calificacion = models.IntegerField(default=0)
     comentario = models.TextField()
-    def __str__(self) -> str:
+    def _str_(self) :
         return str(self.calificacion) + ' ' + self.comentario
