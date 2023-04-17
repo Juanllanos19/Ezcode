@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Departamento(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=256)
     def _str_(self):
         return self.nombre
 
@@ -25,7 +25,7 @@ class Periodo(models.Model):
         return self.fechaInicio + ' - ' + self.fechaFin
 
 class Tema(models.Model):
-    tipo: models.CharField(max_length=100)
+    tipo: models.CharField('Tipo de pregunta', max_length=100)
     def _str_(self) :
         return self.tipo
     
@@ -55,12 +55,18 @@ class Actividad(models.Model):
     def _str_(self) :
         return self.nombre
 
+class Uf(models.Model):
+    siglas = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=256)
+    def _st_(self):
+        return self.siglas
+
 class Grupo(models.Model):
     nombre = models.CharField(max_length=500)
-    uf = models.CharField(max_length=15)
+    uf = models.ForeignKey(Uf, on_delete=models.CASCADE)
     cupo = models.IntegerField()
     estado = models.BooleanField()
-    profesor = models.ManyToManyField(Profesor)
+    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
     actividad = models.ManyToManyField(Actividad)
     def _str_(self) :
@@ -68,6 +74,7 @@ class Grupo(models.Model):
     
 class Carrera(models.Model):
     siglas = models.CharField(max_length=3)
+    nombre = models.CharField(max_length=100)
     def _str_(self) :
         return self.siglas
 
