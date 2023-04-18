@@ -1,95 +1,65 @@
 [
     {
         "id": 1,
-        "img": "https://marvel-b1-cdn.bc0a.com/f00000000026007/resilienteducator.com/wp-content/uploads/2012/11/AdobeStock_60467600_cup.jpg",
-        "name": "Math",
+        "img": "https://3.bp.blogspot.com/-EVRHNnHMPik/UbfNTVACbfI/AAAAAAAAAHE/5rq_9Rm7X9g/s1600/ciclo+for.png",
+        "name": "Quiz 1.1: Revisión de ciclos",
         "questions": [
             {
                 "id": 1,
-                "text": "8 ÷ 2(2 + 2)",
+                "text": "¿Cuál es la sintaxis correcta para un ciclo for en Python?",
                 "options": [
                     {
                         "id": 1,
                         "label": "A",
-                        "text": "16",
+                        "text": "for i in range(start, end, step):",
                         "isCorrect": true
                     },
                     {
                         "id": 2,
                         "label": "B",
-                        "text": "1",
+                        "text": "for (i = 0; i < n; i++):",
                         "isCorrect": false
                     },
                     {
                         "id": 3,
                         "label": "C",
-                        "text": "8",
+                        "text": "for i in list:",
                         "isCorrect": false
                     },
                     {
                         "id": 4,
                         "label": "D",
-                        "text": "24",
-                        "isCorrect": false
-                    }
-                ]
-            },
-            {
-                "id": 2,
-                "text": "sqrt(64) * 9",
-                "options": [
-                    {
-                        "id": 1,
-                        "label": "A",
-                        "text": "4",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 2,
-                        "label": "B",
-                        "text": "81",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 3,
-                        "label": "C",
-                        "text": "72",
-                        "isCorrect": true
-                    },
-                    {
-                        "id": 4,
-                        "label": "D",
-                        "text": "144",
+                        "text": "for i in dictionary:",
                         "isCorrect": false
                     }
                 ]
             },
             {
                 "id": 3,
-                "text": "3 + 3 x 3 ÷ 3 - 3",
+                "text": "¿Cuál de las siguientes opciones muestra la forma correcta de iterar sobre una lista en un ciclo for en Python?",
                 "options": [
                     {
                         "id": 1,
                         "label": "A",
-                        "text": "3",
-                        "isCorrect": true
+                        "text": "for i in range(len(my_list))",
+                        "isCorrect": false
                     },
                     {
                         "id": 2,
                         "label": "B",
-                        "text": "1",
-                        "isCorrect": false
+                        "text": "for i in my_list",
+                        "isCorrect": true
                     },
                     {
                         "id": 3,
                         "label": "C",
-                        "text": "9",
+                        "text": "for i in enumerate(my_list)",
                         "isCorrect": false
                     },
                     {
                         "id": 4,
                         "label": "D",
-                        "text": "16",
+                        "text": "for i, element in my_list",
                         "isCorrect": false
                     }
                 ]
@@ -98,196 +68,70 @@
     },
     {
         "id": 2,
-        "img": "https://blogs.biomedcentral.com/on-biology/wp-content/uploads/sites/5/2017/12/DNA.png",
-        "name": "Biology",
+        "img": "https://i.ytimg.com/vi/jujIGspw6AQ/maxresdefault.jpg",
+        "name": "Quiz 1.2: Revisión de if",
         "questions": [
             {
                 "id": 1,
-                "text": "The Kreb Cycles occurs in the",
+                "text": "¿Cuál es la sintaxis correcta para utilizar una estructura de control de flujo IF en Python?",
                 "options": [
                     {
                         "id": 1,
                         "label": "A",
-                        "text": "Mitochondria",
-                        "isCorrect": true
+                        "text": "if x > y: print('x es mayor que y')",
+                        "isCorrect": false
                     },
                     {
                         "id": 2,
                         "label": "B",
-                        "text": "Nucleus",
+                        "text": "if x < y: print('x es menor que y')",
                         "isCorrect": false
                     },
                     {
                         "id": 3,
                         "label": "C",
-                        "text": "Rough ER",
+                        "text": "if x == y: print('x es igual a y')",
                         "isCorrect": false
                     },
                     {
                         "id": 4,
                         "label": "D",
-                        "text": "Cystol",
-                        "isCorrect": false
+                        "text": "if x >= y: print('x es mayor o igual que y')",
+                        "isCorrect": true
                     }
                 ]
             },
             {
                 "id": 2,
-                "text": "How many oxygen molecules can hemoglobin hold",
+                "text": "¿Cuál es la forma correcta de escribir una estructura if en Python?",
                 "options": [
                     {
                         "id": 1,
                         "label": "A",
-                        "text": "1",
+                        "text": "if (a == b):",
                         "isCorrect": false
                     },
                     {
                         "id": 2,
                         "label": "B",
-                        "text": "2",
+                        "text": "if [a == b]:",
                         "isCorrect": false
                     },
                     {
                         "id": 3,
                         "label": "C",
-                        "text": "3",
+                        "text": "if {a == b}:",
                         "isCorrect": false
                     },
                     {
                         "id": 4,
                         "label": "D",
-                        "text": "4",
+                        "text": "if a == b:",
                         "isCorrect": true
-                    }
-                ]
-            },
-            {
-                "id": 3,
-                "text": "The cones see ___ while the rods see ___",
-                "options": [
-                    {
-                        "id": 1,
-                        "label": "A",
-                        "text": "black and white; color",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 2,
-                        "label": "B",
-                        "text": "color; black and white",
-                        "isCorrect": true
-                    },
-                    {
-                        "id": 3,
-                        "label": "C",
-                        "text": "3D objects; 2D shapes",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 4,
-                        "label": "D",
-                        "text": "2D shapes; 3D objects",
-                        "isCorrect": false
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "img": "http://jobs.newscientist.com/getasset/c40a5488-11be-43b0-843f-a2e6ef9f0612/",
-        "name": "Chemistry",
-        "questions": [
-            {
-                "id": 1,
-                "text": "What is the composition of table salt",
-                "options": [
-                    {
-                        "id": 1,
-                        "label": "A",
-                        "text": "NaCl",
-                        "isCorrect": true
-                    },
-                    {
-                        "id": 2,
-                        "label": "B",
-                        "text": "K2",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 3,
-                        "label": "C",
-                        "text": "NaCl2C4H7",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 4,
-                        "label": "D",
-                        "text": "CH4",
-                        "isCorrect": false
-                    }
-                ]
-            },
-            {
-                "id": 2,
-                "text": "What is Potassium's chemical symbol",
-                "options": [
-                    {
-                        "id": 1,
-                        "label": "A",
-                        "text": "P",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 2,
-                        "label": "B",
-                        "text": "Pt",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 3,
-                        "label": "C",
-                        "text": "Pts",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 4,
-                        "label": "D",
-                        "text": "K",
-                        "isCorrect": true
-                    }
-                ]
-            },
-            {
-                "id": 3,
-                "text": "Which is not organinc",
-                "options": [
-                    {
-                        "id": 1,
-                        "label": "A",
-                        "text": "CH4",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 2,
-                        "label": "B",
-                        "text": "NaCl",
-                        "isCorrect": true
-                    },
-                    {
-                        "id": 3,
-                        "label": "C",
-                        "text": "C2H6",
-                        "isCorrect": false
-                    },
-                    {
-                        "id": 4,
-                        "label": "D",
-                        "text": "C3H8",
-                        "isCorrect": false
                     }
                 ]
             }
         ]
     }
+    
 ]
