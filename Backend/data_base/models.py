@@ -25,7 +25,7 @@ class Periodo(models.Model):
         return self.fechaInicio + ' - ' + self.fechaFin
 
 class Tema(models.Model):
-    tipo: models.CharField('Tipo de pregunta', max_length=100)
+    tipo: models.TextField()
     def _str_(self) :
         return self.tipo
     
