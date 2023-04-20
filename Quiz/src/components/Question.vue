@@ -49,6 +49,7 @@
 
     .option-label {
         background-color: bisque;
+        color: black;
         width: 50px;
         height: 50px;
         font-size: 30px;
@@ -59,6 +60,7 @@
 
     .option-value {
         background-color: rgb(244,239,239);
+        color: black;
         width: 100%;
         font-size: 30px;
         padding: 0 20px
