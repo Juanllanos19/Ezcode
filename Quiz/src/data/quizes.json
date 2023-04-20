@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "img": "https://3.bp.blogspot.com/-EVRHNnHMPik/UbfNTVACbfI/AAAAAAAAAHE/5rq_9Rm7X9g/s1600/ciclo+for.png",
+        "name": "Quiz 1.1: Revisión de ciclos",
+        "questions": [
+            {
+                "id": 1,
+                "text": "¿Cuál es la sintaxis correcta para un ciclo for en Python?",
+                "options": [
+                    {
+                        "id": 1,
+                        "label": "A",
+                        "text": "for i in range(start, end, step):",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 2,
+                        "label": "B",
+                        "text": "for (i = 0; i < n; i++):",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "label": "C",
+                        "text": "for i in list:",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 4,
+                        "label": "D",
+                        "text": "for i in dictionary:",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "text": "¿Cuál de las siguientes opciones muestra la forma correcta de iterar sobre una lista en un ciclo for en Python?",
+                "options": [
+                    {
+                        "id": 1,
+                        "label": "A",
+                        "text": "for i in range(len(my_list))",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "label": "B",
+                        "text": "for i in my_list",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "label": "C",
+                        "text": "for i in enumerate(my_list)",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 4,
+                        "label": "D",
+                        "text": "for i, element in my_list",
+                        "isCorrect": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "img": "https://i.ytimg.com/vi/jujIGspw6AQ/maxresdefault.jpg",
+        "name": "Quiz 1.2: Revisión de if",
+        "questions": [
+            {
+                "id": 1,
+                "text": "¿Cuál es la sintaxis correcta para utilizar una estructura de control de flujo IF en Python?",
+                "options": [
+                    {
+                        "id": 1,
+                        "label": "A",
+                        "text": "if x > y: print('x es mayor que y')",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "label": "B",
+                        "text": "if x < y: print('x es menor que y')",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "label": "C",
+                        "text": "if x == y: print('x es igual a y')",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 4,
+                        "label": "D",
+                        "text": "if x >= y: print('x es mayor o igual que y')",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "text": "¿Cuál es la forma correcta de escribir una estructura if en Python?",
+                "options": [
+                    {
+                        "id": 1,
+                        "label": "A",
+                        "text": "if (a == b):",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "label": "B",
+                        "text": "if [a == b]:",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "label": "C",
+                        "text": "if {a == b}:",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 4,
+                        "label": "D",
+                        "text": "if a == b:",
+                        "isCorrect": true
+                    }
+                ]
+            }
+        ]
+    }
+    
+]
