@@ -7,6 +7,8 @@ var exercises;
 var title;
 var desc;
 
+var problemid = 0;
+
 
 fetch('./testcases.json')
     .then(res => res.json())
@@ -22,6 +24,25 @@ function importJson(info)
     $("#nombre").html(title);
     $("#descripcion").html(desc);
     console.log(exercises);
+    fillDropdown();
+}
+
+function fillDropdown(){
+  var sel = document.getElementById('myselect');
+  for (var i = 0; i < exercises.length; i++)
+  {
+    var opt = document.createElement('option');
+    opt.innerHTML = exercises[i].id;
+    opt.value = i;
+    sel.appendChild(opt);
+  }
+}
+
+function changeId(num)
+{
+  problemid = num;
+  $("#nombre").html(exercises[num].title);
+  $("#descripcion").html(exercises[num].description);
 }
 
 
@@ -112,7 +133,6 @@ function codeEditor(lang_id) {
       console.log("Boton2 activado");
       let code = editor.getValue();
       $("#ans").html("Loading...");
-      let problemid = 0;
 
       var outputs = "---Tests---\n";
 
@@ -164,8 +184,8 @@ function codeEditor(lang_id) {
           let expectedOut = texto.expected_output;
 
           outputs = outputs + "Input: " + atob(inp) + "\n";
-          outputs = outputs + "Output: " + atob(out) + "\n";
-          outputs = outputs + "Expected Output: " + atob(expectedOut) + "\n";
+          outputs = outputs + "Output: " + atob(out);
+          outputs = outputs + "Expected Output: " + atob(expectedOut);
           if (out == expectedOut)
           {
             outputs = outputs + "Result: SUCCESS" + "\n\n";
