@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Departamento(models.Model):
     nombre = models.CharField(max_length=256)
-    def _str_(self):
+    def __str__(self):
         return self.nombre
 
 class Profesor(models.Model):
@@ -15,24 +15,24 @@ class Profesor(models.Model):
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     correo = models.EmailField()
     contrasena = models.CharField('Contraseña', max_length=500)
-    def _str_(self) :
+    def __str__(self) :
         return self.nombre + ' ' + self.apellidoPat + ' ' + self.apellidoMat
 
 class Periodo(models.Model):
     fechaInicio = models.DateField('Fecha de inicio')
     fechaFin = models.DateField('Fecha de fin')
-    def _str_(self) :
-        return self.fechaInicio + ' - ' + self.fechaFin
+    def __str__(self) :
+        return str(self.fechaInicio) + ' | ' + str(self.fechaFin)
 
 class Tema(models.Model):
     nombre = models.CharField(max_length=250)
-    tipo = models.TextField()
-    def _str_(self) :
-        return self.nombre
+    tipo = models.TextField('subtema')
+    def __str__(self) :
+        return self.nombre + ': ' + str(self.tipo)
     
 class Dificultad(models.Model):
     rango = models.CharField(max_length=20)
-    def _str_(self) :
+    def __str__(self) :
         return self.rango
     
 class Pregunta(models.Model):
@@ -43,7 +43,7 @@ class Pregunta(models.Model):
     estado = models.BooleanField(default=0)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     dificultad = models.ForeignKey(Dificultad, on_delete=models.CASCADE)
-    def _str_(self) :
+    def __str__(self) :
         return self.titulo
     
 class Actividad(models.Model):
@@ -51,13 +51,13 @@ class Actividad(models.Model):
     fechaInicio = models.DateField('Fecha de inicio')
     fechaFin = models.DateField('Fecha de fin')
     duracion = models.DurationField()
-    def _str_(self) :
+    def __str__(self) :
         return self.nombre
 
 class Uf(models.Model):
     siglas = models.CharField(max_length=100)
     nombre = models.CharField(max_length=256)
-    def _st_(self):
+    def __str__(self):
         return self.siglas
 
 class Grupo(models.Model):
@@ -67,13 +67,13 @@ class Grupo(models.Model):
     estado = models.BooleanField()
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     periodo = models.ForeignKey(Periodo, on_delete=models.CASCADE)
-    def _str_(self) :
-        return self.nombre + '.' + self.uf
+    def __str__(self) :
+        return self.nombre + '.' + str(self.uf)
     
 class Carrera(models.Model):
     siglas = models.CharField(max_length=3)
     nombre = models.CharField(max_length=100)
-    def _str_(self) :
+    def __str__(self) :
         return self.siglas
 
 class Estudiante(models.Model):
@@ -85,14 +85,14 @@ class Estudiante(models.Model):
     matricula = models.CharField(max_length=9)
     correo = models.EmailField()
     contrasena = models.CharField('Contraseña', max_length=500)
-    def _str_(self) :
+    def __str__(self) :
         return self.matricula + ': ' + self.nombre + ' ' + self.apellidoPat
 
 class EstudianteGrupo(models.Model):
     estudiante = models.ForeignKey(Estudiante,on_delete=models.CASCADE)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
     def __str__(self) -> str:
-        return super().__str__()
+        return str(self.estudiante) + ' | ' + str(self.grupo)
 
 class ActividadGrupo(models.Model):
     grupo =models.ForeignKey(Grupo,on_delete=models.CASCADE)
@@ -112,5 +112,5 @@ class Calificacion(models.Model):
     puntosTotal = models.IntegerField("Puntos totales", default=0)
     actividad = models.ForeignKey(ActividadPregunta,on_delete=models.CASCADE)
     estudiante = models.ForeignKey(Estudiante,on_delete=models.CASCADE)
-    def _str_(self) :
-        return self.ponderacion + '/' + self.puntosTotal
+    def __str__(self) :
+        return str(self.ponderacion) + '/' + str(self.puntosTotal)
