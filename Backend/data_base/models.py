@@ -39,7 +39,7 @@ class Pregunta(models.Model):
     titulo = models.CharField(max_length=500)
     tema = models.ForeignKey(Tema, on_delete=models.CASCADE)
     contenido = models.FileField(upload_to = 'data_base/JSONdoc/')
-    tipoP = models.BooleanField("tipo de pregunta | Abierta 0 | Cerrada 1")
+    tipoP = models.BooleanField("tipo de pregunta | Abierta 0 | Cerrada 1", default=0)
     estado = models.BooleanField(default=0)
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     dificultad = models.ForeignKey(Dificultad, on_delete=models.CASCADE)
