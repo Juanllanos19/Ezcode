@@ -53,6 +53,11 @@ function codeEditor(lang_id) {
   var editor2 = ace.edit("editor2");
   editor2.setTheme("ace/theme/twilight");
 
+  /*var PythonHighlightRules = require("./src/mode-python").PythonHighlightRules;
+  this.$rules = new PythonHighlightRules().getRules();*/
+
+
+
   console.log("id:" + lang_id )
   $(document).ready(function () {
     $("button").click(function () {
