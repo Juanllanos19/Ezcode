@@ -1,0 +1,34 @@
+
+    {
+    "id": "TC1028_23_OM_3",
+    "idProfesor": "1",
+    "author": "Administrador",
+    "title": "Expresión matemática a resolver de acuerdo a Python",
+    "description": "¿Cuál es el resultado de la siguiente expresión? (8 // 3)",
+    "topic": "2.3 Expresiones aritméticas.",
+    "difficulty": "Fácil",
+    "answer": 3,
+    "hints": true,
+    "options": [
+      {
+        "text": "2.60",
+        "explanation": "Incorrecto. Recuerda que es una división entera y no devuelve el resultado con decimales"
+      },
+      {
+        "text": "1",
+        "explanation": "Incorrecto. Checar que fallo en la division o funcion del código"
+      },
+      {
+        "text": "2.66",
+        "explanation": "Incorrecto. Recuerda que es una división entera y no devuelve el resultado con decimales"
+      },
+      {
+        "text": "2",
+        "explanation": "Correcto. El resultado no va con decimales"
+      }
+    ]
+}
+
+
+
+
