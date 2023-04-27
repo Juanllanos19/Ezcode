@@ -1,0 +1,22 @@
+{
+    "id": "TC1028_23_OM_9",
+    "idProfesor": "1",
+    "author": "Administrador",
+    "title": "Determinar el valor booleano de una expresión",
+    "description": "¿Cuál es el valor booleano de la siguiente expresión? (5 > 3) and (2 <= 7)",
+    "topic": "2.4 Operadores relacionales y lógicos",
+    "difficulty": "Medio",
+    "answer": true,
+    "hints": true,
+    "options": [
+      {
+        "text": "true",
+        "explanation": "Correcto. La expresión es verdadera ya que ambas condiciones son ciertas."
+      },
+      {
+        "text": "false",
+        "explanation": "Incorrecto. Revisa las condiciones de la expresión nuevamente."
+      }
+    ]
+}
+
