@@ -104,8 +104,8 @@ class ActividadPregunta(models.Model):
     actividad = models.ForeignKey(Actividad,on_delete=models.CASCADE)
     pregunta = models.ForeignKey(Pregunta,on_delete=models.CASCADE)
     valor = models.IntegerField(default=1)
-    def __str__(self) -> str:
-        return super().__str__()
+    def __str__(self):
+        return str(self.actividad)+' '+str(self.pregunta)
 
 class Calificacion(models.Model):
     ponderacion = models.IntegerField(default=0)
