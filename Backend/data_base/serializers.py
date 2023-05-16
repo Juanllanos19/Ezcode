@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, ALL_FIELDS
 from .models import Departamento, Profesor, Periodo, Tema, Dificultad, Pregunta, Actividad, Uf, Grupo, Carrera, Estudiante, EstudianteGrupo, ActividadGrupo, ActividadPregunta, Calificacion
-
+#commit de prueba
 class DepartamentoSerializer(ModelSerializer):
     class Meta:
         model = Departamento
