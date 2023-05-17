@@ -108,5 +108,8 @@ const particlesLoaded = async container => {
               }"
       />
   </div>
+  <div class="ezcode">
+    <img src="../assets/Group 187.png" alt="">
+  </div>
 </template>
 
