@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Departamento(models.Model):
     nombre = models.CharField(max_length=256)
-    def __str__(self):
+    def __str__(self) :
         return self.nombre
 
 class Profesor(models.Model):
@@ -57,7 +57,7 @@ class Actividad(models.Model):
 class Uf(models.Model):
     siglas = models.CharField(max_length=100)
     nombre = models.CharField(max_length=256)
-    def __str__(self):
+    def __str__(self) :
         return self.siglas
 
 class Grupo(models.Model):
@@ -91,13 +91,13 @@ class Estudiante(models.Model):
 class EstudianteGrupo(models.Model):
     estudiante = models.ForeignKey(Estudiante,on_delete=models.CASCADE)
     grupo = models.ForeignKey(Grupo,on_delete=models.CASCADE)
-    def __str__(self) -> str:
+    def __str__(self) :
         return str(self.estudiante) + ' | ' + str(self.grupo)
 
 class ActividadGrupo(models.Model):
     grupo =models.ForeignKey(Grupo,on_delete=models.CASCADE)
     actividad =models.ForeignKey(Actividad,on_delete=models.CASCADE)
-    def __str__(self) -> str:
+    def __str__(self) :
         return super().__str__()
    
 class ActividadPregunta(models.Model):
