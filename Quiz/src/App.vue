@@ -6,7 +6,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
   <div class="container">
-    <a class="navbar-brand logo-text" href="#"><img id="logo-navbar" src="./assets/A01732454_Poster.png" alt=""></a> 
+    <RouterLink to="/" class="navbar-brand logo-text"><img id="logo-navbar" src="./assets/A01732454_Poster.png" alt=""></RouterLink>
     <button style="background-color: gainsboro;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
