@@ -1,79 +1,46 @@
 <script setup>
-    import q from "../data/quizes.json"
-    import {ref, watch} from "vue"
-    import Card from "../components/Card.vue"
-    import gsap from "gsap"
+    import {ref, onMounted} from "vue"
+    import axios from 'axios'
+    import router from '../router';
   
-    const quizes = ref(q)
+    const quizes = ref([{
+      id: "",
+      valor: "",
+      actividad: [{}],
+      pregunta: [{}],
+    }])
     const search = ref("")
-  
-    watch(search, () => {
-      quizes.value = q.filter(quiz => quiz.name.toLowerCase().includes(search.value.toLowerCase()))
-    })
 
-    const beforeEnter = (el) => {
-      el.style.transform = "translateY(-60px)"
-      el.style.opacity = 0;
-    }
-
-    const enter = (el) => {
-      gsap.to(el, {
-        duration: 1,
-        y: 0,
-        opacity: 1,
-        delay: el.dataset.index * 0.2
+    onMounted(
+      axios.get('http://localhost:8000/api/actividaPregunta/')
+      .then((result) => {
+        console.log(result.data);
+        quizes.value = result.data;
       })
+      .catch((error) => {
+        console.log(error);
+      })
+    )
+
+    function goQuiz(id){
+      router.push({ name: 'quiz', params: { id: id } })
     }
-  
+
   </script>
-  
+
   <template>
-    <div>
-      <header>
-        <h1>Quizes</h1>
-        <input v-model.trim="search" type="text" placeholder="Search...">
-      </header>
-      <div class="options-container">
-        <TransitionGroup 
-          @before-enter="beforeEnter"
-          @enter="enter"
-          appear
-        >
-          <Card v-for="(quiz, index) in quizes" :key="quiz.id" :quiz="quiz" :data-index="index" />
-        </TransitionGroup>
+    <div class="container">
+      <h1>Quizes</h1>
+      <div class="row row-cols-2 row-cols-lg-5 g-5">
+        <div class="col" v-for="(item,i) in quizes" :key="i" 
+        @click="goQuiz(item.id)">
+          <div class="card h-100">
+            <div class="card-body">
+            <h5 class="card-title">{{ item.pregunta[0].titulo }}</h5>
+            <a href="#" class="btn btn-primary">Go to quiz</a>
+          </div>
+        </div>
       </div>
     </div>
+    </div>
   </template>
-  
-  <style scoped>
-
-  
-    header {
-      margin-bottom: 10px;
-      margin-top: 30px;
-      display: flex;
-      align-items: center;
-    }
-  
-    header h1 {
-      font-weight: bold;
-      margin-right: 30px;
-    }
-  
-    header input {
-      border: none;
-      background-color: rgba(128,128,128,0.1);
-      padding: 10px;
-      border-radius: 5px;
-    }
-  
-    .options-container {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-  
-    /* CARD */
-  
-    
-  </style>

@@ -5,6 +5,7 @@
     import {useRoute} from "vue-router"
     import { ref, computed } from "vue";
     import quizes from "../data/quizes.json"
+    
 
     const route = useRoute()
     const quizId = parseInt(route.params.id);
