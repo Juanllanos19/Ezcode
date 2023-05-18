@@ -1,107 +1,87 @@
-<template>
-  <div id ="app">
-
-    <Nav />
-
-    <div class="auth-wrapper">
-      <div class="auth-inner">
-        <router-view />
-      </div>
-    </div>
-
-  </div>
-</template>
-
-<script>
-
-  import Nav from './components/Nav.vue'
-
-  export default {
-    name: 'App',
-      components: {
-        Nav
-      }
-    }
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css?family=FIra+Sans:400,500,600,700,800');
+<template>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <RouterLink to="/" class="nav-link" href="#">Menu</RouterLink>
+            <RouterLink to="/libros" class="nav-link">Settings</RouterLink>          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-  * {
-    box-sizing: border-box;
-  }
+  <RouterView />
+</template>
 
-  body {
-    background: #074580 !important;
-    min-height: 100vh;
+<style scoped>
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+nav {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
+}
+
+@media (min-width: 1024px) {
+  header {
     display: flex;
-    font-weight: 400;
-    font-family: 'Fira Sans', sans-serif;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
   }
 
-  h1, h2, h3, h4, h5, h6, label, span {
-    font-weight: 500;
-    font-family: 'Fira Sans' sans-serif;
+  .logo {
+    margin: 0 2rem 0 0;
   }
 
-  body, html, #app, #root, .auth-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-
-  #app {
-    text-align: center;
-  }
-
-  .navbar-light {
-    background-color: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  }
-
-  .auth-wrapper {
+  header .wrapper {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  nav {
     text-align: left;
-  }
+    margin-left: -1rem;
+    font-size: 1rem;
 
-  .auth-inner {
-    width: 450px;
-    margin: auto;
-    background: #ffffff;
-    box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-    padding: 40px 55px 45px 55px;
-    border-radius: 15px;
-    transition: all .3s;
+    padding: 1rem 0;
+    margin-top: 1rem;
   }
-
-  .auth-wrapper .form-control:focus {
-    border-color: 167bff;
-    box-shadow: none;
-  }
-
-  .auth-wrapper h3 {
-    text-align: center;
-    margin: 0;
-    line-height: 1;
-    padding-bottom: 20px;
-  }
-
-  .custom-control-label {
-    font-weight: 400;
-  }
-
-  .forgot-password,
-  .forgot-password a {
-    text-align: right;
-    font-size: 13px;
-    padding-top: 10px;
-    color: #7f7d7d;
-    margin: 0;
-  }
-
-  .forgot-password a{
-    color: #167bff;
-  }
-
+}
 </style>
