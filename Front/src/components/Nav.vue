@@ -9,12 +9,12 @@
         <div class="navbar-nav">
                 <RouterLink to="/" class="nav-link text-white">PRODUCTO</RouterLink>
                 <RouterLink to="/" class="nav-link text-white">NOSOTROS</RouterLink>
-                <RouterLink to="/" id="sign-up-navbar" class="nav-link text-white">SIGN UP</RouterLink>
+                <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">SIGN UP</RouterLink>
               </div>
       </div>
     </div>
-  </nav>
-  </template>
+</nav>
+</template>
   
   <style>
   #navbarExample{
