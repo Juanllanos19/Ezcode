@@ -14,6 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <div class="navbar-nav">
               <RouterLink to="/" class="nav-link text-white">PRODUCTO</RouterLink>
               <RouterLink to="/" class="nav-link text-white">NOSOTROS</RouterLink>
+              <RouterLink to="/setting" class="nav-link text-white">Settings</RouterLink>
               <RouterLink to="/" id="sign-up-navbar" class="nav-link text-white">SIGN UP</RouterLink>
             </div>
     </div>
