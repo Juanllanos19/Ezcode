@@ -1,0 +1,8 @@
+djoser 
+django 
+djangorestframework 
+djangorestframework
+corsheaders
+npm:
+vue3-particles 
+tsparticles

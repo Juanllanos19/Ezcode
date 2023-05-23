@@ -13,6 +13,10 @@ export default {
 </script>
 
 <template>
-  <Nav />
-  <RouterView />
+  <div id="app">
+    <header>
+      <!-- <Nav /> -->
+    </header>
+    <RouterView />
+  </div>
 </template>

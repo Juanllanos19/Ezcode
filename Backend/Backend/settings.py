@@ -29,7 +29,17 @@ SECRET_KEY = 'django-insecure-=av30b7)l$8zabb9er!=(-3uc1t0ml8dk-vp3+nx=^k^=c+7#g
 DEBUG = True
 
 ALLOWED_HOSTS = []
+#Cambiar a CORS_ALLOWED_ORIGINS = [''] por temas de seguridad pero ya sería al final
+CORS_ALLOW_ALL_ORIGINS = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHTENTICATION_CLASSES': (
+        'rest_framework.authtentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 # Application definition
 
@@ -42,6 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data_base.apps.DataBaseConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'corsheaders',
 ]
 
