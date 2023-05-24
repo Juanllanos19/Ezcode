@@ -9,5 +9,6 @@
   </script>
   
   <template>
-    <Login />
+        <Login />
+        <RouterView />
   </template>
