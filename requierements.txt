@@ -1,7 +1,7 @@
 djoser 
 django 
 djangorestframework 
-djangorestframework
+myapp
 corsheaders
 npm:
 vue3-particles 
