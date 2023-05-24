@@ -21,7 +21,7 @@ export default {
     <header>
       <NavInit />
     </header>
-    <body style="display: flex; padding-top: 1%;">
+    <body style="display: flex; padding-top: 6.5%;">
         <WindowDesempenio />
     </body>
     <RouterView />
