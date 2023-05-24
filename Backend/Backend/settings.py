@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'myapp',
     'corsheaders',
 ]
 
@@ -119,6 +120,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UppercasePasswordValidator',
+    },
+]
+
+PASSWORD_HASHERS = [
+    'passlib.hash.pbkdf2_sha256',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+
 ]
 
 
@@ -143,3 +153,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
