@@ -1,5 +1,5 @@
 <template>
-    <div class="auth-container" style="background-color: #032b50;">
+    <div class="auth-container">
       <div class="auth-content">
         <transition name="slide">
           <div v-if="activeForm === 'login'" class="auth-form">

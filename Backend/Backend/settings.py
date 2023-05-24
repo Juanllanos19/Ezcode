@@ -32,14 +32,14 @@ ALLOWED_HOSTS = []
 #Cambiar a CORS_ALLOWED_ORIGINS = [''] por temas de seguridad pero ya sería al final
 CORS_ALLOW_ALL_ORIGINS = True
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHTENTICATION_CLASSES': (
-        'rest_framework.authtentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
-}
+#REST_FRAMEWORK = {
+#    'DEFAULT_AUTHTENTICATION_CLASSES': (
+#        'rest_framework.authtentication.TokenAuthentication',
+#    ),
+#    'DEFAULT_PERMISSION_CLASSES': (
+#        'rest_framework.permissions.IsAuthenticated',
+#    )
+#}
 
 # Application definition
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data_base.apps.DataBaseConfig',
     'rest_framework',
-    'rest_framework.authtoken',
+    #'rest_framework.authtoken',
     'djoser',
     'myapp',
     'corsheaders',
