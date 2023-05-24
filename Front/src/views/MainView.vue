@@ -7,11 +7,15 @@ import router from '../router';
 <script>
 import NavInit from '../components/NavInit.vue'
 import AcordeonInit from '../components/AcordeonTareasMain.vue'
+import List from '../components/List.vue'
+import Tarjeta from '../components/TarjetaMain.vue'
 
 export default {
   components: {
     NavInit,
-    AcordeonInit
+    AcordeonInit,
+    List,
+    Tarjeta
   }
 }
 </script>
@@ -21,20 +25,23 @@ export default {
     <header>
       <NavInit />
     </header>
-    <body>
+    <body style="display: flex;">
       <div id="modulosandtasks" style="width: 60%;">
-        <div class="modulos">
-          
+        <div class="modulos" style="width: 100%; padding-left: 10%; padding-right: 5%;">
+          <h1 style="color: aqua; padding-top: 2%;"> Modulos</h1>
+          <Tarjeta />
         </div>
-        <div id="tasks" style="width: 100%; padding-left: 5%; padding-right: 5%;">
+        <div id="tasks" style="width: 100%; padding-left: 10%; padding-right: 5%;">
+          <h1 style="color: aqua; padding-top: 2%;"> Task to do</h1>
           <AcordeonInit />
         </div>
       </div>
-      <div id="acts">
-
+      <div id="acts" style="width: 40%; padding-left: 5%; padding-right: 10%;">
+        <h1 style="color: aqua; padding-top: 2%;"> Actividades del modulo</h1>
+        <List />
       </div>
     </body>
-    <!-- <RouterView /> -->
+    <RouterView />
   </div>
 </template>
 
@@ -44,5 +51,11 @@ export default {
         height: 100%;
         background-color: rgb(26, 22, 64);
         text-shadow: none;
+    }
+    #menu-nav{
+      text-decoration: underline;
+    }
+    #desempenio-nav{
+      text-decoration: none;
     }
 </style>
