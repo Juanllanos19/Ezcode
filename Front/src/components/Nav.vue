@@ -1,4 +1,5 @@
 import { RouterLink} from 'vue-router'
+
 <template>
 <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
     <div class="container">
@@ -40,5 +41,4 @@ export default {
     name: 'Nav'
 }
 </script>
-  
   
