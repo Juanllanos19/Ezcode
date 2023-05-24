@@ -11,7 +11,7 @@ import { RouterLink} from 'vue-router'
         <div class="navbar-nav">
                 <RouterLink to="/" class="nav-link text-white">PRODUCTO</RouterLink>
                 <RouterLink to="/" class="nav-link text-white">NOSOTROS</RouterLink>
-                <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">SIGN UP</RouterLink>
+                <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white">LOG IN</RouterLink>
               </div>
       </div>
     </div>
