@@ -9,9 +9,9 @@ import { RouterLink} from 'vue-router'
       </button>
       <div class="collapse navbar-collapse" id="navbarScroll">
         <div class="navbar-nav">
-                <RouterLink to="/" class="nav-link text-white">PRODUCTO</RouterLink>
-                <RouterLink to="/" class="nav-link text-white">NOSOTROS</RouterLink>
-                <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white">LOG IN</RouterLink>
+                <RouterLink to="/" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">PRODUCTO</RouterLink>
+                <RouterLink to="/" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">NOSOTROS</RouterLink>
+                <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">LOG IN</RouterLink>
               </div>
       </div>
     </div>
