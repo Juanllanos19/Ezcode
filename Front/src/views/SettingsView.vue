@@ -4,93 +4,74 @@ const darkMode = ref(false);
 </script>
 
 <template>
-    <body :class="{ 'dark-mode': darkMode }">
-        <h1>Settings</h1>
-        <div class="containerbox">
-            <div class="mb-3 row">
-                <label for="staticUser" class="col-sm-2 col-form-label">User</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticUser" value="A000000">
-                </div>
+  <div class="container py-5">
+    <div class="col-lg-8">
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0"> ID</p>
             </div>
-            <div class="mb-3 row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-                </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">A00000000</p>
             </div>
-            <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Correo</p>
             </div>
-
-            <!-- Color Mode -->
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" v-model="darkMode" id="flexSwitchCheckChecked">
-                <label class="form-check-label" for="flexSwitchCheckChecked">Cambiar modo oscuro</label>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">A00000000@example.com</p>
             </div>
-
-
-            <!-- Change Language -->
-
-            <div class="form-check form-switch">
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Tipo de usaurio</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">Alumno</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Contraseña</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">
+                <a href="#" class="text-decoration-none">Cambiar contraseña</a>
+              </p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">Modo</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">
+              <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                <label class="form-check-label" for="flexSwitchCheckChecked">Cambiar idioma</label>
+              </div>
+              </p>
             </div>
-
+          </div>
         </div>
-    </body>
-    <RouterView />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-:root {
-    --background-color-light: #4444b8;
-    --background-color-dark: #111;
-    --text-color-light: #000;
-    --text-color-dark: #fff;
-}
-
-.dark-mode {
-    --background-color: var(--background-color-dark);
-    --text-color: var(--text-color-dark);
-}
-
-.containerbox {
-    background-color: #7890A8;
-    margin: auto;
-    margin-top: 100px;
-    width: 70%;
-    border-radius: 1%;
-    padding: 10px;
-    height: 500px;
-}
-
-.mb-3 {
-    margin-bottom: 20px;
-    /* Ajusta la distancia vertical */
-}
-
-.col-sm-2 {
-    padding-top: 10px;
-    /* Ajusta la distancia vertical */
-}
-
-.col-sm-10 {
-    padding-top: 10px;
-    /* Ajusta la distancia vertical */
-}
-
-.form-check.form-switch {
-    margin-bottom: 20px;
-    /* Ajusta la distancia vertical */
+.container.py-5 {
+  margin-top: 120px;
+  /* altura */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Adjust the height as needed */
 }
 </style>

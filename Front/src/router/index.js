@@ -32,7 +32,17 @@ const router = createRouter({
             path: '/setting',
             name: 'setting',
             component: () => import('../views/SettingsView.vue')
-          },
+        },
+        {
+            path: '/form',
+            name: 'form',
+            component: () => import('../views/FormsView.vue')
+        },
+        {
+            path: '/biblio',
+            name: 'biblio',
+            component: () => import('../views/BibliotecaView.vue')
+        }
     ]
 })
 
