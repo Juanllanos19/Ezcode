@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     #'rest_framework.authtoken',
     'djoser',
-    'myapp',
+    #'myapp',
     'corsheaders',
 ]
 
@@ -120,16 +120,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.UppercasePasswordValidator',
-    },
+    #{
+    #    'NAME': 'django.contrib.auth.password_validation.UppercasePasswordValidator',
+    #},
 ]
 
-PASSWORD_HASHERS = [
-    'passlib.hash.pbkdf2_sha256',
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-
-]
+#PASSWORD_HASHERS = [
+#    'passlib.hash.pbkdf2_sha256',
+#    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+#
+#]
 
 
 # Internationalization
