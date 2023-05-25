@@ -28,7 +28,7 @@ import { RouterLink} from 'vue-router'
     width: 25%;
   }
   .nav-link{
-    margin-left: 5%;
+    margin-left: 2%;
     letter-spacing: 7px;
     width: 100%;
     white-space: nowrap;

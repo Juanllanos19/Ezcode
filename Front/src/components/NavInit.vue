@@ -3,7 +3,7 @@ import { RouterLink} from 'vue-router'
 <template>
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(113, 132, 158);">
         <div class="container-fluid">
-        <RouterLink to="/" class="navbar-brand"  style="width:15%; padding-left: 10%;"><img id="logo-navbar" src="../assets/A01732454_Poster.png" style="width: auto; height: 80px;"></RouterLink>
+        <RouterLink to="/" class="navbar-brand"  style="width:15%; padding-left: 5%;"><img id="logo-navbar" src="../assets/Group190.png" style="width: auto; height: 80px;"></RouterLink>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
