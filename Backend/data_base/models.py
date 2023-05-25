@@ -115,8 +115,3 @@ class Calificacion(models.Model):
     def __str__(self) :
         return str(self.ponderacion) + '/' + str(self.puntosTotal)
     
-class Login(models.Model):
-    email = models.EmailField()
-    password = models.CharField(max_length=10)
-    class Meta:
-        db_table="Login"
