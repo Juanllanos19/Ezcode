@@ -10,10 +10,10 @@ import { RouterLink} from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" style="padding-right: 10%;">
-                <RouterLink to="/inicio" class="nav-link" id="menu-nav" >MENU</RouterLink>
+                <RouterLink to="/inicio" class="nav-link text-white" id="menu-nav" >MENU</RouterLink>
             </li>
             <li class="nav-item">
-                <RouterLink to="/desempenio" class="nav-link" id="desempenio-nav" >DESEMPEÑO</RouterLink>
+                <RouterLink to="/desempenio" class="nav-link text-white" id="desempenio-nav" >DESEMPEÑO</RouterLink>
             </li>
             <li class="nav-item">
                 
