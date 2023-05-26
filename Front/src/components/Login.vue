@@ -24,26 +24,13 @@
             <h2 class="auth-title">¡Registrate!</h2>
             <form @submit.prevent="signup">
               <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name" v-model="name" placeholder="Ingrese su nombre" required>
-              </div>
+                <label for="btnRegProf">Si eres estudiante:</label>
+                <button class="btn btn-primary" @click="redirectToRegisterEst">Estudiantes</button>
+              </div><br>
               <div class="form-group">
-                <label for="lastname">Apellidos</label>
-                <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Ingrese sus apellidos" required>
+                <label for="btnRegProf">Si eres profesorx:</label>
+                <button class="btn btn-primary" @click="redirectToRegisterProf">Profesores</button>
               </div>
-              <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" required>
-              </div>
-              <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password" v-model="password" placeholder="Ingrese su contraseña" required>
-              </div>
-              <div class="form-group">
-                <label for="confirmPassword">Confirmar contraseña</label>
-                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" placeholder="Confirme su contraseña" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Crear cuenta</button>
               <p class="auth-switch" @click="switchForm">¿Ya tienes una cuenta? Inicia sesión</p>
             </form>
           </div>
@@ -106,10 +93,20 @@
     transform: translateX(100%);
     opacity: 0;
   }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
   </style>
   
   <script>
+
   export default {
+
+    name: 'Login',
+
     data() {
       return {
         activeForm: 'login',
@@ -120,21 +117,40 @@
         confirmPassword: '',
       };
     },
+
+    computed: {
+      isPasswordValid() {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(this.password);
+      },
+    },
+
     methods: {
-      signup() {
-        // Lógica de registro (signup) con Django aquí
+
+      redirectToRegisterProf() {
+        window.location.href = 'http://localhost:5173/RegisterProf';
       },
-      login() {
-        // Lógica de login con Django aquí
+      redirectToRegisterEst() {
+        window.location.href = 'http://localhost:5173/RegisterEst';
       },
-      switchForm() {
-        if (this.activeForm === 'signup') {
-          this.activeForm = 'login';
-        } else {
-          this.activeForm = 'signup';
+      async signup() {
+
+        if (this.password !== this.confirmPassword) {
+          console.log('Las contraseñas no coinciden');
+          return;
         }
+
+        if (!this.isPasswordValid) {
+          console.log('La contraseña no cumple con los requisitos');
+          return;
+        }
+
+      },
+
+      switchForm() {
+        this.activeForm = this.activeForm === 'login' ? 'signup' : 'login';
       },
     },
   };
-  </script>
+ </script>
   
