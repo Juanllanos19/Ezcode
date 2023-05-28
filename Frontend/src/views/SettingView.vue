@@ -1,6 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted,ref } from 'vue'
+import axios from 'axios'
 const darkMode = ref(false);
+
+    const estudiante = ref('')
+    onMounted(()=>{
+        axios
+        .get('http://localhost:8000/api/estudiante/1/')
+        .then(result => {
+            console.log(result.data)
+            estudiante.value = result.data
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    })
 </script>
 
 <template>
@@ -10,13 +24,15 @@ const darkMode = ref(false);
             <div class="mb-3 row">
                 <label for="staticUser" class="col-sm-2 col-form-label">User</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticUser" value="A000000">
+                    <!--<input type="text" readonly class="form-control-plaintext" id="staticUser" value="A000000">-->
+                    {{ estudiante.nombre }}
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                    <!--<input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"> -->
+                    {{ estudiante.correo }}
                 </div>
             </div>
             <div class="mb-3 row">
