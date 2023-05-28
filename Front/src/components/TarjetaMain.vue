@@ -23,15 +23,10 @@ onMounted(
 </script>
 
 <template>
-    <div class="row row-cols-2 row-cols-lg-2 g-1">
-    <div style="padding-bottom: 1%;" class="col" v-for="(item,i) in data" :key="i" >
-        <div class="card overflow-auto" >
-        <div class="card-body" style="width: 100%;">
-            <p class="card-text" style="text-align: center;">{{ item.tipo }}</p>
-        </div>
-        </div>
-    </div>
-    </div>
+  <div class="list-group" v-for="(item,i) in data" :key="i">
+    <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true"> -->
+    <button type="button" class="list-group-item list-group-item-action">{{ item.tipo }}</button>
+  </div>
 </template>
 
 <script>

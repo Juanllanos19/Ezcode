@@ -28,17 +28,13 @@ export default {
     <body style="display: flex; padding-top: 8%;">
       <div id="modulosandtasks" style="width: 60%;">
         <div id="tasks" style="width: 100%; padding-left: 10%; padding-right: 5%;">
-          <h1 style="color: aqua; padding-top: 2%;"> Task to do</h1>
-          <List />
-        </div>
-        <div style="width: 100%; padding-left: 10%; padding-right: 5%;">
-          <h1 style="color: aqua; padding-top: 2%;"> Actividades del modulo</h1>
+          <h1 style="color: aqua; padding-top: 2%;"> Modulos y actividades</h1>
             <AcordeonInit />
           </div>
         </div>
-      <div id="acts" style="width: 40%; padding-left: 5%; padding-right: 10%;">
-        <h1 style="color: aqua; padding-top: 2%;"> Modulos</h1>
-        <Tarjeta />
+        <div id="acts" style="width: 50%; padding-left: 5%; padding-right: 5%;">
+          <h1 style="color: aqua; padding-top: 2%;"> Task to do</h1>
+          <List />
       </div>
     </body>
     <RouterView />
