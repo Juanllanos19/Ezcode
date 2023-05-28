@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-# nuevo commit juanca
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +28,7 @@ SECRET_KEY = 'django-insecure-=av30b7)l$8zabb9er!=(-3uc1t0ml8dk-vp3+nx=^k^=c+7#g
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+#Cambiar a CORS_ALLOWED_ORIGINS = [''] por temas de seguridad pero ya sería al final
 
 # Application definition
 
@@ -107,7 +106,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    #{
+    #    'NAME': 'django.contrib.auth.password_validation.UppercasePasswordValidator',
+    #},
 ]
+
+#PASSWORD_HASHERS = [
+#    'passlib.hash.pbkdf2_sha256',
+#    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+#
+#]
 
 
 # Internationalization
@@ -131,3 +139,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
