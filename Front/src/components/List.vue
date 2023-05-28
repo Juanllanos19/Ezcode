@@ -1,20 +1,33 @@
+<script setup>
+import {ref , onMounted} from 'vue'
+import axios from 'axios'
+
+const data = ref([{
+  id: "",
+  nombre: "",
+  tipo: ""
+}])
+
+onMounted(
+  axios.get('http://localhost:8000/api/tema')
+  .then((result) => {
+    console.log(result.data);
+    data.value = result.data;
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+)
+
+function seeTask(id){
+  
+}
+
+</script>
+
 <template>
     <ol class="list-group list-group-numbered">
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
-    </div>
-    <span class="badge bg-primary rounded-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
-    </div>
-    <span class="badge bg-primary rounded-pill">14</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
+  <li class="list-group-item d-flex justify-content-between align-items-start" >
     <div class="ms-2 me-auto">
       <div class="fw-bold">Subheading</div>
       Content for list item
