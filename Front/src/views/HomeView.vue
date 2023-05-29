@@ -10,9 +10,20 @@ const particlesLoaded = async container => {
 };
 </script>
 
+<script>
+import Nav from '../components/Nav.vue'
+
+export default {
+  components: {
+    Nav
+  }
+}
+</script>
+
 <template>
-  <div id="app">
-      <Particles
+    <Nav />
+     <div>
+        <Particles
           id="tsparticles"
           :particlesInit="particlesInit"
           :particlesLoaded="particlesLoaded"
@@ -107,7 +118,7 @@ const particlesLoaded = async container => {
                   detectRetina: true
               }"
       />
-  </div>
+     </div>
   <div class="ezcode-logo">
     <img id="ezcode-logo-imagen" src="../assets/Group 187.png" alt="">
   </div>
