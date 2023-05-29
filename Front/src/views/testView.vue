@@ -47,16 +47,92 @@ export default {
 data() {
     return {
       editor: {
-        value: 'print(Hello world!)'
+        value: 'print("Hello world!")'
       },
       input_editor: {
         value: '#Your inputs here!'
-      }
+      },
+      output: {
+        value: 'Output'
+      },
     }
   },
   methods:{
+    execute(event){
+        console.log("Execute")
+
+        const options = {
+        method: 'POST',
+        url: 'https://judge0-ce.p.rapidapi.com/submissions',
+        params: {
+            base64_encoded: 'true',
+            fields: '*'
+        },
+        headers: {
+            'content-type': 'application/json',
+            'Content-Type': 'application/json',
+            'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
+            'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+        },
+        data: {
+            language_id: 92,
+            source_code: btoa(this.editor.value),
+            stdin: btoa(this.input_editor.value),
+            redirect_stderr_to_stdout: true,
+        }
+        };
+
+        const options2 = {
+            method: 'GET',
+            url: 'https://judge0-ce.p.rapidapi.com/submissions/2e979232-92fd-4012-97cf-3e9177257d10',
+            params: {
+                base64_encoded: 'true',
+                fields: '*'
+            },
+            headers: {
+                'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
+                'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+            }
+        };
+
+        console.log(options);
+
+        const getData = async () => {
+            try {
+                const response = await axios.request(options);
+                console.log(response.data);
+                options2.url= 'https://judge0-ce.p.rapidapi.com/submissions/' + response.data.token;
+                getData2();
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        getData();
+
+
+
+        const getData2 = async () => {
+            try {
+                const response = await axios.request(options2);
+                console.log(response.data);
+                if (response.data.stdout == null)
+                {
+                    //getData2();
+                }
+                else
+                {
+                    this.output.value = atob(response.data.stdout);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+    },
     test(event){
         console.log("Testing")
+        console.log(btoa(this.editor.value))
     }
   }
 }
@@ -104,10 +180,11 @@ data() {
                         <div class="card-header">Header</div>
                         <div class="card-body">
                             <h5 class="card-title">{{editor.value}}</h5>
-                             <button type="button">Ejecutar</button> 
-                              <button type="button" @click="test">Hacer pruebas</button> 
+                             <button type="button" @click="execute" style="width: 100%;">Ejecutar</button> 
+                              <button type="button" @click="test" style="width: 100%;">Hacer pruebas</button> 
 
                               <h5 class="card-title" style="padding-top: 5%;">Output</h5>
+                              {{ output.value }}
                         </div>
                     </div>
                 </div>
