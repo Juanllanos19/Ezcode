@@ -7,12 +7,22 @@
         <div class="sidebar">
             <small class="text-muted pl-3">Activdades</small>
             <ul>
-                <li><a href="#"><i class="far fa-credit-card"></i>Tareas<img
-                            src="https://img.icons8.com/material-outlined/24/000000/new.png" /></a></li>
-                <li><a href="#"><i class="fas fa-file-invoice"></i>Quizes <img
-                            src="https://img.icons8.com/material-outlined/24/000000/2.png" /></a></li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tareas
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Tarea 1</a>
+                            <a class="dropdown-item" href="#">Tarea 2</a>
+                            <a class="dropdown-item" href="#">Tarea 3</a>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#"><i class="fas fa-file-invoice"></i>Quizes</a></li>
             </ul>
-            <small class="text-muted px-3"> TOOLS</small>
+            <small class="text-muted px-3">TOOLS</small>
             <ul>
                 <li><a href="#"><i class="far fa-calendar-alt"></i>ink 3</a></li>
                 <li><a href="#"><i class="fas fa-video"></i>ink 4</a></li>
@@ -25,6 +35,8 @@
             </ul>
         </div>
     </div>
+
+
 
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -116,19 +128,8 @@ body {
     padding: 20px 0;
 }
 
-.text-muted {
-    color: #adb5bd !important;
-}
-
 ul {
     padding-bottom: 20px;
-}
-
-ul li a img {
-    background: #66BB6A;
-    top: 0;
-    border: none;
-    width: 20px;
 }
 
 .sidebar ul li {
@@ -140,31 +141,20 @@ ul li a img {
     display: block;
 }
 
-.sidebar ul li a .fas {
-    width: 30px;
-    color: #bdb8d7 !important;
+/* Estilo para el botón del dropdown */
+.dropdown .btn {
+  background-color: #304878; /* Cambia el color de fondo del botón */
+  color: #FFFFFF; /* Cambia el color del texto del botón */
 }
 
-i.fas.fa-home:hover,
-i.fas.fa-file-invoice:hover,
-i.fas.fa-video:hover,
-i.fas.fa-id-badge:hover,
-i.fas.fa-external-link-alt:hover,
-i.fas.fa-code:hover,
-i.far.fa-calendar-alt:hover,
-i.far.fa-credit-card:hover {
-    color: #304FFE !important;
+/* Estilo para el menú desplegable del dropdown */
+.dropdown-menu {
+  background-color: #304878; /* Cambia el color de fondo del menú desplegable */
+}
+/* Estilo para los elementos del menú del dropdown cuando se les pasa el mouse por encima */
+.dropdown-item:hover {
+  background-color: #fff; /* Cambia el color de fondo de los elementos del menú al pasar el mouse por encima */
+  color: #000000; /* Cambia el color del texto de los elementos del menú al pasar el mouse por encima */
 }
 
-.sidebar ul li a .far {
-    width: 30px;
-    color: #bdb8d7 !important;
-}
-
-.sidebar ul li:hover {
-    background: #000;
-}
-
-.sidebar ul li a:hover {
-    text-decoration: none;
-}</style>
+</style>
