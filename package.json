@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "jam": "^0.6.1",
     "tsparticles": "^2.9.3",
+    "vue3-ace-editor": "^2.2.2",
     "vue3-particles": "^2.9.3"
   }
 }
