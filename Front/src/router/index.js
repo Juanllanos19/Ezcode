@@ -37,6 +37,11 @@ const router = createRouter({
             path: '/compiler',
             name: 'compiler',
             component: () => import('../views/CompilerView.vue')
+        },
+        {
+            path: '/codeexercise',
+            name: 'codeexercise',
+            component: () => import('../views/CodeExerciseView.vue')
         }
     ]
 })
