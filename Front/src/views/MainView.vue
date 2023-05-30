@@ -25,7 +25,7 @@ export default {
     <header>
       <NavInit />
     </header>
-    <body style="display: flex; padding-top: 6%;">
+    <body style="display: flex; padding-top: 8%;">
       <div id="modulosandtasks" style="width: 60%;">
         <div class="modulos" style="width: 100%; padding-left: 10%; padding-right: 5%;">
           <h1 style="color: aqua; padding-top: 2%;"> Modulos</h1>

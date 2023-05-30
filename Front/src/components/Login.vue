@@ -24,26 +24,13 @@
             <h2 class="auth-title">¡Registrate!</h2>
             <form @submit.prevent="signup">
               <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name" v-model="name" placeholder="Ingrese su nombre" required>
-              </div>
+                <label for="btnRegProf">Si eres estudiante:</label>
+                <button class="btn btn-primary" @click="redirectToRegisterEst">Estudiantes</button>
+              </div><br>
               <div class="form-group">
-                <label for="lastname">Apellidos</label>
-                <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Ingrese sus apellidos" required>
+                <label for="btnRegProf">Si eres profesorx:</label>
+                <button class="btn btn-primary" @click="redirectToRegisterProf">Profesores</button>
               </div>
-              <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" required>
-              </div>
-              <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password" v-model="password" placeholder="Ingrese su contraseña" required>
-              </div>
-              <div class="form-group">
-                <label for="confirmPassword">Confirmar contraseña</label>
-                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" placeholder="Confirme su contraseña" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Crear cuenta</button>
               <p class="auth-switch" @click="switchForm">¿Ya tienes una cuenta? Inicia sesión</p>
             </form>
           </div>
@@ -106,35 +93,67 @@
     transform: translateX(100%);
     opacity: 0;
   }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
   </style>
   
   <script>
+
+  import axios from 'axios';
+  
   export default {
+
+    name: 'Login',
+
     data() {
       return {
         activeForm: 'login',
-        name: '',
-        lastname: '',
         email: '',
         password: '',
-        confirmPassword: '',
       };
     },
+
     methods: {
-      signup() {
-        // Lógica de registro (signup) con Django aquí
+
+      redirectToRegisterProf() {
+        window.location.href = 'http://localhost:5173/RegisterProf';
       },
-      login() {
-        // Lógica de login con Django aquí
+      redirectToRegisterEst() {
+        window.location.href = 'http://localhost:5173/RegisterEst';
       },
+
       switchForm() {
-        if (this.activeForm === 'signup') {
-          this.activeForm = 'login';
-        } else {
-          this.activeForm = 'signup';
-        }
+        this.activeForm = this.activeForm === 'login' ? 'signup' : 'login';
       },
+
+      login(e) {
+        const formData = {
+          email: this.email,
+          password: this.password
+        }
+
+        axios
+          .post('/api/v1/token/login', formData)
+          .then(response => {
+            console.log (response)
+
+            const token = response.data.auth_token
+
+            this.$store.commit('setToken', token)
+
+            axios.defaults.headers.common['Authorization'] = 'Token' + token
+
+            localStorage.setItem['token', token]
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
   };
-  </script>
+ </script>
   

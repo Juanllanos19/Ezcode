@@ -32,11 +32,11 @@
           <div class="row">
             <div class="col">
               <h3>Codigo</h3>
-              <pre id="editor"></pre>
+              <div id="editor"></div>
             </div>
             <div class="col">
               <h3>Inputs</h3>
-              <pre id="editor2" style= "height: 150px; width: 200px"></pre>
+              <div id="editor2" style= "height: 150px; width: 200px"></div>
               <div id="warning">
               </div>
               <button class="btn btn-success">Execute</button>
