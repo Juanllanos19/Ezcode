@@ -4,21 +4,21 @@
             <h2 class="auth-title">¡Registrate!</h2>
             <form @submit.prevent="signupE">
               <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" class="form-control" id="name" v-model="name" placeholder="Ingrese su nombre" required>
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" v-model="nombre" placeholder="Ingrese su nombre" required>
               </div>
               <div class="form-group">
-                <label for="lastnameP">Apellido Paterno</label>
-                <input type="text" class="form-control" id="lastnameP" v-model="lastnameP" placeholder="Ingrese su apellido paterno" required>
+                <label for="apellidoPat">Apellido Paterno</label>
+                <input type="text" class="form-control" id="apellidoPat" v-model="apellidoPat" placeholder="Ingrese su apellido paterno" required>
               </div>
               <div class="form-group">
-                <label for="lastnameM">Apellido Materno</label>
-                <input type="text" class="form-control" id="lastnameM" v-model="lastnameM" placeholder="Ingrese su apellido materno">
+                <label for="apellidoMat">Apellido Materno</label>
+                <input type="text" class="form-control" id="apellidoMat" v-model="apellidoMat" placeholder="Ingrese su apellido materno">
               </div>
               <div class="form-group">
                 <label for="carrera">Carrera</label>
-                <select id="carrera" class="form-control" v-model="selectedCarrera" placeholder="Seleccione su carrera" required>
-                  <option v-for="carrera in carreras" :key="carrera.id" :value="carrera.siglas">{{ carrera.siglas }}</option>
+                <select id="carrera" class="form-control" v-model="carrera" placeholder="Seleccione su carrera" required>
+                  <option v-for="carrera in carreras" :key="carrera.id" :value="carrera.id">{{ carrera.siglas }}</option>
                 </select>
               </div>
               <div class="form-group">
@@ -26,18 +26,18 @@
                 <input type="text" class="form-control" id="matricula" v-model="matricula" placeholder="Ingrese su matricula" required>
               </div>
               <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" pattern="A\d{8}@tec\.mx" required>
+                <label for="correo">Correo electrónico</label>
+                <input type="email" class="form-control" id="correo" v-model="correo" placeholder="Ingrese su correo electrónico" pattern="A\d{8}@tec\.mx" required>
               </div>
               <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password" v-model="password" placeholder="Ingrese su contraseña" required>
-                <p v-if="password && !isPasswordValid" class="error-message">La contraseña debe tener al menos 8 caracteres y contener letras mayúsculas, minúsculas, números y símbolos.</p>
+                <label for="contrasena">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" v-model="contrasena" placeholder="Ingrese su contraseña" required>
+                <p v-if="contrasena && !isPasswordValid" class="error-message">La contraseña debe tener al menos 8 caracteres y contener letras mayúsculas, minúsculas, números y símbolos.</p>
               </div>
               <div class="form-group">
                 <label for="confirmPassword">Confirmar contraseña</label>
                 <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" placeholder="Confirme su contraseña" required>
-                <p v-if="confirmPassword && confirmPassword !== password" class="error-message">Las contraseñas no coinciden.</p>
+                <p v-if="confirmPassword && confirmPassword !== contrasena" class="error-message">Las contraseñas no coinciden.</p>
               </div>
               <button type="submit" class="btn btn-primary">Crear cuenta</button>
             </form>
@@ -117,13 +117,13 @@
 
     data() {
       return {
-        name: '',
-        lastnameP: '',
-        lastnameM: '',
+        nombre: '',
+        apellidoPat: '',
+        apellidoMat: '',
         matricula: '',
-        selectedCarrera: '',
-        email: '',
-        password: '',
+        carrera: '',
+        correo: '',
+        contrasena: '',
         confirmPassword: '',
         isPasswordValid: false,
         carreras: []
@@ -137,7 +137,7 @@
     computed: {
       isPasswordValid() {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(this.password);
+        return passwordRegex.test(this.contrasena);
       },
     },
 
@@ -156,13 +156,13 @@
       signupE(e) {
 
         const formData = {
-          name: this.name,
-          lastnameP: this.lastnameP,
-          lastnameM: this.lastnameM,
+          nombre: this.nombre,
+          apellidoPat: this.apellidoPat,
+          apellidoMat: this.apellidoMat,
           matricula: this.matricula,
-          selectedCarrera: this.selectedCarrera,
-          email: this.email,
-          password: this.password
+          carrera: this.carrera,
+          correo: this.correo,
+          contrasena: this.contrasena
         }
 
         axios
