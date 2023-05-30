@@ -7,7 +7,7 @@ from .serializers import EstudianteGrupoGetSerializer, ActividadGrupoSerializer,
 
 class DepartamentoViewSet(ModelViewSet):
     queryset = Departamento.objects.all()
-    defserializer_class = DepartamentoSerializer
+    serializer_class = DepartamentoSerializer
 
 class ProfesorViewSet(ModelViewSet):
     queryset = Profesor.objects.all()
