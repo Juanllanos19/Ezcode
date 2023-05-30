@@ -103,6 +103,8 @@
   
   <script>
 
+  import axios from 'axios';
+  
   export default {
 
     name: 'Login',
@@ -110,19 +112,9 @@
     data() {
       return {
         activeForm: 'login',
-        name: '',
-        lastname: '',
         email: '',
         password: '',
-        confirmPassword: '',
       };
-    },
-
-    computed: {
-      isPasswordValid() {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(this.password);
-      },
     },
 
     methods: {
@@ -133,23 +125,34 @@
       redirectToRegisterEst() {
         window.location.href = 'http://localhost:5173/RegisterEst';
       },
-      async signup() {
-
-        if (this.password !== this.confirmPassword) {
-          console.log('Las contraseñas no coinciden');
-          return;
-        }
-
-        if (!this.isPasswordValid) {
-          console.log('La contraseña no cumple con los requisitos');
-          return;
-        }
-
-      },
 
       switchForm() {
         this.activeForm = this.activeForm === 'login' ? 'signup' : 'login';
       },
+
+      login(e) {
+        const formData = {
+          email: this.email,
+          password: this.password
+        }
+
+        axios
+          .post('/api/v1/token/login', formData)
+          .then(response => {
+            console.log (response)
+
+            const token = response.data.auth_token
+
+            this.$store.commit('setToken', token)
+
+            axios.defaults.headers.common['Authorization'] = 'Token' + token
+
+            localStorage.setItem['token', token]
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
   };
  </script>

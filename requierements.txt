@@ -3,6 +3,8 @@ django
 djangorestframework 
 myapp
 corsheaders
+
+
 npm:
 vue3-particles 
 tsparticles

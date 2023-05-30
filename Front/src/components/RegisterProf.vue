@@ -8,18 +8,30 @@
                 <input type="text" class="form-control" id="name" v-model="name" placeholder="Ingrese su nombre" required>
               </div>
               <div class="form-group">
-                <label for="lastname">Apellidos</label>
-                <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Ingrese sus apellidos" required>
+                <label for="lastnameP">Apellido Paterno</label>
+                <input type="text" class="form-control" id="lastnameP" v-model="lastnameP" placeholder="Ingrese su apellido paterno" required>
+              </div>
+              <div class="form-group">
+                <label for="lastnameM">Apellido Materno</label>
+                <input type="text" class="form-control" id="lastnameM" v-model="lastnameM" placeholder="Ingrese su apellido materno">
+              </div>
+              <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <select id="departamento" class="form-control" v-model="selectedDepartamento" placeholder="Seleccione su departamento" required>
+                  <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.nombre">{{ departamento.nombre }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="especialidad">Especialidad</label>
+                <input type="text" class="form-control" id="especialidad" v-model="especialidad" placeholder="Ingrese su especialidad" required>
               </div>
               <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" pattern="@tec\.mx" required>
-                <p v-if="email && !isEmailValid" class="error-message">El formato es: tucorreo@tec.mx</p>
+                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" required>
               </div>
               <div class="form-group">
                 <label for="password">Contraseña</label>
                 <input type="password" class="form-control" id="password" v-model="password" placeholder="Ingrese su contraseña" required>
-                <p v-if="password && !isPasswordValid" class="error-message">La contraseña debe tener al menos 8 caracteres y contener letras mayúsculas, minúsculas, números y símbolos.</p>
               </div>
               <div class="form-group">
                 <label for="confirmPassword">Confirmar contraseña</label>
@@ -96,6 +108,8 @@
   
 <script>
 
+  import axios from 'axios';
+
   export default {
 
     name: 'RegisterProf',
@@ -103,65 +117,62 @@
     data() {
       return {
         name: '',
-        lastname: '',
+        lastnameP: '',
+        lastnameM: '',
+        especialidad: '',
+        selectedDepartamento: '',
         email: '',
         password: '',
         confirmPassword: '',
+        isPasswordValid: false,
+        departamentos: []
       };
     },
 
-    computed: {
-      isPasswordValid() {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(this.password);
-      },
-
-      isEmailValid() {
-        const emailRegex = /@tec\.mx$/;
-        return emailRegex.test(this.email);
-      },
+    mounted() {
+      this.obtenerDepartamentos();
     },
 
     methods: {
 
-      async signupP() {
+      obtenerDepartamentos() {
+        axios.get('http://127.0.0.1:8000/api/departamento/')
+          .then(response => {
+            this.departamentos = response.data;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      },
+
+      signupP() {
+
+        const formData = {
+          departamento: this.selectedDepartamento,
+          nombre: this.name,
+          apellidoPat: this.lastnameP,
+          apellidoMat: this.lastnameM,
+          especialidad: this.especialidad,
+          correo: this.email,
+          contrasena: this.password
+        }
+
+        axios
+          .post('http://127.0.0.1:8000/api/profesor/', formData)
+          .then(response =>{
+            this.$router.push('/login')
+            console.log('Usuario agregado:', response)
+          })
+          .catch(error => {
+            console.log('Error al agregar el usuario:', error)
+          })
 
         if (this.password !== this.confirmPassword) {
           console.log('Las contraseñas no coinciden');
           return;
         }
-
-        if (!this.isPasswordValid) {
-          console.log('La contraseña no cumple con los requisitos');
-          return;
-        }
-
       },
     },
   };
-</script>
-  
-<script setup>
-  import {ref} from 'vue'
-  import axios from 'axios'
 
-  const name = ref();
-  const lastname = ref();
-  const email = ref();
-  const password = ref();
-
-  function signupP(){
-    var name = {"name": name.value};
-    var lastname = {"lastname": lastname.value};
-    var email = {"email": email.value};
-    var password = {"password": password.value};
-    var headers = {'Content-Type': 'application/json'};
-    axios.post('http://localhost:5173/RegisterProf', name, lastname, email, password, headers)
-    .then(result => {
-      console.log(result.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
 </script>
