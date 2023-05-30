@@ -8,13 +8,13 @@ class Departamento(models.Model):
 
 class Profesor(models.Model):
     id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=250)
-    apellidoPat = models.CharField(max_length=250)
-    apellidoMat = models.CharField(max_length=250)
-    especialidad = models.CharField(max_length=250)
+    nombre = models.CharField(max_length=250, blank=True)
+    apellidoPat = models.CharField(max_length=250, blank=True)
+    apellidoMat = models.CharField(max_length=250, blank=True)
+    especialidad = models.CharField(max_length=250, blank=True)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
-    correo = models.EmailField()
-    contrasena = models.CharField('Contraseña', max_length=500)
+    correo = models.EmailField(blank=True)
+    contrasena = models.CharField('Contraseña', max_length=500, blank=True)
     def __str__(self) :
         return self.nombre + ' ' + self.apellidoPat + ' ' + self.apellidoMat
 
@@ -36,7 +36,7 @@ class Dificultad(models.Model):
         return self.rango
     
 class Pregunta(models.Model):
-    titulo = models.CharField(max_length=500)
+    titulo = models.CharField(max_length=500, blank=True)
     tema = models.ForeignKey(Tema, on_delete=models.CASCADE)
     contenido = models.FileField(upload_to = 'data_base/JSONdoc/')
     tipoP = models.BooleanField("tipo de pregunta | Abierta 0 | Cerrada 1", default=0)
@@ -78,13 +78,13 @@ class Carrera(models.Model):
 
 class Estudiante(models.Model):
     id = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
-    apellidoPat = models.CharField(max_length=50)
-    apellidoMat = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50, blank=True)
+    apellidoPat = models.CharField(max_length=50, blank=True)
+    apellidoMat = models.CharField(max_length=50, blank=True)
     carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
-    matricula = models.CharField(max_length=9)
-    correo = models.EmailField()
-    contrasena = models.CharField('Contraseña', max_length=500)
+    matricula = models.CharField(max_length=9, blank=True)
+    correo = models.EmailField(blank=True)
+    contrasena = models.CharField('Contraseña', max_length=500,blank=True)
     def __str__(self) :
         return self.matricula + ': ' + self.nombre + ' ' + self.apellidoPat
 
@@ -114,3 +114,4 @@ class Calificacion(models.Model):
     estudiante = models.ForeignKey(Estudiante,on_delete=models.CASCADE)
     def __str__(self) :
         return str(self.ponderacion) + '/' + str(self.puntosTotal)
+    
