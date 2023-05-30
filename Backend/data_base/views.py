@@ -1,15 +1,20 @@
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 from .models import Departamento, Profesor, Periodo, Tema, Dificultad, Pregunta, Actividad, Uf, Grupo, Carrera, Estudiante, EstudianteGrupo, ActividadGrupo, ActividadPregunta, Calificacion
-from .serializers import DepartamentoSerializer, ProfesorSerializer, PeriodoSerializer, TemaSerializer, DificultadSerializer, PreguntaSerializer, ActividadSerializer, UfSerializer, GrupoSerializer, CarreraSerializer, EstudianteSerializer, EstudianteGrupoSerializer, ActividadGrupoSerializer, ActividadPreguntaSerializer, CalificacionSerializer
+from .serializers import DepartamentoSerializer, ProfesorSerializer, ProfesorGetSerializer, PeriodoSerializer, TemaSerializer, DificultadSerializer, PreguntaSerializer, PreguntaGetSerializer
+from .serializers import ActividadSerializer, UfSerializer, GrupoSerializer, GrupoGetSerializer, CarreraSerializer, EstudianteSerializer, EstudianteGetSerializer, EstudianteGrupoSerializer
+from .serializers import EstudianteGrupoGetSerializer, ActividadGrupoSerializer, ActividadGrupoGetSerializer, ActividadPreguntaSerializer, ActividadPreguntaGetSerializer, CalificacionSerializer, CalificacionGetSerializer
 
 class DepartamentoViewSet(ModelViewSet):
     queryset = Departamento.objects.all()
-    serializer_class = DepartamentoSerializer
+    defserializer_class = DepartamentoSerializer
 
 class ProfesorViewSet(ModelViewSet):
     queryset = Profesor.objects.all()
-    serializer_class = ProfesorSerializer
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ProfesorGetSerializer
+        return ProfesorSerializer
 
 class PeriodoViewSet(ModelViewSet):
     queryset = Periodo.objects.all()
@@ -25,7 +30,10 @@ class DificultadViewSet(ModelViewSet):
 
 class PreguntaViewSet(ModelViewSet):
     queryset = Pregunta.objects.all()
-    serializer_class = PreguntaSerializer
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return PreguntaGetSerializer
+        return PreguntaSerializer
 
 class ActividadViewSet(ModelViewSet):
     queryset = Actividad.objects.all()
@@ -37,7 +45,10 @@ class UfViewSet(ModelViewSet):
 
 class GrupoViewSet(ModelViewSet):
     queryset = Grupo.objects.all()
-    serializer_class = GrupoSerializer
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return GrupoGetSerializer
+        return GrupoSerializer
 
 class CarreraViewSet(ModelViewSet):
     queryset = Carrera.objects.all()
@@ -45,21 +56,36 @@ class CarreraViewSet(ModelViewSet):
 
 class EstudianteViewSet(ModelViewSet):
     queryset = Estudiante.objects.all()
-    serializer_class = EstudianteSerializer
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return EstudianteGetSerializer
+        return EstudianteSerializer
 
 class EstudianteGrupoViewSet(ModelViewSet):
     queryset = EstudianteGrupo.objects.all()
-    serializer_class = EstudianteGrupoSerializer
+    def get_serializer_class(self): 
+        if self.request.method in ['GET']:
+            return EstudianteGrupoGetSerializer
+        return EstudianteGrupoSerializer
 
 class ActividadGrupoViewSet(ModelViewSet):
     queryset = ActividadGrupo.objects.all()
-    serializer_class = ActividadGrupoSerializer
+    def get_serializer_class(self): 
+        if self.request.method in ['GET']:
+            return ActividadGrupoGetSerializer
+        return ActividadGrupoSerializer
 
 class ActividadPreguntaViewSet(ModelViewSet):
     queryset = ActividadPregunta.objects.all()
-    serializer_class = ActividadPreguntaSerializer
+    def get_serializer_class(self): 
+        if self.request.method in ['GET']:        
+            return ActividadPreguntaGetSerializer
+        return ActividadPreguntaSerializer
 
 class CalificacionViewSet(ModelViewSet):
     queryset = Calificacion.objects.all()
-    serializer_class = CalificacionSerializer
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return CalificacionGetSerializer
+        return CalificacionSerializer
 
