@@ -12,6 +12,7 @@ class Profesor(models.Model):
     apellidoPat = models.CharField(max_length=250, blank=True)
     apellidoMat = models.CharField(max_length=250, blank=True)
     especialidad = models.CharField(max_length=250, blank=True)
+    nomina = models.CharField(max_length=9, blank=True)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     correo = models.EmailField(blank=True)
     contrasena = models.CharField('Contraseña', max_length=500, blank=True)
