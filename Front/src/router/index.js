@@ -57,6 +57,15 @@ const router = createRouter({
             path: '/profile',
             name: 'profile',
             component: () => import('../views/ProfileView.vue')
+        },
+        {
+            path: '/vistapreviaprof',
+            name: 'vistapreviaprof',
+            component: () => import('../views/VistaPreviaProfView.vue')
+        },{
+            path: '/vistapreviaest',
+            name: 'vistapreviaest',
+            component: () => import('../views/VistaPreviaEstView.vue')
         }
     ]
 })

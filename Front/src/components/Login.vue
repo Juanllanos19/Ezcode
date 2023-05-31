@@ -39,7 +39,7 @@
     </div>
   </template>
   
-  <style>
+<style>
   @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
   
   .auth-container {
@@ -99,9 +99,9 @@
     font-size: 14px;
     margin-top: 5px;
   }
-  </style>
+</style>
   
-  <script>
+<script>
 
   import axios from 'axios';
   
@@ -133,53 +133,43 @@
       login(e) {
         const formData = {
           matricula: this.matricula,
-          contrasena: this.contrasena
-        }
+          contrasena: this.contrasena,
+        };
 
         const matriculaPrefix = this.matricula.charAt(0).toLowerCase();
 
         if (matriculaPrefix === 'a') {
           axios
-            .post('http://127.0.0.1:8000/api/estudiante/login', formData)
+            .post('http://127.0.0.1:8000/api/estudiante/', formData)
             .then(response => {
-
-              console.log (response)
-
-              const token = response.data.auth_token
+              const token = response.data.auth_token;
 
               console.log('Inicio de sesión exitoso como estudiante.');
-
-              this.$store.commit('setToken', token)
-
-              axios.defaults.headers.common['Authorization'] = 'Token' + token
-
-              localStorage.setItem['token', token]
+              this.$store.commit('setToken', token);
+              axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+              localStorage.setItem('token', token);
+              window.location.href = 'http://localhost:5173/vistapreviaEst';
             })
             .catch(error => {
-              console.log('Error al iniciar sesión como alumno:', error)
-            })
-          } else if (matriculaPrefix === 'l') {
+              console.log('Error al iniciar sesión como alumno:', error);
+            });
+        } else if (matriculaPrefix === 'l') {
           axios
-            .post('http://127.0.0.1:8000/api/profesor/login', formData)
+            .post('http://127.0.0.1:8000/api/profesor/', formData)
             .then(response => {
-
-              console.log (response)
-
-              const token = response.data.auth_token
+              const token = response.data.auth_token;
 
               console.log('Inicio de sesión exitoso como profesor.');
-
-              this.$store.commit('setToken', token)
-
-              axios.defaults.headers.common['Authorization'] = 'Token' + token
-
-              localStorage.setItem['token', token]
+              this.$store.commit('setToken', token);
+              axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+              localStorage.setItem('token', token);
+              window.location.href = 'http://localhost:5173/vistapreviaProf';
             })
             .catch(error => {
-              console.log('Error al iniciar sesión como profesor:', error)
-            })
+              console.log('Error al iniciar sesión como profesor:', error);
+            });
         }
-      }
+      },
     },
   };
  </script>
