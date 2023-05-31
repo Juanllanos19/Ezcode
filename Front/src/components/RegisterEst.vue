@@ -1,5 +1,5 @@
 <template>
-    <br><br><br><div class="auth-container">
+    <br><br><br><br><br><br><br><br><div class="auth-container">
       <div class="auth-content">
             <h2 class="auth-title">¡Registrate!</h2>
             <form @submit.prevent="signupE">
