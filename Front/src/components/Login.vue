@@ -132,7 +132,7 @@
 
       login(e) {
         const formData = {
-          email: this.email,
+          matricula: this.matricula,
           password: this.password
         }
 

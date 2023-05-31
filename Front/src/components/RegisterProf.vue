@@ -18,7 +18,7 @@
             <div class="form-group">
               <label for="departamento">Departamento</label>
               <select id="departamento" class="form-control" v-model="selectedDepartamento" placeholder="Seleccione su departamento" required>
-                <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.nombre">{{ departamento.nombre }}</option>
+                <option v-for="departamento in departamentos" :key="departamento.id" :value="departamento.id">{{ departamento.nombre }}</option>
               </select>
             </div>
             <div class="form-group">
