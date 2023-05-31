@@ -6,12 +6,12 @@
             <h2 class="auth-title">Inicio de sesión</h2>
             <form @submit.prevent="login">
               <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" v-model="email" placeholder="Ingrese su correo electrónico" required>
+                <label for="matricula">Matricula o Nómina</label>
+                <input type="text" class="form-control" id="matricula" v-model="matricula" placeholder="Ingrese su matricula o nómina" required>
               </div>
               <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" class="form-control" id="password" v-model="password" placeholder="Ingrese su contraseña" required>
+                <label for="contrasena">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena" v-model="contrasena" placeholder="Ingrese su contraseña" required>
               </div>
               <button type="submit" class="btn btn-primary">Iniciar sesión</button>
               <p class="auth-switch" @click="switchForm">¿No tienes una cuenta? ¡Registrate!</p>
@@ -112,8 +112,8 @@
     data() {
       return {
         activeForm: 'login',
-        email: '',
-        password: '',
+        matricula: '',
+        contrasena: '',
       };
     },
 
@@ -133,25 +133,52 @@
       login(e) {
         const formData = {
           matricula: this.matricula,
-          password: this.password
+          contrasena: this.contrasena
         }
 
-        axios
-          .post('/api/v1/token/login', formData)
-          .then(response => {
-            console.log (response)
+        const matriculaPrefix = this.matricula.charAt(0).toLowerCase();
 
-            const token = response.data.auth_token
+        if (matriculaPrefix === 'a') {
+          axios
+            .post('http://127.0.0.1:8000/api/estudiante/login', formData)
+            .then(response => {
 
-            this.$store.commit('setToken', token)
+              console.log (response)
 
-            axios.defaults.headers.common['Authorization'] = 'Token' + token
+              const token = response.data.auth_token
 
-            localStorage.setItem['token', token]
-          })
-          .catch(error => {
-            console.log(error)
-          })
+              console.log('Inicio de sesión exitoso como estudiante.');
+
+              this.$store.commit('setToken', token)
+
+              axios.defaults.headers.common['Authorization'] = 'Token' + token
+
+              localStorage.setItem['token', token]
+            })
+            .catch(error => {
+              console.log('Error al iniciar sesión como alumno:', error)
+            })
+          } else if (matriculaPrefix === 'l') {
+          axios
+            .post('http://127.0.0.1:8000/api/profesor/login', formData)
+            .then(response => {
+
+              console.log (response)
+
+              const token = response.data.auth_token
+
+              console.log('Inicio de sesión exitoso como profesor.');
+
+              this.$store.commit('setToken', token)
+
+              axios.defaults.headers.common['Authorization'] = 'Token' + token
+
+              localStorage.setItem['token', token]
+            })
+            .catch(error => {
+              console.log('Error al iniciar sesión como profesor:', error)
+            })
+        }
       }
     },
   };
