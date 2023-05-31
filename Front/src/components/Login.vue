@@ -114,6 +114,8 @@
         activeForm: 'login',
         matricula: '',
         contrasena: '',
+        departamento: '',
+        carrera: '',
       };
     },
 
@@ -131,16 +133,19 @@
       },
 
       login(e) {
-        const formData = {
-          matricula: this.matricula,
-          contrasena: this.contrasena,
-        };
 
         const matriculaPrefix = this.matricula.charAt(0).toLowerCase();
 
         if (matriculaPrefix === 'a') {
+          
+          const formData = {
+            matricula: this.matricula,
+            contrasena: this.contrasena,
+            carrera: 1,
+          };
+
           axios
-            .post('http://127.0.0.1:8000/api/estudiante/', formData)
+            .post('http://127.0.0.1:8000/api/estudiante/', formData )
             .then(response => {
               const token = response.data.auth_token;
 
@@ -154,6 +159,13 @@
               console.log('Error al iniciar sesión como alumno:', error);
             });
         } else if (matriculaPrefix === 'l') {
+
+          const formData = {
+            matricula: this.matricula,
+            contrasena: this.contrasena,
+            departamento: 1,
+          };
+
           axios
             .post('http://127.0.0.1:8000/api/profesor/', formData)
             .then(response => {
