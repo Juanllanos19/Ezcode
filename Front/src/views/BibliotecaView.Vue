@@ -22,17 +22,6 @@
                 </li>
                 <li><a href="#"><i class="fas fa-file-invoice"></i>Quizes</a></li>
             </ul>
-            <small class="text-muted px-3">TOOLS</small>
-            <ul>
-                <li><a href="#"><i class="far fa-calendar-alt"></i>ink 3</a></li>
-                <li><a href="#"><i class="fas fa-video"></i>ink 4</a></li>
-                <li><a href="#"><i class="fas fa-id-badge"></i>ink 5</a></li>
-            </ul>
-            <small class="text-muted px-3">BASE</small>
-            <ul>
-                <li><a href="#"><i class="fas fa-external-link-alt"></i>link 6</a></li>
-                <li><a href="#"><i class="fas fa-code"></i>link 7</a></li>
-            </ul>
         </div>
     </div>
 
@@ -80,11 +69,6 @@
                                         style="z-index: 1;">
                                         Editar
                                     </button>
-                                </div>
-                                <div class="d-flex justify-content-start">
-                                    <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                    <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                    <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
                                 </div>
                             </div>
                         </div>
