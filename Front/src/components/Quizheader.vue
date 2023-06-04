@@ -10,11 +10,24 @@
     ])
 </script>
 
+<script>
+import NavInit from '../components/NavInit.vue'
+
+export default {
+  components: {
+    NavInit
+  }
+}
+</script>
+
 <template>
     <header>
-        <h4>Question {{questionStatus}}</h4>
-        <div class="bar">
-            <div class="completion" :style="{width: barPercentage}"></div>
+        <NavInit />
+        <div style="padding-top: 6%;">
+            <h4>Preguntas contestadas {{questionStatus}}</h4>
+            <div class="bar" style="width: 20%;">
+                <div class="completion" :style="{width: barPercentage}"></div>
+            </div>
         </div>
     </header>
 </template>
