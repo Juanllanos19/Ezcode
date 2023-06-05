@@ -41,8 +41,8 @@ const router = createRouter({
         {
             path: '/biblio',
             name: 'biblio',
-            component: () => import('../views/BibliotecaView.vue')
-        }
+            component: () => import('../views/BiblioView.vue')
+        },
     ]
 })
 
