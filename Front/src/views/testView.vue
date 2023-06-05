@@ -53,7 +53,7 @@ data() {
         value: '#Your inputs here!'
       },
       output: {
-        value: ''
+        value: 'Your output will be generated here!'
       },
       testcases: {
         value: [],
@@ -64,6 +64,7 @@ data() {
   methods:{
     execute(event){
         console.log("Execute");
+        this.output.value = "Loading...";
 
         const options = {
         method: 'POST',
@@ -236,42 +237,43 @@ data() {
         </header>
         <body style="display: flex; padding-top: 8% width: 100%;">
             <div id="compilador" style="display: flex; width: 100%;">
-                <div id="description" style="width: 20%; padding-top: 8%; padding-left: 0.5%;">
+                <div id="description" style="width: 25%; padding-top: 8%; padding-left: 0.5%;">
                     <div class="card" style="width: 100%;">
                         <div class="card-header">Descripcion</div>
                             <div class="card-body">
-                                <h5 class="card-title">{{contenido.title}}</h5>
-                                <p class="card-text">{{ contenido.description }}</p>
+                                <h5 class="card-title" style="font-size: 32px;">{{contenido.title}}</h5>
+                                <p class="card-text" style="font-size: 20px;">{{ contenido.description }}</p>
                                 <v-ace-editor
                                 v-model:value="input_editor.value"
                                 @init="editorInit"
                                 lang="python"
                                 theme="chrome"
-                                style="height: 100px" />
+                                style="height: 200px; font-size: 16px;" />
                             </div>
                     </div>
                 </div>
-                <div id="code" style="width: 50%; padding-top: 8%;padding-left: 0.5%;">
+                <div id="code" style="width: 45%; padding-top: 8%;padding-left: 0.5%;">
                     <div class="card" style="width: 100%;">
-                        <div class="card-header">Codigo</div>
+                        <div class="card-header" >Codigo</div>
                         <div class="card-body">
-                            <h5 class="card-title">{{editor.value}}</h5>
+                            <h5 class="card-title" style="font-size: 26px;">Tu codigo</h5>
                             <v-ace-editor
                                 v-model:value="editor.value"
                                 @init="editorInit"
                                 lang="python"
                                 theme="chrome"
-                                style="height: 300px"/>
+                                style="height: 500px; font-size: 16px;"/>
                         </div>
                     </div>
                 </div>
                 <div id="code" style="width: 29.5%; padding-top: 8%;padding-left: 0.5%;">
                     <div class="card" style="width: 100%;">
-                        <div class="card-header">Header</div>
+                        <div class="card-header">Outputs</div>
                         <div class="card-body">
-                            <h5 class="card-title">{{editor.value}}</h5>
-                             <button type="button" @click="execute" style="width: 100%;">Ejecutar</button> 
-                              <button type="button" @click="test" style="width: 100%;">Hacer pruebas</button> 
+                            <h5 class="card-title"></h5>
+                             <button type="button" class="btn btn-primary" @click="execute" style="width: 100%;">Ejecutar</button> 
+                             
+                              <button type="button" class="btn btn-success" @click="test" style="width: 100%; margin-top: 3%;">Hacer pruebas</button> 
 
                               <h5 class="card-title" style="padding-top: 5%;">Output</h5>
                               {{ output.value }}
