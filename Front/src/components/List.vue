@@ -5,11 +5,12 @@ import axios from 'axios'
 const data = ref([{
   id: "",
   nombre: "",
-  tipo: ""
+  fechaInicio: "",
+  fechaFin: ""
 }])
 
 onMounted(
-  axios.get('http://localhost:8000/api/tema')
+  axios.get('http://localhost:8000/api/actividad')
   .then((result) => {
     console.log(result.data);
     data.value = result.data;
@@ -19,20 +20,22 @@ onMounted(
   })
 )
 
-function seeTask(id){
-  
+function goToTask(id){
+  router.push({ name: 'quiz', params: { id: id } })
 }
 
 </script>
 
 <template>
     <ol class="list-group list-group-numbered">
-  <li class="list-group-item d-flex justify-content-between align-items-start" >
+  <li class="list-group-item d-flex justify-content-between align-items-start" v-for="(item,i) in data" :key="i" 
+      @click="goToTask(item.id)">
     <div class="ms-2 me-auto">
-      <div class="fw-bold">Subheading</div>
-      Content for list item
+      <div class="fw-bold">{{ item.nombre }}</div>
+      <strong>Fecha de Inicio:</strong> {{ item.fechaInicio }} <br>
+      <strong>Duracion:</strong> {{ item.duracion }} <br>
     </div>
-    <span class="badge bg-primary rounded-pill">14</span>
+    <span class="badge bg-primary rounded-pill">{{ item.fechaFin }}</span>
   </li>
 </ol>
 </template>
