@@ -19,10 +19,10 @@ const router = createRouter({
             component: () => import('../views/MainView.vue')
         },
         {
-            path: "/quiz/:id",
-            name: 'quiz',
+            path: "/task/:id",
+            name: 'task',
             props: true,
-            component: () => import('../views/QuizView.vue')
+            component: () => import('../views/TaskView.vue')
         },
         {
             path: '/login',

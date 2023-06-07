@@ -22,7 +22,7 @@ onMounted(
 )
 
 function goToTask(id){
-  router.push({ name: 'quiz', params: { id: id } })
+  router.push({ name: 'task', params: { id: id } })
 }
 
 </script>
