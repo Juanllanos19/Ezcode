@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
-import NavInit from '../components/NavInit.vue'
 
 const props = defineProps(['id'])
 
@@ -44,30 +43,35 @@ onMounted(() => {
   })
 })
 
-function agregaCalif(){
-        var calificacion = 
-        {
-          "actividad": preguntas.actividad,
-          "estudiante": {
-            "id":"",
-            "nombre": "Juan Carlos",
-            "apellidoPat": "Llanos",
-            "apellidoMat": "Ordoñez",
-            "matricula": "A01734916",
-        },
-          "ponderacion": preguntas.valor,
-          "puntosTotal": preguntas.valor 
-        };
-        var headers = {'Content-Type': 'application/json'};
-        axios.post('http://localhost:8000/api/calificacion/', calificacion,
-        headers)
+function agregaCalif() {
+    console.log(preguntas.value.id);
+  var calificacion = {
+    "actividad": {
+      "id": preguntas.value.id,
+      "actividad": preguntas.value.actividad,
+      "pregunta": preguntas.value.pregunta,
+      "valor": preguntas.value.valor  
+    },
+    "estudiante": {
+      "id": "",
+      "nombre": "Juan Carlos",
+      "apellidoPat": "Llanos",
+      "apellidoMat": "Ordoñez",
+      "matricula": "A01734916"
+    },
+    "ponderacion": preguntas.value.valor,
+    "puntosTotal": preguntas.value.valor
+  };
+  console.log(calificacion);
+  var headers = { 'Content-Type': 'application/json' };
+  axios.post('http://localhost:8000/api/calificacion/', calificacion, headers)
     .then(result => {
-        console.log(result.data)
+      console.log(result.data);
     })
     .catch(error => {
-    console.log(error)
-    })
-    }
+      console.log(error);
+    });
+}
 
     function agregaCalif2(){
         var calificacion = 
@@ -102,24 +106,32 @@ const enviarRespuesta = () => {
 
 <template>
     <div>
-      <header>
-        <NavInit />
-      </header>
       <body style="display: flex; padding-top: 8%;">
-        <div>
-          <h2>{{ contenido.title }}</h2>
-          <h2>{{ contenido.description }}</h2>
-          <ul>
-            <li v-for="(opcion, index) in contenido.options" :key="index">
-              <label>
-                <input type="radio" :name="'opcion-' + contenido.id" :value="opcion" v-model="respuestaSeleccionada" />
-                {{ opcion.text }}
-              </label>
-            </li>
-          </ul>
-          <button @click="enviarRespuesta">Enviar</button>
-        </div>
-      </body>
+            <div id="tasks" style="width: 50%; padding-left: 6%; padding-right: 2%;">
+                <div style=" background-color: #304878; align-items: center; border-radius: 5px; text-align: left; width: 40%;">
+                    <h1 style="color: white; padding-top: 1%;padding-bottom: 1%; padding-left: 8%;"> Descripcion</h1>
+                </div>
+                <div style="color: white; background-color: #7890A8; border-radius: 5px; text-align:left; width: 100%; height: 100%; margin-top:2%;">
+                    <h2 style="color: white; padding-top: 3%;padding-left: 3%;">{{ contenido.title }}</h2> <br>
+                    <h3 style="color: white; padding-top: 3%;padding-left: 3%;">{{ contenido.description }}</h3>
+                </div>
+            </div>
+                <div id="acts" style="width: 50%; padding-left: 2%; padding-right: 10%;">
+                    <div style=" background-color: #304878; align-items: center; border-radius: 5px; text-align: left; width: 100%;">
+                        <h1 style="color: white; padding-top: 0.7%;padding-bottom: 0.7%; padding-left: 8%;"> NO SE QUE PONER ACA</h1>
+                    </div>
+                <ul style="list-style: none;padding-left: 0;">
+                    <li style="list-style: none; background-color: #7890A8; border-radius: 5px; text-align: left; width: 100%; padding-top: 2%;padding-bottom: 2%; margin-top: 2%; color: white; font-size: large; font-family: 'Roboto', sans-serif;" 
+                    v-for="(opcion, index) in contenido.options" :key="index" >
+                    <label >
+                        <input type="radio" :name="'opcion-' + contenido.id" :value="opcion" v-model="respuestaSeleccionada" />
+                        {{ opcion.text }}
+                    </label>
+                    </li>
+                </ul>
+              <button class="btn btn-success" @click="enviarRespuesta">Contestar</button>
+                </div>
+        </body>
       <RouterView />
     </div>
   </template>
@@ -143,4 +155,5 @@ export default {
   #desempenio-nav {
     text-decoration: none;
   }
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
   </style>
