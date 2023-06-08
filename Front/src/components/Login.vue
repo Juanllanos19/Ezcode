@@ -104,6 +104,7 @@
 <script>
 
   import axios from 'axios';
+  import router from '../router';
   
   export default {
 
@@ -141,19 +142,28 @@
           const formData = {
             matricula: this.matricula,
             contrasena: this.contrasena,
-            carrera: 1,
           };
 
           axios
-            .post('http://127.0.0.1:8000/api/estudiante/', formData )
+            .get('http://127.0.0.1:8000/api/estudiante/', formData )
             .then(response => {
-              const token = response.data.auth_token;
+              const estudiantes = response.data;
+              const estudianteEncontrado = estudiantes.find(estudiante => estudiante.matricula === formData.matricula);
+              if (estudianteEncontrado && estudianteEncontrado.contrasena === formData.contrasena) {
+                const idUsuario = estudianteEncontrado.id;
+                console.log('ID del usuario:', idUsuario);
+                
+                const token = response.data.auth_token;
 
-              console.log('Inicio de sesión exitoso como estudiante.');
-              this.$store.commit('setToken', token);
-              axios.defaults.headers.common['Authorization'] = 'Token ' + token;
-              localStorage.setItem('token', token);
-              window.location.href = 'http://localhost:5173/vistapreviaEst';
+                console.log('Inicio de sesión exitoso como estudiante.');
+                this.$store.commit('setToken', token);
+                axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+                localStorage.setItem('token', token);
+                this.$router.push({name: 'vistapreviaEst', params: {idUsuario: idUsuario}})
+                // window.location.href = 'http://localhost:5173/vistapreviaEst/' + idUsuario;
+              } else {
+                alert('Credenciales inválidas');
+              }
             })
             .catch(error => {
               console.log('Error al iniciar sesión como alumno:', error);
@@ -163,19 +173,27 @@
           const formData = {
             matricula: this.matricula,
             contrasena: this.contrasena,
-            departamento: 1,
           };
 
           axios
-            .post('http://127.0.0.1:8000/api/profesor/', formData)
+            .get('http://127.0.0.1:8000/api/profesor/', formData)
             .then(response => {
-              const token = response.data.auth_token;
+              const profesores = response.data;
+              const profesorEncontrado = profesores.find(profesor => profesor.matricula === formData.matricula);
+              if (profesorEncontrado && profesorEncontrado.contrasena === formData.contrasena) {
+                const idUsuario = profesorEncontrado.id;
+                console.log('ID del usuario:', idUsuario);
+                
+                const token = response.data.auth_token;
 
-              console.log('Inicio de sesión exitoso como profesor.');
-              this.$store.commit('setToken', token);
-              axios.defaults.headers.common['Authorization'] = 'Token ' + token;
-              localStorage.setItem('token', token);
-              window.location.href = 'http://localhost:5173/vistapreviaProf';
+                console.log('Inicio de sesión exitoso como profesor.');
+                this.$store.commit('setToken', token);
+                axios.defaults.headers.common['Authorization'] = 'Token ' + token;
+                localStorage.setItem('token', token);
+                this.$router.push({name: 'vistapreviaProf', params: {idUsuario: idUsuario}})
+              } else {
+                alert('Credenciales inválidas');
+              }
             })
             .catch(error => {
               console.log('Error al iniciar sesión como profesor:', error);

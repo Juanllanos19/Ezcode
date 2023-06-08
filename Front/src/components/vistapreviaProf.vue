@@ -1,49 +1,49 @@
 <template>
-    <div class="container">
-      <h1 class="title">Bienvenido {{ nombre }}</h1>
-    </div>
-  </template>
+  <div class="auth-container">
+    <div class="auth-content">
+      <h1 class="title">Bienvenido {{ nombre }} a login</h1>
+    </div>  
+  </div>
+</template>
+
+<style>
+.auth-container {
+  width: 250px;
+  height: 350px;
+  background-color: #f30000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-size: 32px;
+  text-align: center;
+}
+</style>
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: 'VistaPreviaProf',
+  data() {
+    return {
+      nombre: '',
+    }
+  },
   
-  <style>
-  .container {
-    width: 250px;
-    height: 350px;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  created() {
+    const idUsuario = this.$route.params.idUsuario;
+
+    axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+      .then(response => {
+        this.nombre = response.data.nombre;
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
-  
-  .title {
-    font-size: 32px;
-    text-align: center;
-  }
-  </style>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    name: 'VistaPreviaProf',
-    data() {
-      return {
-        nombre: '', 
-      };
-    },
-    mounted() {
-      this.getNombreUsuario();
-    },
-    methods: {
-      getNombreUsuario() {
-        axios.get('http://127.0.0.1:8000/api/estudiante/')
-          .then(response => {
-            this.nombre = response.data.nombre; 
-          })
-          .catch(error => {
-            console.log('Error al obtener el nombre del usuario:', error);
-          });
-      },
-    },
-  };
-  </script>
-  
+
+};
+</script>

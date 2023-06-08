@@ -1,11 +1,13 @@
 <template>
-    <div class="container">
-      <h1 class="title">Bienvenido {{ nombre }}</h1>
+    <div class="auth-container">
+      <div class="auth-content">
+        <h1 class="title">Bienvenido {{ nombre }} a login</h1>
+      </div>  
     </div>
   </template>
   
   <style>
-  .container {
+  .auth-container {
     width: 250px;
     height: 350px;
     background-color: #f30000;
@@ -28,22 +30,21 @@
     data() {
       return {
         nombre: '',
-      };
+      }
     },
-    mounted() {
-      this.getNombreUsuario();
-    },
-    methods: {
-      getNombreUsuario() {
-        axios.get('http://127.0.0.1:8000/api/estudiante/')
-          .then(response => {
-            this.nombre = response.data.nombre;
-          })
-          .catch(error => {
-            console.log('Error al obtener el nombre del usuario:', error);
-          });
-      },
-    },
+    
+    created() {
+      const idUsuario = this.$route.params.idUsuario;
+
+      axios.get(`http://127.0.0.1:8000/api/estudiante/${idUsuario}`)
+        .then(response => {
+          this.nombre = response.data.nombre;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
   };
   </script>
   

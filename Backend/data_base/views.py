@@ -88,4 +88,4 @@ class CalificacionViewSet(ModelViewSet):
         if self.request.method in ['GET']:
             return CalificacionGetSerializer
         return CalificacionSerializer
-
+    
