@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref, ssrContextKey } from 'vue'
+import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
-import router from '../router'
+import NavInit from '../components/NavInit.vue'
 
 const props = defineProps(['id'])
 
@@ -27,26 +27,35 @@ const contenido = ref({})
 
 onMounted(() => {
   axios.get('http://localhost:8000/api/actividaPregunta/' + props.id + '/')
-    .then(result => {
-      console.log(result.data)
-      preguntas.value = result.data
-      axios.get(preguntas.value.pregunta.contenido)
-        .then(response => {
-          contenido.value = response.data
-          console.log(contenido.value.description)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+  .then(result => {
+    console.log(result.data)
+    preguntas.value = result.data
+    axios.get(preguntas.value.pregunta.contenido)
+    .then(response => {
+      contenido.value = response.data
+      console.log(contenido.value.description)
     })
     .catch(error => {
       console.log(error)
     })
+  })
+  .catch(error => {
+    console.log(error)
+  })
 })
 
+const respuestaSeleccionada = ref(null)
+const enviarRespuesta = () => {
+  console.log(respuestaSeleccionada.value.text)
+  console.log(1)
+  console.log(contenido.value.options[contenido.value.answer].text)
+  if (respuestaSeleccionada.value.text === contenido.value.options[contenido.value.answer].text) {
+    alert('¡Respuesta correcta!')
+  } else {
+    alert('Respuesta incorrecta. La respuesta correcta es:')
+  }
+}
 </script>
-
-
 
 <template>
     <div>
@@ -72,31 +81,6 @@ onMounted(() => {
       <RouterView />
     </div>
   </template>
-  
-  <script>
-  import { ref } from 'vue';
-  import NavInit from '../components/NavInit.vue';
-  
-  export default {
-    data() {
-      return {
-        respuestaSeleccionada: null
-      };
-    },
-    methods: {
-      enviarRespuesta() {
-        if (this.respuestaSeleccionada === this.contenido.answer) {
-          alert('¡Respuesta correcta!');
-        } else {
-          alert('Respuesta incorrecta. La respuesta correcta es: ' + this.contenido.answer);
-        }
-      },
-    },
-    components: {
-      NavInit
-    }
-  };
-  </script>
   
   <style>
   body {
