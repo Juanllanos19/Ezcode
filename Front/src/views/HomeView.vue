@@ -14,12 +14,12 @@ const particlesLoaded = async container => {
 import Nav from '../components/Nav.vue'
 import Background from '../components/Background.vue'
 
-export default {
-  components: {
-    Nav,
-    Background
-  }
-}
+// export default {
+//   components: {
+//     Nav,
+//     Background
+//   }
+// }
 </script>
 
 <template>
