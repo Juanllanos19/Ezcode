@@ -15,17 +15,19 @@
                 </div>
                 <h6 class="information mt-4">Personalice la pregunta</h6>
                 <div v-if="questionType === 'codigo'">
+                    <!-- Contenido para el tipo de pregunta "codigo" -->
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Titulo">
+                                <input class="form-control" type="text" placeholder="Titulo" v-model="title">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="input-group"> <input class="form-control" type="text" placeholder="Autor">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Autor" v-model="author">
                                 </div>
                             </div>
                         </div>
@@ -33,25 +35,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="input-group"> <input class="form-control" type="text" placeholder="Driver">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Driver" v-model="driver">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"
+                                v-model="description"></textarea>
                         </div>
                     </div>
-
                     <!-- Filtro seccion -->
                     <div class="d-flex flex-row">
                         <label for="referrer"> ¿Cual es la dificultad?
                             <select id="inputState" class="form-select" v-model="selectedDifficulty">
                                 <option selected>Choose...</option>
-                                <option value="1">Dificil</option>
-                                <option value="2">Medio</option>
-                                <option value="3">Facil</option>
+                                <option value="Difícil">Dificil</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Fácil">Facil</option>
                             </select>
                         </label>
                         &nbsp;&nbsp;
@@ -59,54 +62,50 @@
                             <label for="referrer"> ¿Cual es el tema?
                                 <select id="inputState" class="form-select" v-model="selectedTheme">
                                     <option selected>Choose...</option>
-                                    <option value="1">arrays</option>
-                                    <option value="2">if</option>
-                                    <option value="3">whiles</option>
+                                    <option value="arrays">arrays</option>
+                                    <option value="if">if</option>
+                                    <option value="whiles">whiles</option>
                                 </select>
                             </label>
                         </div>
                     </div>
                     <div class="d-flex flex-row">
                         <div class="row">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Input">
-                                <input type="text" class="form-control" placeholder="Output">
+                            <div class="input-group mb-3" v-for="(input, index) in inputs" :key="index">
+                                <input type="text" class="form-control" placeholder="Input" v-model="inputs[index]">
+                                <input type="text" class="form-control" placeholder="Output" v-model="outputs[index]">
                             </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Input">
-                                <input type="text" class="form-control" placeholder="Output">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Input">
-                                <input type="text" class="form-control" placeholder="Output">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Input">
-                                <input type="text" class="form-control" placeholder="Output">
+                            <div>
+                                <button class="btn btn-sm btn-primary ml-3" @click="addInputOutput">Agregar caso</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
                     </div>
                 </div>
-                <!-- Pestaña de Multiple -->
                 <div v-if="questionType === 'multiple'">
+                    <!-- Contenido para el tipo de pregunta "multiple" -->
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Titulo">
+                                <input class="form-control" type="text" placeholder="Titulo" v-model="title" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="input-group"> <input class="form-control" type="text" placeholder="Autor">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Autor" v-model="author" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"
+                                v-model="description"></textarea>
                         </div>
                     </div>
                     <!-- Filtro seccion -->
@@ -133,29 +132,29 @@
                     </div>
                     <!-- Seleccion Input seccion -->
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked
+                            v-model="hints" />
                         <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar pista</label>
                     </div>
                     <div class="d-flex flex-row">
                         <div class="row">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Respuesta correcta">
-                                <input type="text" class="form-control" placeholder="Explicación">
+                            <h6 class="mt-4">Opciones:</h6>
+                            <div class="mb-3" v-for="(option, index) in options" :key="index">
+                                <label>Opción {{ index + 1 }}:</label>
+                                <input type="text" class="form-control" v-model="options[index].text" />
+                                <label>Explicación:</label>
+                                <input type="text" class="form-control" v-model="options[index].explanation" />
                             </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Opción 1">
-                                <input type="text" class="form-control" placeholder="Explicación">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Opción 2">
-                                <input type="text" class="form-control" placeholder="Explicación">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Opción 3">
-                                <input type="text" class="form-control" placeholder="Explicación">
+                            <div class="mb-3">
+                                <label>Respuesta correcta:</label>
+                                <select class="form-select" v-model="answer">
+                                    <option v-for="(option, index) in options" :key="index" :value="index">{{ option.text }}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
+                    <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
                 </div>
             </div>
         </div>
@@ -163,26 +162,92 @@
 </template>
   
 <script>
-import { ref, computed } from 'vue';
-
 export default {
-    setup() {
-        const questionType = ref('codigo');
-
-        const isCodigoQuestionType = computed(() => questionType.value === 'codigo');
-        const isMultipleQuestionType = computed(() => questionType.value === 'multiple');
-
-        // Remaining setup logic
-
+    data() {
         return {
-            questionType,
-            isCodigoQuestionType,
-            isMultipleQuestionType
+            questionType: 'codigo',
+            title: '',
+            author: '',
+            driver: '',
+            description: '',
+            selectedDifficulty: '',
+            selectedTheme: '',
+            inputs: [],
+            outputs: [],
+            answer: '',
+            hints: true,
+            options: [
+                { text: '', explanation: '', isAnswer: false },
+                { text: '', explanation: '', isAnswer: false },
+                { text: '', explanation: '', isAnswer: false },
+                { text: '', explanation: '', isAnswer: false }
+            ]
         };
     },
+    methods: {
+        addInputOutput() {
+            if (this.inputs.length < 4 && this.outputs.length < 4) {
+                this.inputs.push('');
+                this.outputs.push('');
+            }
+        },
+        generateJSON() {
+            if (this.questionType === 'codigo') {
+                const questionData = {
+                    id: `TC1028_23_OM_${Date.now()}`,
+                    author: this.author,
+                    title: this.title,
+                    description: this.description,
+                    topic: this.selectedTheme,
+                    difficulty: this.selectedDifficulty,
+                    tests: []
+                };
+
+                for (let i = 0; i < this.inputs.length; i++) {
+                    const test = {
+                        testId: (i + 1).toString(),
+                        input: this.inputs[i],
+                        output: this.outputs[i]
+                    };
+                    questionData.tests.push(test);
+                }
+
+                const jsonData = JSON.stringify(questionData, null, 2);
+
+                const element = document.createElement("a");
+                const file = new Blob([jsonData], { type: "application/json" });
+                element.href = URL.createObjectURL(file);
+                element.download = "question.json";
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            } else if (this.questionType === 'multiple') {
+                const questionData = {
+                    id: `TC1028_23_OM_${Date.now()}`,
+                    author: this.author,
+                    title: this.title,
+                    description: this.description,
+                    topic: this.selectedTheme,
+                    difficulty: this.selectedDifficulty,
+                    answer: this.answer,
+                    hints: this.hints,
+                    options: this.options
+                };
+
+                const jsonData = JSON.stringify(questionData, null, 2);
+
+                const element = document.createElement("a");
+                const file = new Blob([jsonData], { type: "application/json" });
+                element.href = URL.createObjectURL(file);
+                element.download = "question.json";
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        }
+    }
 };
 </script>
-
 
 <!-- Style -->
 <style >

@@ -43,6 +43,11 @@ const router = createRouter({
             name: 'biblio',
             component: () => import('../views/BiblioView.vue')
         },
+        {
+            path: '/list',
+            name: 'list',
+            component: () => import('../views/ListView.vue')
+        },
     ]
 })
 
