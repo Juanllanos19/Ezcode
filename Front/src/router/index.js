@@ -9,14 +9,9 @@ const router = createRouter({
             component: () => import('../views/HomeView.vue')
         },
         {
-            path: "/quizes",
-            name: 'quizes',
-            component: () => import('../views/QuizesView.vue')
-        },
-        {
             path: "/quiz/:id",
             name: 'quiz',
-            component: () => import('../views/QuizesView.vue')
+            component: () => import('../views/QuizView.vue')
         },
         {
             path: '/login',
@@ -36,7 +31,12 @@ const router = createRouter({
         {
             path: '/compiler',
             name: 'compiler',
-            component: () => import('../views/CompilerView.vue')
+            component: () => import('../views/testView.vue')
+        },
+        {
+            path: '/stats',
+            name: 'stats',
+            component: () => import('../views/StatsView.vue')
         },
         // {
         //     path: '/register',
