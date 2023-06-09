@@ -160,7 +160,6 @@
                 axios.defaults.headers.common['Authorization'] = 'Token ' + token;
                 localStorage.setItem('token', token);
                 this.$router.push({name: 'vistapreviaEst', params: {idUsuario: idUsuario}})
-                // window.location.href = 'http://localhost:5173/vistapreviaEst/' + idUsuario;
               } else {
                 alert('Credenciales inválidas');
               }
