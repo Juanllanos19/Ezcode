@@ -113,9 +113,9 @@
                         <label for="referrer"> ¿Cual es la dificultad?
                             <select id="inputState" class="form-select" v-model="selectedDifficulty">
                                 <option selected>Choose...</option>
-                                <option value="1">Dificil</option>
-                                <option value="2">Medio</option>
-                                <option value="3">Facil</option>
+                                <option value="Difícil">Dificil</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Fácil">Facil</option>
                             </select>
                         </label>
                         &nbsp;&nbsp;
@@ -194,7 +194,7 @@ export default {
         generateJSON() {
             if (this.questionType === 'codigo') {
                 const questionData = {
-                    id: `TC1028_23_OM_${Date.now()}`,
+                    id: `TC1028_23_C_${Date.now()}`,
                     author: this.author,
                     title: this.title,
                     description: this.description,
