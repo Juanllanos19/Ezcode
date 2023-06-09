@@ -59,26 +59,6 @@ const router = createRouter({
             component: () => import('../views/BiblioView.vue')
         },
         {
-            path: '/compiler',
-            name: 'compiler',
-            component: () => import('../views/CompilerView.vue')
-        },
-        {
-            path: '/setting',
-            name: 'setting',
-            component: () => import('../views/SettingsView.vue')
-        },
-        {
-            path: '/form',
-            name: 'form',
-            component: () => import('../views/FormsView.vue')
-        },
-        {
-            path: '/biblio',
-            name: 'biblio',
-            component: () => import('../views/BiblioView.vue')
-        },
-        {
             path: '/list',
             name: 'list',
             component: () => import('../views/ListView.vue')
