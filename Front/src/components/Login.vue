@@ -159,7 +159,7 @@
                 this.$store.commit('setToken', token);
                 axios.defaults.headers.common['Authorization'] = 'Token ' + token;
                 localStorage.setItem('token', token);
-                this.$router.push({name: 'vistapreviaEst', params: {idUsuario: idUsuario}})
+                this.$router.push({name: 'NavInit', params: {idUsuario: idUsuario}})
               } else {
                 alert('Credenciales inválidas');
               }

@@ -28,9 +28,9 @@ import { RouterLink} from 'vue-router'
                     <img id="logo-perfil" src="../assets/icon_profile.png" style="width: 80%;">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
-                    <li><a class="dropdown-item" href="#">Hola, AXXXXXX</a></li>
+                    <li><a class="dropdown-item" href="#">Hola, {{ nombre }}</a></li>
                     <li><a class="dropdown-item" href="#">Configuración</a></li>
-                    <li><a class="dropdown-item" href="#">Cerrar sesion</a></li>
+                    <li><a class="dropdown-item" @click="cerrarSesion" href="#">Cerrar sesion</a></li>
                 </ul>
                 </div>
             </span>
@@ -41,8 +41,34 @@ import { RouterLink} from 'vue-router'
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-    name: 'NavInit'
+    name: 'NavInit',
+
+    data() {
+      return {
+        nombre: '',
+      }
+    },
+
+    methods: {
+        cerrarSesion() {
+            this.$router.push('http://localhost:5173/');
+        },
+    },
+    
+    created() {
+      const idUsuario = this.$route.params.idUsuario;
+
+      axios.get(`http://127.0.0.1:8000/api/estudiante/${idUsuario}`)
+        .then(response => {
+          this.nombre = response.data.nombre;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+
 }
 </script>
   

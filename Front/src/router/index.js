@@ -64,10 +64,10 @@ const router = createRouter({
             component: () => import('../views/ListView.vue')
         },
         {
-            path: '/vistapreviaProf/:idUsuario',
-            name: 'vistapreviaProf',
+            path: '/NavInit/:idUsuario',
+            name: 'NavInit',
             props: true,
-            component: () => import('../views/VistaPreviaProfView.vue')
+            component: () => import('../components/NavInit.vue')
         },
         {
             path: '/vistapreviaEst/:idUsuario',
