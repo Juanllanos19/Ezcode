@@ -150,7 +150,27 @@ export default {
         },
         handleTaskSelection() {
             console.log(this.selectedTasks);// Hacer algo con las tareas seleccionadas
+        },
+        handleFormSubmitted(formData) {
+            // Aquí puedes actualizar los datos de la tabla utilizando los datos del formulario recibidos.
+            // Por ejemplo, puedes asignar los valores a la propiedad `tasks` y luego `filteredTasks` se actualizará automáticamente.
+            this.tasks.push({
+                id: this.tasks.length + 1,
+                title: formData.title,
+                created: '', // Puedes asignar un valor predeterminado o dejarlo vacío según tus necesidades
+                dificultad: formData.dificultad,
+                tema: formData.tema,
+                autor: formData.autor
+            });
         }
+    },
+    mounted() {
+        // Escucha el evento personalizado emitido por FormsView
+        this.$root.$on('formSubmitted', this.handleFormSubmitted);
+    },
+    beforeDestroy() {
+        // Asegúrate de limpiar el evento cuando el componente se destruye para evitar fugas de memoria
+        this.$root.$off('formSubmitted', this.handleFormSubmitted);
     }
 };
 </script>
