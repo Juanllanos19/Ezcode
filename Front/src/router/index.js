@@ -9,16 +9,6 @@ const router = createRouter({
             component: () => import('../views/HomeView.vue')
         },
         {
-            path: "/desempenio",
-            name: 'desempenio',
-            component: () => import('../views/DesempenioView.vue')
-        },
-        {
-            path: "/inicio",
-            name: 'main',
-            component: () => import('../views/MainView.vue')
-        },
-        {
             path: "/quizes",
             name: 'quizes',
             component: () => import('../views/QuizesView.vue')
@@ -48,28 +38,51 @@ const router = createRouter({
             name: 'compiler',
             component: () => import('../views/CompilerView.vue')
         },
+        // {
+        //     path: '/register',
+        //     name: 'register',
+        //     component: () => import('../components/Register.vue')
+        // },
+        {
+            path: '/setting',
+            name: 'setting',
+            component: () => import('../views/SettingsView.vue')
+        },
+        {
+            path: '/form',
+            name: 'form',
+            component: () => import('../views/FormsView.vue')
+        },
+        {
+            path: '/biblio',
+            name: 'biblio',
+            component: () => import('../views/BiblioView.vue')
+        },
         {
             path: '/compiler',
             name: 'compiler',
             component: () => import('../views/CompilerView.vue')
         },
         {
-            path: '/profile',
-            name: 'profile',
-            component: () => import('../views/ProfileView.vue')
+            path: '/setting',
+            name: 'setting',
+            component: () => import('../views/SettingsView.vue')
         },
         {
-            path: '/vistapreviaProf/:idUsuario',
-            name: 'vistapreviaProf',
-            props: true,
-            component: () => import('../views/VistaPreviaProfView.vue')
+            path: '/form',
+            name: 'form',
+            component: () => import('../views/FormsView.vue')
         },
         {
-            path: '/vistapreviaEst/:idUsuario',
-            name: 'vistapreviaEst',
-            props: true,
-            component: () => import('../views/VistaPreviaEstView.vue')
-        }
+            path: '/biblio',
+            name: 'biblio',
+            component: () => import('../views/BiblioView.vue')
+        },
+        {
+            path: '/list',
+            name: 'list',
+            component: () => import('../views/ListView.vue')
+        },
     ]
 })
 
