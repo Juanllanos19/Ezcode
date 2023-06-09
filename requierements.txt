@@ -8,3 +8,4 @@ corsheaders
 npm:
 vue3-particles 
 tsparticles
+yarn add vue3-ace-editor
