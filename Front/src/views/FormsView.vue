@@ -166,6 +166,7 @@
 </template>
   
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -195,7 +196,8 @@ export default {
                 this.outputs.push('');
             }
         },
-        generateJSON() {
+        async generateJSON() {
+            let jsonData = '';
             if (this.questionType === 'codigo') {
                 const questionData = {
                     id: `TC1028_23_C_${Date.now()}`,
@@ -220,7 +222,7 @@ export default {
                     questionData.tests.push(test);
                 }
 
-                const jsonData = JSON.stringify(questionData, null, 2);
+                jsonData = JSON.stringify(questionData, null, 2);
 
                 const element = document.createElement("a");
                 const file = new Blob([jsonData], { type: "application/json" });
@@ -242,7 +244,7 @@ export default {
                     options: this.options
                 };
 
-                const jsonData = JSON.stringify(questionData, null, 2);
+                jsonData = JSON.stringify(questionData, null, 2);
 
                 const element = document.createElement("a");
                 const file = new Blob([jsonData], { type: "application/json" });
@@ -251,6 +253,12 @@ export default {
                 document.body.appendChild(element);
                 element.click();
                 document.body.removeChild(element);
+            }
+            try {
+                const response = await axios.post('../data', jsonData);
+                console.log(response); // Maneja la respuesta si es necesario
+            } catch (error) {
+                console.error(error); // Maneja el error si ocurre alguno
             }
         }
     }
