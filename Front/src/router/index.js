@@ -38,11 +38,22 @@ const router = createRouter({
             name: 'stats',
             component: () => import('../views/StatsView.vue')
         },
-        // {
-        //     path: '/register',
-        //     name: 'register',
-        //     component: () => import('../components/Register.vue')
-        // },
+        {
+            path: "/desempenio",
+            name: 'desempenio',
+            component: () => import('../views/DesempenioView.vue')
+        },
+        {
+            path: "/inicio",
+            name: 'main',
+            component: () => import('../views/MainView.vue')
+        },
+        {
+            path: "/task/:id",
+            name: 'task',
+            props: true,
+            component: () => import('../views/TaskView.vue')
+        },
         {
             path: '/setting',
             name: 'setting',
