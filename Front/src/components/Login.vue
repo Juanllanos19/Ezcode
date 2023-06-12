@@ -140,7 +140,7 @@
         if (matriculaPrefix === 'a') {
           
           const formData = {
-            matricula: this.matricula,
+            matricula: this.matricula.toLowerCase(),
             contrasena: this.contrasena,
           };
 

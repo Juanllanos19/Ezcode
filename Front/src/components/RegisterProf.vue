@@ -139,6 +139,13 @@ export default {
     this.obtenerDepartamentos();
   },
 
+  computed: {
+      isPasswordValid() {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(this.contrasena);
+      },
+  },
+
   methods: {
 
     obtenerDepartamentos() {
@@ -174,9 +181,14 @@ export default {
           console.log('Error al agregar el usuario:', error)
         })
 
-      if (this.contrasena !== this.confirmPassword) {
+      if (this.password !== this.confirmPassword) {
         console.log('Las contraseñas no coinciden');
         return;
+      }
+
+      if (!this.isPasswordValid) {
+          console.log('La contraseña no cumple con los requisitos');
+          return;
       }
     },
   },

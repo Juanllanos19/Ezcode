@@ -159,9 +159,9 @@
           nombre: this.nombre,
           apellidoPat: this.apellidoPat,
           apellidoMat: this.apellidoMat,
-          matricula: this.matricula,
+          matricula: this.matricula.toLowerCase(),
           carrera: this.carrera,
-          correo: this.correo,
+          correo: this.correo.toLowerCase(),
           contrasena: this.contrasena
         }
 
