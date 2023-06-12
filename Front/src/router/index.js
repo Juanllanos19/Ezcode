@@ -55,6 +55,12 @@ const router = createRouter({
             component: () => import('../views/TaskView.vue')
         },
         {
+            path: "/question/:id",
+            name: 'question',
+            props: true,
+            component: () => import('../views/TaskMultView.vue')
+        },
+        {
             path: '/setting',
             name: 'setting',
             component: () => import('../views/SettingsView.vue')

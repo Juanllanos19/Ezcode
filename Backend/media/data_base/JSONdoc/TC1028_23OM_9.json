@@ -1,0 +1,29 @@
+{
+    "id": "TC1028_23_OM_9",
+    "author": "Administrador",
+    "title": "Encuentra el máximo número en una lista",
+    "description": "Escribe un programa en Python que encuentre el número máximo en una lista dada. Debes usar una estructura de control para iterar sobre los elementos de la lista y compararlos.",
+    "topic": "4.1 Estructuras de control",
+    "difficulty": "Intermedia",
+    "answer": 3,
+    "hints": true,
+    "options": [
+      {
+        "text": "El número máximo en una lista es el último elemento de la lista.",
+        "explanation": "Incorrecto. Recuerda que es una división entera y no devuelve el resultado con decimales"
+      },
+      {
+        "text": "El número máximo en una lista es el primer elemento de la lista.",
+        "explanation": "Incorrecto. Checar que fallo en la division o funcion del código"
+      },
+      {
+        "text": "El número máximo en una lista es el promedio de todos los elementos.",
+        "explanation": "Incorrecto. Recuerda que es una división entera y no devuelve el resultado con decimales"
+      },
+      {
+        "text": "El número máximo en una lista es el elemento más grande que encuentres al iterar sobre la lista.",
+        "explanation": "Correcto. Para encontrar el número máximo en una lista, debemos iterar sobre todos los elementos de la lista y compararlos entre sí. Al encontrar un elemento mayor que el máximo actual, actualizamos el máximo. Al finalizar la iteración, el máximo será el número más grande en la lista."
+      }
+    ]
+}
+
