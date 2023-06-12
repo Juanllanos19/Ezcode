@@ -20,7 +20,7 @@ import { RouterLink} from 'vue-router'
             </li>
             </ul>
             <span class="navbar-text" style="padding-right: 3%;">
-                <RouterLink to="/" class="navbar-brand logo-text"><img id="logo-notificaciones" src="../assets/icon _bell.png" style="width: 80%;"></RouterLink>
+                <RouterLink to="/" class="navbar-brand logo-text"><img id="logo-notificaciones" src="../assets/icon_bell.png" style="width: 80%;"></RouterLink>
             </span>
             <span class="navbar-text" style="padding-right: 10%;">
                 <div class="dropdown">
