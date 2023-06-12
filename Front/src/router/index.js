@@ -74,6 +74,12 @@ const router = createRouter({
             name: 'vistapreviaEst',
             props: true,
             component: () => import('../views/VistaPreviaEstView.vue')
+        },
+        {
+            path: '/info',
+            name: 'info',
+            props: true,
+            component: () => import('../views/InfoView.vue')
         }
     ]
 })

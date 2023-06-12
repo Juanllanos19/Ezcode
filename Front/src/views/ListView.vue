@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Testing Task List Filters</h2>
+        <h2>Lista de preguntas</h2>
         <hr><br>
         <div class="container">
             <div class="row">
@@ -40,7 +40,7 @@
 
                 <div class="panel panel-primary filterable">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Tasks</h3>
+                        <h3 class="panel-title">Preguntas</h3>
                         <div class="pull-right"></div>
                     </div>
 
@@ -73,58 +73,60 @@
         </div>
     </div>
     <div class="card">
-        <div class="row">
-            <div class="col-md-8 cart">
-                <div class="title">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="col">
+                    <h4><b>previsualizar Actividad</b></h4>
+                </div>
+            </div>
+            <div class="row border-top border-bottom" v-for="(taskTitle, index) in selectedTaskTitles" :key="index">
+                <div class="row main align-items-center">
                     <div class="col">
-                        <h4><b>previsualizar Actividad</b></h4>
+                        <div class="row">{{ taskTitle }}</div>
                     </div>
-                </div>
-                <div class="row border-top border-bottom" v-for="(taskTitle, index) in selectedTaskTitles" :key="index">
-                    <div class="row main align-items-center">
-                        <div class="col">
-                            <div class="row">{{ taskTitle }}</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row main align-items-center">
-                        <div class="col">
-                            <div class="row">TaskTit</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control-sm" placeholder="0.0" />
-                        </div>
-                    </div>
-                </div>
-                <div class="row border-top border-bottom">
-                    <div class="row main align-items-center">
-                        <div class="col">
-                            <div class="row">TaskTit</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0" />
-                        </div>
+                    <div class="col">
+                        <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0"/>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 summary">
-                <div>
-                    <h5><b>Configuración</b></h5>
+            <div class="row">
+                <div class="row main align-items-center">
+                    <div class="col">
+                        <div class="row">title</div>
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control-sm" placeholder="0.0" />
+                    </div>
                 </div>
-                <hr>
-                <form>
-                    <p>Tiempo Limite</p>
-                    <input type="date" id="date" placeholder="Select a date">
-                    <input type="time" id="time" placeholder="Select a time">
-                </form>
-                <button class="btn">Subir Actividad</button>
+            </div>
+            <div class="row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col">
+                        <div class="row">title</div>
+                    </div>
+                    <div class="col">
+                        <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0"/>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-md-4 summary">
+            <div>
+                <h5><b>Configuración</b></h5>
+            </div>
+            <hr>
+            <form>
+                <p>Tiempo Limite</p>
+                <input type="date" id="date" placeholder="Select a date" >
+                <input type="time" id="time" placeholder="Select a time" >
+                <p>Titulo</p>
+                    <input placeholder="Tiutlo de la Actividad" >
+            </form>
+            <button class="btn">Subir Actividad</button>
+        </div>
     </div>
+</div>
 </template>
   
 <script>
@@ -139,7 +141,7 @@ export default {
             tasks: [
                 {
                     id: 1,
-                    title: 'Task title 1',
+                    title: 'title 1',
                     created: '01/24/2015',
                     dificultad: 'Difícil',
                     tema: 'Variables',
@@ -147,7 +149,7 @@ export default {
                 },
                 {
                     id: 2,
-                    title: 'Task title 2',
+                    title: 'title 2',
                     created: '03/14/2015',
                     dificultad: 'Fácil',
                     tema: 'If',
@@ -155,7 +157,7 @@ export default {
                 },
                 {
                     id: 3,
-                    title: 'Task title 3',
+                    title: 'title 3',
                     created: '11/16/2014',
                     dificultad: 'Normal',
                     tema: 'Arrays',
@@ -163,7 +165,7 @@ export default {
                 },
                 {
                     id: 4,
-                    title: 'Task title 4',
+                    title: 'title 4',
                     created: '11/16/2014',
                     dificultad: 'Difícil',
                     tema: 'Variables',
