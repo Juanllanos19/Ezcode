@@ -52,9 +52,9 @@
                         <label for="referrer"> ¿Cual es la dificultad?
                             <select id="inputState" class="form-select" v-model="selectedDifficulty">
                                 <option selected>Choose...</option>
-                                <option value="Difícil">Dificil</option>
-                                <option value="Medio">Medio</option>
-                                <option value="Fácil">Facil</option>
+                                <option value="Difícil">Difícil</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Fácil">Fácil</option>
                             </select>
                         </label>
                         &nbsp;&nbsp;
@@ -62,9 +62,52 @@
                             <label for="referrer"> ¿Cual es el tema?
                                 <select id="inputState" class="form-select" v-model="selectedTheme">
                                     <option selected>Choose...</option>
-                                    <option value="arrays">arrays</option>
-                                    <option value="if">if</option>
-                                    <option value="whiles">whiles</option>
+                                    <option value="Uso de Programas para la solución de problemas">Uso de Programas para la solución de problemas</option>
+                                    <option value="Fase de desarrollo de un Programa">Fase de desarrollo de un Programa</option>
+                                    <option value="Lenguajes de Programación">Lenguajes de Programación</option>
+                                    <option value="Ambiente de Programación">Ambiente de Programación</option>
+                                    <option value="Estructura básica de un programa">Estructura básica de un programa </option>
+                                    <option value="Variables, constantes y tipos de datos"> Variables, constantes y tipos de datos</option>
+
+                                    <option value="Expresiones con operadores aritméticos para describir fórmulas"> Expresiones con operadores aritméticos para describir fórmulas</option>
+
+                                    <option value="Construcción de Programas que utilicen funciones predefinidas">Construcción de Programas que utilicen funciones predefinidas </option>
+
+                                    <option value="Solución de problemas que requieran el uso de fórmulas matemáticas">Solución de problemas que requieran el uso de fórmulas matemáticas </option>
+
+                                    <option value="Uso de un depurador"> Uso de un depurador</option>
+
+                                    <option value="Rastreo de errores"> Rastreo de errores</option>
+
+                                    <option value="Expresiones con operadores relacionales y lógicos para definir condiciones">Expresiones con operadores relacionales y lógicos para definir condiciones </option>
+
+                                    <option value="Estatutos de decisión para programación con condiciones">Estatutos de decisión para programación con condiciones </option>
+
+                                    <option value="Solución de problemas que involucren programación con estatutos de repetición">Solución de problemas que involucren programación con estatutos de repetición </option>
+
+                                    <option value="Estatutos de repetición para programación iterativa"> Estatutos de repetición para programación iterativa</option>
+                                    <option value="Solución de problemas que involucren programación con estatutos de repetición"> Solución de problemas que involucren programación con estatutos de repetición</option>
+                                    <option value="Programación modular"> Programación modular</option>
+                                    <option value="Construcción de funciones que requieren cálculos matemáticos"> Construcción de funciones que requieren cálculos matemáticos</option>
+
+                                    <option value="Solución de problemas que involucren programación modular"> Solución de problemas que involucren programación modular</option>
+
+                                    <option value="Datos estructurados"> Datos estructurados</option>
+
+                                    <option value="Listas">Listas </option>
+
+                                    <option value="Matrices"> Matrices</option>
+
+                                    <option value="Strings"> Strings</option>
+
+                                    <option value="Solución de problemas que involucren datos estructurados">Solución de problemas que involucren datos estructurados </option>
+
+                                    <option value="Creación y uso de archivos">Creación y uso de archivos </option>
+
+                                    <option value="Solución de problemas que involucren programación con archivos">Solución de problemas que involucren programación con archivos </option>
+
+
+
                                 </select>
                             </label>
                         </div>
