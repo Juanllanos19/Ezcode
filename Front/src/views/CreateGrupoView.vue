@@ -5,7 +5,7 @@
     </header>
 
     <body style="padding-top: 6%;">
-      <h1>Lista de Alumnos</h1>
+      <h1 style="text-align: center;">Lista de Alumnos</h1>
       <div class="table-container">
         <table class="table">
           <thead>
@@ -90,85 +90,29 @@ body {
   font-family: Arial, sans-serif;
   background-image: url("http://i.imgur.com/w16HASj.png");
   color: #00a9d4;
-  margin: 0;
-  padding: 80px;
 }
 
-h1 {
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
 
 .table {
   width: 80%;
-  margin: 0 auto;  border-collapse: collapse;
+  border-collapse: collapse;
   background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.table-container {
-  width: 80%;
-  margin-bottom: 20px;
-}
-
-/* Resto de tus estilos CSS existentes */
-
-
-.table th,
-.table td {
-  padding: 10px;
-  border-bottom: 1px solid #dddddd;
-}
-
-.table thead {
-  background-color: #f2f2f2;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 5px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-label input {
-  margin-right: 5px;
 }
 
 .card {
   width: 80%;
-  margin: 0 auto;
-  margin-top: 20px;
   border: 1px solid #dddddd;
   border-radius: 4px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-.card-header {
-  padding: 10px 20px;
-  background-color: #f2f2f2;
-}
 
-.card-body {
-  padding: 20px;
-}
-
-.btn-primary {
-  background-color: #00a9d4;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background-color: #00a9d4;
-}
 </style>

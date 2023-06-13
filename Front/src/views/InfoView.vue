@@ -67,7 +67,7 @@ export default {
 
   
   
-<style>
+<style scoped>
 body {
     overflow-x: hidden;
     height: 100%;

@@ -266,7 +266,7 @@ export default {
 };
 </script>
   
-<style>
+<style scoped>
 body {
     background-image: url("http://i.imgur.com/w16HASj.png");
 }
