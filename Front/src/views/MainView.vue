@@ -14,8 +14,7 @@ export default {
   components: {
     NavInit,
     AcordeonInit,
-    List,
-    Tarjeta
+    List
   }
 }
 </script>

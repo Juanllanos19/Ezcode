@@ -46,7 +46,7 @@ export default {
 }
 
 function goToPreguntaMultiple(id){
-  router.push({ name: 'question', params: { id: id } })
+  router.push({ path: `/question/${id}` });
 }
 function goToPreguntaCode(id){
   router.push({ name: 'compiler', params: { id: id } })
@@ -60,14 +60,14 @@ function goToPreguntaCode(id){
     </header>
     <body>
       <div class="container" style=" padding-top: 8%; padding-left: 5%;">
-      <h1>Nombre actividad</h1>
-      <div class="card w-25 mb-3" v-for="(item,i) in preguntas" :key="i">
+        <h1>{{preguntas[0].actividad.nombre}}</h1>
+        <div class="card w-25 mb-3" v-for="(item,i) in preguntas" :key="i">
         <div v-if="item.pregunta.tipoP">
           <div class="card-body">
             <h5 class="card-title">Pregunta {{ i +1 }}</h5>
             <p class="card-text"> Tipo: Opción Múltiple</p>
             <p class="card-text"> Valor: {{ item.valor }}</p>
-            <a href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id)">Responder</a>
+            <a href="#" class="btn btn-primary" v-on:click="goToPreguntaMultiple(item.id)">Responder</a>
           </div>
         </div>
         <div v-else>
@@ -75,7 +75,7 @@ function goToPreguntaCode(id){
             <h5 class="card-title">Pregunta {{ i +1 }}</h5>
             <p class="card-text"> Tipo: Coding challenge</p>
             <p class="card-text"> Valor: {{ item.valor}}</p>
-            <a href="#" class="btn btn-primary" @click="goToPreguntaCode(item.id)">Responder</a>
+            <a href="#" class="btn btn-primary" v-on:click="goToPreguntaCode(item.id)">Responder</a>
           </div>
         </div>
       </div>

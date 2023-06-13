@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
+import router from '../router';
 
 const props = defineProps(['id'])
 
@@ -93,15 +94,25 @@ function agregaCalif() {
     }
 
 const respuestaSeleccionada = ref(null)
-const enviarRespuesta = () => {
+const respuestaCorrecta = ref(null);
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function enviarRespuesta(id) {
   if (respuestaSeleccionada.value.text === contenido.value.options[contenido.value.answer].text) {
-    agregaCalif()
-    alert('¡Respuesta correcta!')
+    respuestaCorrecta.value = true;
+    await delay(2000); // Esperar 3 segundos
+    router.push({ path: `/task/${id}` });
   } else {
-    agregaCalif2()
-    alert('Respuesta incorrecta. La respuesta correcta es:')
+    respuestaCorrecta.value = false;
+    await delay(2000); // Esperar 3 segundos
+    router.push({ path: `/task/${id}` });
   }
 }
+
+
 </script>
 
 <template>
@@ -129,7 +140,18 @@ const enviarRespuesta = () => {
                     </label>
                     </li>
                 </ul>
-              <button class="btn btn-success" @click="enviarRespuesta">Contestar</button>
+              <button class="btn btn-success" v-on:click="enviarRespuesta(preguntas.actividad.id)">Contestar</button>
+                </div>
+                <div v-if="respuestaCorrecta==null"></div>
+                <div v-else-if="!respuestaCorrecta">
+                  <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Respuesta Incorrecta!</h4>
+                  </div>
+                </div>
+                <div v-else-if="respuestaCorrecta">
+                  <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Respuesta Correcta!</h4>
+                  </div>
                 </div>
         </body>
       <RouterView />
