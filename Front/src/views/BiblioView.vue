@@ -1,29 +1,38 @@
 <template>
   <div>
-    <div class="header mt-4">
-      <h2 class="mb-0">Lista de tareas creadas</h2>
-    </div>
-    <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
-      <div class="row d-flex justify-content-center px-3">
-        <div class="text-center">
-          <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-          <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+    <header>
+      <NavInit />
+    </header>
+
+    <body style="padding-top: 6%;">
+      <div class="header mt-4">
+        <h2 class="mb-0">Lista de tareas creadas</h2>
+      </div>
+      <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+        <div class="row d-flex justify-content-center px-3">
+          <div class="text-center">
+            <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
+            <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center px-3">
+          <div class="card">
+            <h2 class="ml-auto mr-4 mt-3 mb-0">{{ titulo.x }}</h2>
+            <p class="ml-auto mr-4 mb-0 med-font">{{ grupo.x }}</p>
+            <p class="ml-4 mb-4">{{ fecha.x }}</p>
+            <p class="ml-4 mb-4">{{ tema.x }}</p>
+            <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
+          </div>
         </div>
       </div>
-      <div class="row d-flex justify-content-center px-3">
-        <div class="card">
-          <h2 class="ml-auto mr-4 mt-3 mb-0">{{ titulo.x }}</h2>
-          <p class="ml-auto mr-4 mb-0 med-font">{{ grupo.x }}</p>
-          <p class="ml-4 mb-4">{{ fecha.x }}</p>
-          <p class="ml-4 mb-4">{{ tema.x }}</p>
-          <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
-        </div>
-      </div>
-    </div>
+    </body>
   </div>
 </template>
 
 <script>
+import NavInit from '../components/NavInitProf.vue'
+
+
 export default {
   data() {
     return {
@@ -32,6 +41,9 @@ export default {
       fecha: { x: 'Fecha de ejemplo' },
       tema: { x: 'Tema de ejemplo' }
     };
+  },
+  components: {
+    NavInit
   },
   methods: {
     navigateToFormsView() {
@@ -61,7 +73,7 @@ body {
   color: #00a9d4;
   background-image: url("http://i.imgur.com/w16HASj.png");
   background-size: cover;
-  width: 100%;
+  width: 80%;
   height: 400px;
   border-radius: 20px;
   margin-top: 10px;

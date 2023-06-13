@@ -1,38 +1,51 @@
 <template>
   <div>
-    <h1>Lista de Alumnos</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Grupo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="alumno in alumnos" :key="alumno.id">
-          <td>{{ alumno.nombre }}</td>
-          <td>
-            <input type="checkbox" v-model="alumno.enGrupo" @change="verificarGrupo" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <header>
+      <NavInit />
+    </header>
 
-    <div v-if="alumnosEnGrupo.length > 0" class="card">
-      <div class="card-header">
-        <h2>Alumnos en el Grupo:</h2>
-        <button class="btn btn-primary" @click="crearGrupo">Crear Grupo</button>
+    <body style="padding-top: 6%;">
+      <h1>Lista de Alumnos</h1>
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Grupo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="alumno in alumnos" :key="alumno.id">
+              <td>{{ alumno.nombre }}</td>
+              <td>
+                <input type="checkbox" v-model="alumno.enGrupo" @change="verificarGrupo" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="card-body">
-        <ul>
-          <li v-for="alumno in alumnosEnGrupo" :key="alumno.id">{{ alumno.nombre }}</li>
-        </ul>
+
+      <div class="table-container">
+        <div v-if="alumnosEnGrupo.length > 0" class="card">
+          <div class="card-header">
+            <h2>Alumnos en el Grupo:</h2>
+            <button class="btn btn-primary" @click="crearGrupo">Crear Grupo</button>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li v-for="alumno in alumnosEnGrupo" :key="alumno.id">{{ alumno.nombre }}</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </body>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import NavInit from '../components/NavInitProf.vue'
+
 export default {
   data() {
     return {
@@ -43,6 +56,9 @@ export default {
         // ... Agrega más alumnos según tus necesidades
       ]
     };
+  },
+  components: {
+    NavInit
   },
   computed: {
     alumnosEnGrupo() {
@@ -58,6 +74,12 @@ export default {
       // Aquí puedes agregar la lógica para crear el grupo
       // Por ejemplo, puedes guardar los alumnos seleccionados en una base de datos o realizar alguna acción específica
       console.log('Grupo creado');
+    },
+    ...mapActions(['crearGrupo']),
+    crearNuevoGrupo() {
+      // Lógica para crear el grupo
+      const nuevoGrupo = { x: 'Nuevo Grupo' };
+      this.crearGrupo(nuevoGrupo);
     }
   }
 };
@@ -66,10 +88,10 @@ export default {
 <style>
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-image: url("http://i.imgur.com/w16HASj.png");
   color: #00a9d4;
   margin: 0;
-  padding: 20px;
+  padding: 80px;
 }
 
 h1 {
@@ -77,11 +99,19 @@ h1 {
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 80%;
+  margin: 0 auto;  border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.table-container {
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+/* Resto de tus estilos CSS existentes */
+
 
 .table th,
 .table td {
@@ -112,6 +142,8 @@ li {
 }
 
 .card {
+  width: 80%;
+  margin: 0 auto;
   margin-top: 20px;
   border: 1px solid #dddddd;
   border-radius: 4px;
@@ -132,7 +164,6 @@ li {
   background-color: #00a9d4;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
 }

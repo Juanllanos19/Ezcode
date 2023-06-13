@@ -59,108 +59,120 @@ onMounted(() => {
 
 <template>
     <div>
-        <h2>Elija las preguntas para su Actividad</h2>
-        <hr><br>
-        <div class="container">
-            <div class="row">
-                <table class="table">
-                    <thead class="blue-text">
-                        <tr class="filters">
-                            <th>Autor
-                                <select id="autor-filter" class="form-control" v-model="filters.autor"
-                                    @change="changeFilter('autor')">
-                                    <option v-for="(item, i) in profesor" :key="i"> {{ item.nombre }}</option>
-                                </select>
-                            </th>
-                            <th>Tema
-                                <select id="tema-filter" class="form-control" v-model="filters.tema"
-                                    @change="changeFilter('tema')">
-                                    <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+        <header>
+            <NavInit />
+        </header>
 
-                                </select>
-                            </th>
-                            <th>Dificultad
-                                <select id="dificultad-filter" class="form-control" v-model="filters.dificultad"
-                                    @change="changeFilter('dificultad')">
-                                    <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
-                                </select>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
+        <body style="padding-top: 6%;">
 
-                <div class="panel panel-primary filterable">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Preguntas</h3>
-                        <div class="pull-right"></div>
-                    </div>
-
-                    <table id="task-list-tbl" class="table">
-                        <thead>
-                            <tr class="blue-text">
-                                <th>Check</th>
-                                <th>Title</th>
-                                <th>Dificultad</th>
-                                <th>Tema</th>
-                                <th>Autor</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="color: white;" v-for="task in filteredTasks" :key="task.id" class="task-list-row"
-                                :data-task-id="task.id" :data-autor="task.autor" :data-tema="task.tema"
-                                :data-dificultad="task.dificultad">
-                                <td>
-                                    <input type="checkbox" :value="task.id" v-model="selectedTasks">
-                                </td>
-                                <td>{{ task.title }}</td>
-                                <td>{{ task.dificultad }}</td>
-                                <td>{{ task.tema }}</td>
-                                <td>{{ task.autor }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card">
-    <div class="row">
-        <div class="col-md-8 cart">
-            <div class="title">
-                <div class="col">
-                    <h4><b>previsualizar Actividad</b></h4>
-                </div>
-            </div>
-            <div class="row border-top border-bottom" v-for="(taskTitle, index) in selectedTaskTitles" :key="index">
-                <div class="row main align-items-center">
-                    <div class="col">
-                        <div class="row">{{ taskTitle }}</div>
-                    </div>
-                    <div class="col">
-                        <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 summary">
+            <h2>Elija las preguntas para su Actividad</h2>
+            <hr><br>
             <div>
-                <h5><b>Configuración</b></h5>
+                <div class="container">
+                    <div class="row">
+                        <table class="table">
+                            <thead class="blue-text">
+                                <tr class="filters">
+                                    <th>Autor
+                                        <select id="autor-filter" class="form-control" v-model="filters.autor"
+                                            @change="changeFilter('autor')">
+                                            <option v-for="(item, i) in profesor" :key="i"> {{ item.nombre }}</option>
+                                        </select>
+                                    </th>
+                                    <th>Tema
+                                        <select id="tema-filter" class="form-control" v-model="filters.tema"
+                                            @change="changeFilter('tema')">
+                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+
+                                        </select>
+                                    </th>
+                                    <th>Dificultad
+                                        <select id="dificultad-filter" class="form-control" v-model="filters.dificultad"
+                                            @change="changeFilter('dificultad')">
+                                            <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="panel panel-primary filterable">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Preguntas</h3>
+                                <div class="pull-right"></div>
+                            </div>
+
+                            <table id="task-list-tbl" class="table">
+                                <thead>
+                                    <tr class="blue-text">
+                                        <th>Check</th>
+                                        <th>Title</th>
+                                        <th>Dificultad</th>
+                                        <th>Tema</th>
+                                        <th>Autor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="color: white;" v-for="task in filteredTasks" :key="task.id"
+                                        class="task-list-row" :data-task-id="task.id" :data-autor="task.autor"
+                                        :data-tema="task.tema" :data-dificultad="task.dificultad">
+                                        <td>
+                                            <input type="checkbox" :value="task.id" v-model="selectedTasks">
+                                        </td>
+                                        <td>{{ task.title }}</td>
+                                        <td>{{ task.dificultad }}</td>
+                                        <td>{{ task.tema }}</td>
+                                        <td>{{ task.autor }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr>
-            <form>
-                <p>Tiempo Limite</p>
-                <input type="date" id="date" placeholder="Select a date" >
-                <input type="time" id="time" placeholder="Select a time" >
-                <p>Titulo</p>
-                    <input placeholder="Tiutlo de la Actividad" >
-            </form>
-            <button class="btn">Subir Actividad</button>
-        </div>
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-8 cart">
+                        <div class="title">
+                            <div class="col">
+                                <h4><b>previsualizar Actividad</b></h4>
+                            </div>
+                        </div>
+                        <div class="row border-top border-bottom" v-for="(taskTitle, index) in selectedTaskTitles"
+                            :key="index">
+                            <div class="row main align-items-center">
+                                <div class="col">
+                                    <div class="row">{{ taskTitle }}</div>
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 summary">
+                        <div>
+                            <h5><b>Configuración</b></h5>
+                        </div>
+                        <hr>
+                        <form>
+                            <p>Tiempo Limite</p>
+                            <input type="date" id="date" placeholder="Select a date">
+                            <input type="time" id="time" placeholder="Select a time">
+                            <p>Titulo</p>
+                            <input placeholder="Tiutlo de la Actividad">
+                        </form>
+                        <button class="btn">Subir Actividad</button>
+                    </div>
+                </div>
+            </div>
+        </body>
     </div>
-</div>
 </template>
   
 <script>
+import NavInit from '../components/NavInitProf.vue'
+
 export default {
     data() {
         return {
@@ -203,6 +215,9 @@ export default {
             selectedTaskTitles: [],
         };
     },
+    components: {
+        NavInit
+    },
     computed: {
         filteredTasks() {
             return this.tasks.filter(task => {
@@ -234,6 +249,12 @@ export default {
                 const task = this.tasks.find(t => t.id === taskId);
                 return task ? task.title : '';
             });
+        },
+        subirActividad() {
+            // ... lógica para subir la actividad
+
+            // Al finalizar la subida de la actividad, actualiza el store de Vuex
+            this.$store.commit('setActividad', actividad);
         },
     },
     watch: {

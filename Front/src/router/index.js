@@ -86,7 +86,7 @@ const router = createRouter({
             name: 'info',
             props: true,
             component: () => import('../views/InfoView.vue')
-        }
+        },
     ]
 })
 
