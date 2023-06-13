@@ -1,6 +1,65 @@
+<script setup>
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
+import router from '../router';
+
+const dificultad = ref([
+    {
+        id: "",
+        rango: ""
+    }
+])
+
+const modulos = ref([{
+    id: "",
+    nombre: "",
+    tipo: ""
+}])
+
+const profesor = ref([{
+    id: "",
+    nombre: "",
+    apellidoPat: "",
+    apellidoMat: ""
+}])
+
+onMounted(() => {
+    axios.get('http://localhost:8000/api/dificultad/')
+        .then(result => {
+            console.log(result.data)
+            dificultad.value = result.data
+        })
+        .catch(error => {
+            console.log(error)
+        })
+})
+
+onMounted(
+    axios.get('http://localhost:8000/api/tema')
+        .then((result) => {
+            console.log(result.data);
+            modulos.value = result.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+)
+
+onMounted(() => {
+    axios.get('http://localhost:8000/api/profesor/')
+        .then(result => {
+            console.log(result.data)
+            profesor.value = result.data
+        })
+        .catch(error => {
+            console.log(error)
+        })
+})
+</script>
+
 <template>
     <div>
-        <h2>Lista de preguntas</h2>
+        <h2>Elija las preguntas para su Actividad</h2>
         <hr><br>
         <div class="container">
             <div class="row">
@@ -10,28 +69,20 @@
                             <th>Autor
                                 <select id="autor-filter" class="form-control" v-model="filters.autor"
                                     @change="changeFilter('autor')">
-                                    <option>None</option>
-                                    <option>Larry</option>
-                                    <option>Donald</option>
-                                    <option>Roger</option>
+                                    <option v-for="(item, i) in profesor" :key="i"> {{ item.nombre }}</option>
                                 </select>
                             </th>
                             <th>Tema
                                 <select id="tema-filter" class="form-control" v-model="filters.tema"
                                     @change="changeFilter('tema')">
-                                    <option>None</option>
-                                    <option>If</option>
-                                    <option>Arrays</option>
-                                    <option>Variables</option>
+                                    <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+
                                 </select>
                             </th>
                             <th>Dificultad
                                 <select id="dificultad-filter" class="form-control" v-model="filters.dificultad"
                                     @change="changeFilter('dificultad')">
-                                    <option>Any</option>
-                                    <option>Difícil</option>
-                                    <option>Normal</option>
-                                    <option>Fácil</option>
+                                    <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
                                 </select>
                             </th>
                         </tr>
@@ -90,26 +141,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="row main align-items-center">
-                    <div class="col">
-                        <div class="row">title</div>
-                    </div>
-                    <div class="col">
-                        <input type="number" class="form-control-sm" placeholder="0.0" />
-                    </div>
-                </div>
-            </div>
-            <div class="row border-top border-bottom">
-                <div class="row main align-items-center">
-                    <div class="col">
-                        <div class="row">title</div>
-                    </div>
-                    <div class="col">
-                        <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0"/>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col-md-4 summary">
             <div>
@@ -142,7 +173,6 @@ export default {
                 {
                     id: 1,
                     title: 'title 1',
-                    created: '01/24/2015',
                     dificultad: 'Difícil',
                     tema: 'Variables',
                     autor: 'Larry',
@@ -150,7 +180,6 @@ export default {
                 {
                     id: 2,
                     title: 'title 2',
-                    created: '03/14/2015',
                     dificultad: 'Fácil',
                     tema: 'If',
                     autor: 'Larry',
@@ -158,15 +187,13 @@ export default {
                 {
                     id: 3,
                     title: 'title 3',
-                    created: '11/16/2014',
                     dificultad: 'Normal',
                     tema: 'Arrays',
-                    autor: 'Donald',
+                    autor: 'Jesús',
                 },
                 {
                     id: 4,
                     title: 'title 4',
-                    created: '11/16/2014',
                     dificultad: 'Difícil',
                     tema: 'Variables',
                     autor: 'Donald',
@@ -219,6 +246,10 @@ export default {
 </script>
   
 <style>
+body {
+    background-image: url("http://i.imgur.com/w16HASj.png");
+}
+
 .blue-text {
     color: white;
 }
@@ -247,7 +278,7 @@ export default {
 }
 
 .cart {
-    background-color: #4d4242;
+    background-color: #1c3166;
     padding: 4vh 5vh;
     border-bottom-left-radius: 1rem;
     border-top-left-radius: 1rem;
@@ -262,7 +293,7 @@ export default {
 }
 
 .summary {
-    background-color: #bc7272;
+    background-color: #00a9d4;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     padding: 4vh;
@@ -371,7 +402,6 @@ input:focus::-webkit-input-placeholder {
     box-shadow: none;
     color: white;
     -webkit-box-shadow: none;
-    -webkit-user-select: none;
     transition: none;
 }
 

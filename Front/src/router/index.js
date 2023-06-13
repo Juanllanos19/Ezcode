@@ -76,6 +76,12 @@ const router = createRouter({
             component: () => import('../views/VistaPreviaEstView.vue')
         },
         {
+            path: '/Cgrupo',
+            name: 'Cgrupo',
+            props: true,
+            component: () => import('../views/CreateGrupoView.vue')
+        },
+        {
             path: '/info',
             name: 'info',
             props: true,

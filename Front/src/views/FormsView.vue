@@ -1,3 +1,45 @@
+<script setup>
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
+import router from '../router';
+
+const dificultad = ref([
+    {
+        id: "",
+        rango: ""
+    }
+])
+
+const modulos = ref([{
+    id: "",
+    nombre: "",
+    tipo: ""
+}])
+
+onMounted(() => {
+    axios.get('http://localhost:8000/api/dificultad/')
+        .then(result => {
+            console.log(result.data)
+            dificultad.value = result.data
+        })
+        .catch(error => {
+            console.log(error)
+        })
+})
+
+onMounted(
+    axios.get('http://localhost:8000/api/tema')
+        .then((result) => {
+            console.log(result.data);
+            modulos.value = result.data;
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+)
+
+</script>
+
 <template>
     <div class="container mt-5 mb-5 d-flex justify-content-center">
         <div class="card px-1 py-4">
@@ -51,63 +93,14 @@
                     <div class="d-flex flex-row">
                         <label for="referrer"> ¿Cual es la dificultad?
                             <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                <option selected>Choose...</option>
-                                <option value="Difícil">Difícil</option>
-                                <option value="Normal">Normal</option>
-                                <option value="Fácil">Fácil</option>
+                                <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
                             </select>
                         </label>
                         &nbsp;&nbsp;
                         <div class="col-md-4">
                             <label for="referrer"> ¿Cual es el tema?
                                 <select id="inputState" class="form-select" v-model="selectedTheme">
-                                    <option selected>Choose...</option>
-                                    <option value="Uso de Programas para la solución de problemas">Uso de Programas para la solución de problemas</option>
-                                    <option value="Fase de desarrollo de un Programa">Fase de desarrollo de un Programa</option>
-                                    <option value="Lenguajes de Programación">Lenguajes de Programación</option>
-                                    <option value="Ambiente de Programación">Ambiente de Programación</option>
-                                    <option value="Estructura básica de un programa">Estructura básica de un programa </option>
-                                    <option value="Variables, constantes y tipos de datos"> Variables, constantes y tipos de datos</option>
-
-                                    <option value="Expresiones con operadores aritméticos para describir fórmulas"> Expresiones con operadores aritméticos para describir fórmulas</option>
-
-                                    <option value="Construcción de Programas que utilicen funciones predefinidas">Construcción de Programas que utilicen funciones predefinidas </option>
-
-                                    <option value="Solución de problemas que requieran el uso de fórmulas matemáticas">Solución de problemas que requieran el uso de fórmulas matemáticas </option>
-
-                                    <option value="Uso de un depurador"> Uso de un depurador</option>
-
-                                    <option value="Rastreo de errores"> Rastreo de errores</option>
-
-                                    <option value="Expresiones con operadores relacionales y lógicos para definir condiciones">Expresiones con operadores relacionales y lógicos para definir condiciones </option>
-
-                                    <option value="Estatutos de decisión para programación con condiciones">Estatutos de decisión para programación con condiciones </option>
-
-                                    <option value="Solución de problemas que involucren programación con estatutos de repetición">Solución de problemas que involucren programación con estatutos de repetición </option>
-
-                                    <option value="Estatutos de repetición para programación iterativa"> Estatutos de repetición para programación iterativa</option>
-                                    <option value="Solución de problemas que involucren programación con estatutos de repetición"> Solución de problemas que involucren programación con estatutos de repetición</option>
-                                    <option value="Programación modular"> Programación modular</option>
-                                    <option value="Construcción de funciones que requieren cálculos matemáticos"> Construcción de funciones que requieren cálculos matemáticos</option>
-
-                                    <option value="Solución de problemas que involucren programación modular"> Solución de problemas que involucren programación modular</option>
-
-                                    <option value="Datos estructurados"> Datos estructurados</option>
-
-                                    <option value="Listas">Listas </option>
-
-                                    <option value="Matrices"> Matrices</option>
-
-                                    <option value="Strings"> Strings</option>
-
-                                    <option value="Solución de problemas que involucren datos estructurados">Solución de problemas que involucren datos estructurados </option>
-
-                                    <option value="Creación y uso de archivos">Creación y uso de archivos </option>
-
-                                    <option value="Solución de problemas que involucren programación con archivos">Solución de problemas que involucren programación con archivos </option>
-
-
-
+                                    <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
                                 </select>
                             </label>
                         </div>
@@ -115,8 +108,10 @@
                     <div class="d-flex flex-row">
                         <div class="row">
                             <div class="input-group mb-3" v-for="(input, index) in inputs" :key="index">
-                                <input type="text" class="form-control" placeholder="Input" v-model="inputs[index]">
-                                <input type="text" class="form-control" placeholder="Output" v-model="outputs[index]">
+                                <textarea class="form-control" rows="2" placeholder="Input"
+                                    v-model="inputs[index]"></textarea>
+                                <textarea class="form-control" rows="2" placeholder="Output"
+                                    v-model="outputs[index]"></textarea>
                             </div>
                             <div>
                                 <button class="btn btn-sm btn-primary ml-3" @click="addInputOutput">Agregar caso</button>
@@ -155,20 +150,14 @@
                     <div class="d-flex flex-row">
                         <label for="referrer"> ¿Cual es la dificultad?
                             <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                <option selected>Choose...</option>
-                                <option value="Difícil">Dificil</option>
-                                <option value="Medio">Medio</option>
-                                <option value="Fácil">Facil</option>
+                                <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
                             </select>
                         </label>
                         &nbsp;&nbsp;
                         <div class="col-md-4">
                             <label for="referrer"> ¿Cual es el tema?
                                 <select id="inputState" class="form-select" v-model="selectedTheme">
-                                    <option selected>Choose...</option>
-                                    <option value="1">arrays</option>
-                                    <option value="2">if</option>
-                                    <option value="3">whiles</option>
+                                    <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
                                 </select>
                             </label>
                         </div>
@@ -206,6 +195,7 @@
   
 <script>
 export default {
+
     data() {
         return {
             questionType: 'codigo',
@@ -243,6 +233,7 @@ export default {
                     description: this.description,
                     topic: this.selectedTheme,
                     difficulty: this.selectedDifficulty,
+                    driver: this.driver,
                     tests: []
                 };
 
@@ -337,8 +328,8 @@ label.radio span {
 }
 
 label.radio input:checked+span {
-    border-color: #039BE5;
-    background-color: #81D4FA;
+    border-color: #00a9d4;
+    background-color: #00a9d4;
     color: #fff;
     border-radius: 9px;
     height: 48px;
@@ -354,7 +345,7 @@ label.radio input:checked+span {
 
 .form-control:focus {
     box-shadow: none;
-    border: 2px solid #039BE5
+    border: 2px solid #00a9d4
 }
 
 .agree-text {
