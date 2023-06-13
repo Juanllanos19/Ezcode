@@ -53,7 +53,7 @@ export default {
 
     methods: {
         cerrarSesion() {
-            this.$router.push('http://localhost:5173/');
+            window.location.href='http://localhost:5173/';
         },
     },
     

@@ -14,6 +14,19 @@ export default {
     NavInit,
     AcordeonInit,
     List
+  },
+
+  methods: {
+        created() {
+          const idUsuario = this.$route.params.idUsuario;
+          axios.get('http://127.0.0.1:8000/api/estudiante/${idUsuario}')
+          .then(response => {
+              console.log(response);
+              })
+              .catch(error => {
+              console.error(error);
+              });
+        }
   }
 }
 </script>
@@ -24,6 +37,8 @@ export default {
       <NavInit />
     </header>
     <body style="display: flex; padding-top: 8%;">
+      <p>Hola</p>
+      <p>{{idUsuario}}</p>
       <div id="tasks" style="width: 50%; padding-left: 5%; padding-right: 5%;">
           <h1 style="color: aqua; padding-top: 2%;"> Task to do</h1>
           <List />
