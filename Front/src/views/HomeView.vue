@@ -12,6 +12,8 @@ const particlesLoaded = async container => {
 
 <script>
 import Nav from '../components/Nav.vue'
+import Producto from '../components/Producto.vue'
+import Nosotros from '../components/Nosotros.vue'
 import Background from '../components/Background.vue'
 
 // export default {
@@ -27,6 +29,12 @@ import Background from '../components/Background.vue'
     <Background />
   <div class="ezcode-logo">
     <img id="ezcode-logo-imagen" src="../assets/Group 187.png" alt="">
+  </div>
+  <div style="width: 100%; padding-left: 20%; padding-right: 20%; padding-top: 10%;" >
+    <Producto />
+  </div>
+  <div style="width: 100%; padding-left: 20%; padding-right: 20%; padding-top: 10%;" >
+    <Nosotros />
   </div>
 </template>
 
