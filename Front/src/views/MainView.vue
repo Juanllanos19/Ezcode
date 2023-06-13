@@ -8,7 +8,6 @@ import router from '../router';
 import NavInit from '../components/NavInit.vue'
 import AcordeonInit from '../components/AcordeonTareasMain.vue'
 import List from '../components/List.vue'
-import Tarjeta from '../components/TarjetaMain.vue'
 
 export default {
   components: {

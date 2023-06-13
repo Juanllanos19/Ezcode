@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, onMounted, ref } from 'vue'
+import { createSlots, defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
 
@@ -45,33 +45,22 @@ onMounted(() => {
 })
 
 function agregaCalif() {
-    console.log(preguntas.value.id);
+    console.log(preguntas.value.actividad.id);
+    console.log("Hola")
   var calificacion = {
-    "actividad": {
-      "id": preguntas.value.id,
-      "actividad": preguntas.value.actividad,
-      "pregunta": preguntas.value.pregunta,
-      "valor": preguntas.value.valor  
-    },
-    "estudiante": {
-      "id": "",
-      "nombre": "Juan Carlos",
-      "apellidoPat": "Llanos",
-      "apellidoMat": "Ordoñez",
-      "matricula": "A01734916"
-    },
+    "actividad": preguntas.value.actividad.id,
+    "estudiante": 1,
     "ponderacion": preguntas.value.valor,
     "puntosTotal": preguntas.value.valor
   };
   console.log(calificacion);
-  var headers = { 'Content-Type': 'application/json' };
-  axios.post('http://localhost:8000/api/calificacion/', calificacion, headers)
-    .then(result => {
-      console.log(result.data);
+    axios.post('http://localhost:8000/api/calificacion/', calificacion)
+    .then(response => {
+      console.log('Solicitud exitosa:', response.data)
     })
     .catch(error => {
-      console.log(error);
-    });
+      console.error('Error al realizar la solicitud:', error)
+    })
 }
 
     function agregaCalif2(){
@@ -103,6 +92,7 @@ function delay(ms) {
 async function enviarRespuesta(id) {
   if (respuestaSeleccionada.value.text === contenido.value.options[contenido.value.answer].text) {
     respuestaCorrecta.value = true;
+    agregaCalif()
     await delay(2000); // Esperar 3 segundos
     router.push({ path: `/task/${id}` });
   } else {

@@ -16,12 +16,6 @@ import Producto from '../components/Producto.vue'
 import Nosotros from '../components/Nosotros.vue'
 import Background from '../components/Background.vue'
 
-// export default {
-//   components: {
-//     Nav,
-//     Background
-//   }
-// }
 </script>
 
 <template>
