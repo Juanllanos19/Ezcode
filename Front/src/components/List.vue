@@ -29,7 +29,7 @@ function goToTask(id){
 
 <template>
     <ol class="list-group list-group-numbered">
-  <li class="list-group-item d-flex justify-content-between align-items-start" v-for="(item,i) in data" :key="i" 
+  <li class="list-group-item d-flex justify-content-between align-items-start" data-bs-theme="dark" v-for="(item,i) in data" :key="i" 
       @click="goToTask(item.id)">
     <div class="ms-2 me-auto">
       <div class="fw-bold">{{ item.nombre }}</div>
