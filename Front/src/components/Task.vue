@@ -118,10 +118,7 @@ async function enviarRespuesta(id) {
                 </div>
             </div>
                 <div id="acts" style="width: 50%; padding-left: 2%; padding-right: 10%;">
-                    <div style=" background-color: #304878; align-items: center; border-radius: 5px; text-align: left; width: 100%;">
-                        <h1 style="color: white; padding-top: 0.7%;padding-bottom: 0.7%; padding-left: 8%;"> NO SE QUE PONER ACA</h1>
-                    </div>
-                <ul style="list-style: none;padding-left: 0;">
+                <ul style="list-style: none;padding-left: 0;padding-top: 8%;">
                     <li style="list-style: none; background-color: #7890A8; border-radius: 5px; text-align: left; width: 100%; padding-top: 2%;padding-bottom: 2%; margin-top: 2%; color: white; font-size: large; font-family: 'Roboto', sans-serif;" 
                     v-for="(opcion, index) in contenido.options" :key="index" >
                     <label >
