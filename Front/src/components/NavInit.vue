@@ -10,10 +10,10 @@ import { RouterLink} from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large">
-                <RouterLink to="/inicio" class="nav-link text-white" id="menu-nav" >MENU</RouterLink>
+                <router-link :to="`/inicio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="menu-nav">MENU</router-link>
             </li>
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large;" >
-                <RouterLink to="/desempenio" class="nav-link text-white" id="desempenio-nav" >DESEMPEÑO</RouterLink>
+                <router-link :to="`/desempenio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="desempenio-nav" >DESEMPEÑO</router-link>
             </li>
             <li class="nav-item">
                 
@@ -27,7 +27,7 @@ import { RouterLink} from 'vue-router'
                 <button class="navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: transparent; width: 100%; border: transparent;">
                     <img id="logo-perfil" src="../assets/iconprofile.png" style="width: 80%;">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+                <ul class="dropdown-menu text-bg-dark" aria-labelledby="dropdownMenuButtonDark">
                     <li><a class="dropdown-item" href="#">Hola, {{ nombre }}</a></li>
                     <li><a class="dropdown-item" href="#">Configuración</a></li>
                     <li><a class="dropdown-item" @click="cerrarSesion" href="#">Cerrar sesion</a></li>
@@ -44,7 +44,7 @@ import { RouterLink} from 'vue-router'
 import axios from 'axios';
 export default {
     name: 'NavInit',
-
+    
     data() {
       return {
         nombre: '',
@@ -53,7 +53,7 @@ export default {
 
     methods: {
         cerrarSesion() {
-            window.location.href = 'http://localhost:5173/';
+            window.location.href='http://localhost:5173/';
         },
     },
     
@@ -71,5 +71,4 @@ export default {
 
 }
 </script>
-  
   
