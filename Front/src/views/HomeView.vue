@@ -26,7 +26,7 @@ import Background from '../components/Background.vue'
     <Nav />
     <Background />
   <div class="ezcode-logo">
-    <img id="ezcode-logo-imagen" src="../assets/Group 187.png" alt="">
+    <img id="ezcode-logo-imagen" src="../assets/Group187.png" alt="">
   </div>
 </template>
 
