@@ -92,8 +92,9 @@ const router = createRouter({
             component: () => import('../views/BiblioView.vue')
         },
         {
-            path: '/list',
+            path: '/list/:idUsuario',
             name: 'list',
+            props: true,
             component: () => import('../views/ListView.vue')
         },
         {

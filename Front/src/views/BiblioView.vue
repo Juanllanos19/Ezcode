@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< Updated upstream
     <header>
       <NavInit />
     </header>
@@ -7,6 +8,15 @@
     <body style="padding-top: 6%;">
       <div class="header mt-4">
         <h2 class="mb-0">Lista de tareas creadas</h2>
+=======
+    <div class="header mt-4">
+      <h2 class="mb-0">Lista de tareas creadas de {{ nombre }}</h2>
+    </div>
+    <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+      <div class="row d-flex justify-content-center px-3">
+        <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
+        <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+>>>>>>> Stashed changes
       </div>
       <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
         <div class="row d-flex justify-content-center px-3">
@@ -29,13 +39,43 @@
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import NavInit from '../components/NavInitProf.vue'
+=======
+import router from '../router';
+import { ref } from 'vue';
+import axios from 'axios';
+>>>>>>> Stashed changes
 
 export default {
-  methods: {
-    navigateToFormsView() {
-      this.$router.push('/form'); // Assuming you have defined the route for FormsView.vue
+  data() {
+      return {
+        nombre: '',
+      }
     },
+
+    created() {
+          const idUsuario = this.$route.params.idUsuario;
+          axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+              .then(response => {
+                this.nombre = response.data.nombre;
+              })
+              .catch(error => {
+              console.error(error);
+              });
+        },
+
+
+  methods: {
+      navigateToFormsView() {
+        this.$router.push('/form'); // Assuming you have defined the route for FormsView.vue
+      },
+      navigateToListView() {
+        const idUsuario = this.$route.params.idUsuario;
+        this.$router.push(`/list/${idUsuario}`); // Assuming you have defined the route for ListView.vue
+      },
+    },
+<<<<<<< Updated upstream
     navigateToListView() {
       this.$router.push('/list'); // Assuming you have defined the route for ListView.vue
     },
@@ -43,8 +83,11 @@ export default {
   components: {
         NavInit
     },
+=======
+>>>>>>> Stashed changes
 };
 </script>
+
 
 <style>
 body {

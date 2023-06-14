@@ -65,7 +65,7 @@ onMounted(() => {
 
         <body style="padding-top: 6%;">
 
-            <h2>Elija las preguntas para su Actividad</h2>
+            <h2>{{ nombre }} Elija las preguntas para su Actividad</h2>
             <hr><br>
             <div>
                 <div class="container">
@@ -177,10 +177,12 @@ onMounted(() => {
   
 <script>
 import NavInit from '../components/NavInitProf.vue'
-
+import router from '../router';
+import axios from 'axios';
 export default {
     data() {
         return {
+            nombre: '',
             filters: {
                 autor: null,
                 tema: null,
@@ -261,6 +263,16 @@ export default {
             // Al finalizar la subida de la actividad, actualiza el store de Vuex
             this.$store.commit('setActividad', actividad);
         },
+        created() {
+          const idUsuario = this.$route.query.idUsuario;
+          axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+              .then(response => {
+              this.nombre = response.data.nombre;
+              })
+              .catch(error => {
+              console.error(error);
+              });
+        },
     },
     watch: {
         selectedTasks: {
@@ -270,7 +282,7 @@ export default {
     },
 };
 </script>
-  
+
 <style scoped>
 body {
     background-image: url("http://i.imgur.com/w16HASj.png");
