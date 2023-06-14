@@ -83,13 +83,8 @@ onMounted(
 
 <script>
 export default {
-  name: 'AcordeonInit',
-  computed: {
-    divVacio() {
-      return this.modulos.filter(item => item.items && item.items.length > 0).length === 0;
-    }
+  name: 'AcordeonInit'
   }
-}
 </script>
 
 

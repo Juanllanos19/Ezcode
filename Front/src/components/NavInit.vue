@@ -10,10 +10,10 @@ import { RouterLink} from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large">
-                <RouterLink to="/inicio/${idUsuario}" class="nav-link text-white" id="menu-nav" >MENU</RouterLink>
+                <router-link :to="`/inicio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="menu-nav">MENU</router-link>
             </li>
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large;" >
-                <RouterLink to="/desempenio" class="nav-link text-white" id="desempenio-nav" >DESEMPEÑO</RouterLink>
+                <router-link :to="`/desempenio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="desempenio-nav" >DESEMPEÑO</router-link>
             </li>
             <li class="nav-item">
                 
@@ -44,7 +44,7 @@ import { RouterLink} from 'vue-router'
 import axios from 'axios';
 export default {
     name: 'NavInit',
-
+    
     data() {
       return {
         nombre: '',
