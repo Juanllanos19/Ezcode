@@ -18,7 +18,7 @@ const data = ref([
     ]);
 const contenido = ref([{}]);
     onMounted(
-        axios.get('http://localhost:8000/api/pregunta/1/')
+        axios.get('http://localhost:8000/api/pregunta/2/')
         .then((result) => {
             console.log(result.data);
             data.value = result.data;
