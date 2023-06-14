@@ -1,5 +1,3 @@
-import { RouterLink} from 'vue-router'
-
 <template>
 <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
     <div class="container">
@@ -9,8 +7,8 @@ import { RouterLink} from 'vue-router'
       </button>
       <div class="collapse navbar-collapse" id="navbarScroll">
         <div class="navbar-nav">
-                <RouterLink to="/" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">PRODUCTO</RouterLink>
-                <RouterLink to="/" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">NOSOTROS</RouterLink>
+            <a class="nav-link text-white" href="#producto" @click="scrollToSection">PRODUCTO</a>
+            <a class="nav-link text-white" href="#nosotros" @click="scrollToSection">NOSOTROS</a>
                 <RouterLink to="/login" id="sign-up-navbar" class="nav-link text-white" style="font-size: large; font-family: 'Russo One', sans-serif;">LOG IN</RouterLink>
               </div>
       </div>
@@ -38,7 +36,18 @@ import { RouterLink} from 'vue-router'
 
 <script>
 export default {
-    name: 'Nav'
-}
+  name: 'Nav',
+  methods: {
+    scrollToSection(event) {
+      event.preventDefault();
+      const targetId = event.target.getAttribute("href");
+      const targetElement = document.querySelector(targetId);
+      window.scrollTo({
+        top: targetElement.offsetTop,
+        behavior: "smooth",
+      });
+    },
+  },
+};
 </script>
   

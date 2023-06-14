@@ -2,6 +2,7 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
+const {idUsuario} = defineProps(['idUsuario'])
 </script>
 
 <script>
@@ -21,6 +22,7 @@ export default {
     <header>
       <NavInit />
     </header>
+    <p>{{ idUsuario }}</p>
     <body style="display: flex; padding-top: 6.5%;">
         <WindowDesempenio />
     </body>

@@ -9,11 +9,6 @@ const router = createRouter({
             component: () => import('../views/HomeView.vue')
         },
         {
-            path: "/quiz/:id",
-            name: 'quiz',
-            component: () => import('../views/QuizView.vue')
-        },
-        {
             path: '/login',
             name: 'login',
             component: () => import('../views/LoginView.vue')
@@ -39,13 +34,15 @@ const router = createRouter({
             component: () => import('../views/StatsView.vue')
         },
         {
-            path: "/desempenio",
+            path: "/desempenio/:idUsuario",
             name: 'desempenio',
+            props: true,
             component: () => import('../views/DesempenioView.vue')
         },
         {
-            path: "/inicio",
+            path: "/inicio/:idUsuario",
             name: 'main',
+            props: true,
             component: () => import('../views/MainView.vue')
         },
         {
