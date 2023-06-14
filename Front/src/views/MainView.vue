@@ -23,7 +23,6 @@ export default {
     NavInit,
     AcordeonInit,
     List,
-    Tarjeta
   },
   methods: {
         created() {
