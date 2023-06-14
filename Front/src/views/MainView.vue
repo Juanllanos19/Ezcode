@@ -23,7 +23,7 @@ import List from '../components/List.vue'
 <template>
   <div>
     <header>
-      <NavInit />
+      <NavInit :idUsuario="idUsuario"/>
     </header>
     <body style="display: flex; padding-top: 8%;">
       <div id="tasks" style="width: 50%; padding-left: 5%; padding-right: 5%;">
