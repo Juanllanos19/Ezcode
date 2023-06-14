@@ -11,6 +11,20 @@ axios.get(`http://127.0.0.1:8000/api/estudiante/${idUsuario}`)
         .catch(error => {
           console.error(error);
         });
+
+const grupo = ref();
+    function agregaGrupo(){
+        var gpo = {
+          "estudiante": idUsuario,
+          "grupo": grupo.value};
+        axios.post('http://127.0.0.1:8000/api/estudianteGrupo/', gpo)
+    .then(result => {
+        console.log(result.data)
+    })
+    .catch(error => {
+    console.log(error)
+    })
+    }
 </script>
 
 <script>
@@ -46,6 +60,13 @@ export default {
     </header>
     <body style="display: flex; padding-top: 8%;">
       <div id="tasks" style="width: 50%; padding-left: 5%; padding-right: 5%;">
+        <h1 style="color: aqua; padding-top: 2%;"> Enrolarse a nuevo grupo</h1>
+        <form @submit.prevent="agregaGrupo()">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Codigo de grupo" v-model="grupo" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <button type="submit" class="btn btn-primary">Enrolarse</button>
+        </form>
           <h1 style="color: aqua; padding-top: 2%;"> Task to do</h1>
           <List :idUsuario="idUsuario"/>
       </div>
