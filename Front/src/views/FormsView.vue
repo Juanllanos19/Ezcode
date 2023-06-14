@@ -1,17 +1,99 @@
 <script setup>
+import NavInit from '../components/NavInitProf.vue'
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
 
-function agregaPreguntaCodigo(titulo, tema, contenido, tipo, dificultad){
+const questionType = ref('codigo')
+const title = ref('')
+const author = ref('')
+const driver = ref('')
+const description = ref('')
+const selectedDifficulty = ref('')
+const selectedTheme = ref('')
+const inputs = ref([])
+const outputs = ref([])
+const answer = ref('')
+const hints = ref(true)
+const options = ref([
+  { text: '', explanation: '', isAnswer: false },
+  { text: '', explanation: '', isAnswer: false },
+  { text: '', explanation: '', isAnswer: false },
+  { text: '', explanation: '', isAnswer: false }
+])
+
+function addInputOutput() {
+  if (inputs.length < 4 && outputs.length < 4) {
+    inputs.push('')
+    outputs.push('')
+  }
+}
+
+function generateJSON() {
+  if (questionType.value === 'codigo') {
+    const questionData = {
+      id: `TC1028_23_C_${Date.now()}`,
+      author: author.value,
+      title: title.value,
+      description: description.value,
+      topic: selectedTheme.value,
+      difficulty: selectedDifficulty.value,
+      driver: driver.value,
+      tests: []
+    }
+
+    for (let i = 0; i < inputs.value.length; i++) {
+      const test = {
+        testId: (i + 1).toString(),
+        input: inputs.value[i],
+        output: outputs.value[i]
+      }
+      questionData.tests.push(test)
+    }
+
+    const jsonData = JSON.stringify(questionData, null, 2)
+
+    const element = document.createElement('a')
+    const file = new Blob([jsonData], { type: 'application/json' })
+    element.href = URL.createObjectURL(file)
+    element.download = 'question.json'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  } else if (questionType.value === 'multiple') {
+    const questionData = {
+      id: `TC1028_23_OM_${Date.now()}`,
+      author: author.value,
+      title: title.value,
+      description: description.value,
+      topic: selectedTheme.value,
+      difficulty: selectedDifficulty.value,
+      answer: answer.value,
+      hints: hints.value,
+      options: options.value
+    }
+
+    const jsonData = JSON.stringify(questionData, null, 2)
+
+    const element = document.createElement('a')
+    const file = new Blob([jsonData], { type: 'application/json' })
+    element.href = URL.createObjectURL(file)
+    element.download = 'question.json'
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+  }
+}
+
+function agregaPreguntaCodigo(){
   var pregunta = {
-    "titulo": titulo,
-    "tema": tema,
-    "contenido": contenido,
+    "titulo": title.value,
+    "tema": selectedTheme.value,
+    "contenido": description.value,
     "profesor": 1,
-    "tipoP": tipo,
+    "tipoP": questionType.value,
     "estado": false,
-    "dificultad": dificultad, 
+    "dificultad": selectedDifficulty.value 
   };
   console.log(pregunta);
     axios.post('http://localhost:8000/api/pregunta/', pregunta)
@@ -47,18 +129,18 @@ onMounted(() => {
         })
 })
 
-onMounted(
+onMounted(() => {
     axios.get('http://localhost:8000/api/tema')
-        .then((result) => {
+        .then(result => {
             console.log(result.data);
             modulos.value = result.data;
         })
-        .catch((error) => {
+        .catch(error => {
             console.log(error);
         })
-)
-
+})
 </script>
+
 
 <template>
     <div>
@@ -213,102 +295,6 @@ onMounted(
         </body>
     </div>
 </template>
-  
-<script>
-import NavInit from '../components/NavInitProf.vue'
-
-export default {
-
-    data() {
-        return {
-            questionType: 'codigo',
-            title: '',
-            author: '',
-            driver: '',
-            description: '',
-            selectedDifficulty: '',
-            selectedTheme: '',
-            inputs: [],
-            outputs: [],
-            answer: '',
-            hints: true,
-            options: [
-                { text: '', explanation: '', isAnswer: false },
-                { text: '', explanation: '', isAnswer: false },
-                { text: '', explanation: '', isAnswer: false },
-                { text: '', explanation: '', isAnswer: false }
-            ]
-        };
-    },
-
-    components: {
-        NavInit
-    },
-    methods: {
-        addInputOutput() {
-            if (this.inputs.length < 4 && this.outputs.length < 4) {
-                this.inputs.push('');
-                this.outputs.push('');
-            }
-        },
-        generateJSON() {
-            if (this.questionType === 'codigo') {
-                const questionData = {
-                    id: `TC1028_23_C_${Date.now()}`,
-                    author: this.author,
-                    title: this.title,
-                    description: this.description,
-                    topic: this.selectedTheme,
-                    difficulty: this.selectedDifficulty,
-                    driver: this.driver,
-                    tests: []
-                };
-
-                for (let i = 0; i < this.inputs.length; i++) {
-                    const test = {
-                        testId: (i + 1).toString(),
-                        input: this.inputs[i],
-                        output: this.outputs[i]
-                    };
-                    questionData.tests.push(test);
-                }
-
-                const jsonData = JSON.stringify(questionData, null, 2);
-
-                const element = document.createElement("a");
-                const file = new Blob([jsonData], { type: "application/json" });
-                element.href = URL.createObjectURL(file);
-                element.download = "question.json";
-                document.body.appendChild(element);
-                element.click();
-                document.body.removeChild(element);
-            } else if (this.questionType === 'multiple') {
-                const questionData = {
-                    id: `TC1028_23_OM_${Date.now()}`,
-                    author: this.author,
-                    title: this.title,
-                    description: this.description,
-                    topic: this.selectedTheme,
-                    difficulty: this.selectedDifficulty,
-                    answer: this.answer,
-                    hints: this.hints,
-                    options: this.options
-                };
-
-                const jsonData = JSON.stringify(questionData, null, 2);
-
-                const element = document.createElement("a");
-                const file = new Blob([jsonData], { type: "application/json" });
-                element.href = URL.createObjectURL(file);
-                element.download = "question.json";
-                document.body.appendChild(element);
-                element.click();
-                document.body.removeChild(element);
-            }
-        }
-    }
-};
-</script>
 
 <!-- Style -->
 <style scoped>
