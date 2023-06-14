@@ -20,12 +20,12 @@ import { RouterLink} from 'vue-router'
             </li>
             </ul>
             <span class="navbar-text" style="padding-right: 3%;">
-                <RouterLink to="/" class="navbar-brand logo-text"><img id="logo-notificaciones" src="../assets/icon_bell.png" style="width: 80%;"></RouterLink>
+                <RouterLink to="/" class="navbar-brand logo-text"><img id="logo-notificaciones" src="../assets/iconbell.png" style="width: 80%;"></RouterLink>
             </span>
             <span class="navbar-text" style="padding-right: 10%;">
                 <div class="dropdown">
                 <button class="navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: transparent; width: 100%; border: transparent;">
-                    <img id="logo-perfil" src="../assets/icon_profile.png" style="width: 80%;">
+                    <img id="logo-perfil" src="../assets/iconprofile.png" style="width: 80%;">
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
                     <li><a class="dropdown-item" href="#">Hola, {{ nombre }}</a></li>
