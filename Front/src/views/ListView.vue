@@ -161,6 +161,11 @@ onMounted(() => {
                             <input type="time" id="time" placeholder="Select a time">
                             <p>Titulo</p>
                             <input placeholder="Tiutlo de la Actividad">
+                            <p>Grupo</p>
+                            <select id="grupo-filter" class="form-control" v-model="filters.grupo"
+                                @change="changeFilter('grupo')">
+                                <option v-for="(item, i) in grupo" :key="i"> {{ item.grupo }}</option>
+                            </select>
                         </form>
                         <button class="btn">Subir Actividad</button>
                     </div>
@@ -299,7 +304,7 @@ body {
 }
 
 .cart {
-    background-color: #1c3166;
+    background-color: #44749d;
     padding: 4vh 5vh;
     border-bottom-left-radius: 1rem;
     border-top-left-radius: 1rem;

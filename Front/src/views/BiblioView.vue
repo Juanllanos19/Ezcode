@@ -21,7 +21,7 @@
             <p class="ml-auto mr-4 mb-0 med-font">{{ grupo.x }}</p>
             <p class="ml-4 mb-4">{{ fecha.x }}</p>
             <p class="ml-4 mb-4">{{ tema.x }}</p>
-            <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
+            <button type="button" class="btn btn-outline-light edit-button">Editar</button>
           </div>
         </div>
       </div>
@@ -79,6 +79,12 @@ body {
   margin-top: 10px;
   margin-bottom: 50px;
   padding-top: 20px;
+  position: relative;
+}
+
+.edit-button {
+  position: absolute;
+  bottom: 10px;
 }
 
 .time-font {

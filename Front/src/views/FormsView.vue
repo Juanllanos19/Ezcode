@@ -3,6 +3,26 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
 
+function agregaPreguntaCodigo(titulo, tema, contenido, tipo, dificultad){
+  var pregunta = {
+    "titulo": titulo,
+    "tema": tema,
+    "contenido": contenido,
+    "profesor": 1,
+    "tipoP": tipo,
+    "estado": false,
+    "dificultad": dificultad, 
+  };
+  console.log(pregunta);
+    axios.post('http://localhost:8000/api/pregunta/', pregunta)
+    .then(response => {
+      console.log('Solicitud exitosa:', response.data)
+    })
+    .catch(error => {
+      console.error('Error al realizar la solicitud:', error)
+    })
+}
+
 const dificultad = ref([
     {
         id: "",
@@ -67,16 +87,7 @@ onMounted(
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Titulo" v-model="title">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input class="form-control" type="text" placeholder="Autor" v-model="author">
-                                        </div>
+                                        <input id="titulo" class="form-control" type="text" placeholder="Titulo" v-model="title">
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +117,7 @@ onMounted(
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+                                            <option v-for="(item, i) in modulos" :key="i"> {{item.nombre + " " + item.tipo }} </option>
                                         </select>
                                     </label>
                                 </div>

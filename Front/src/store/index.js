@@ -8,6 +8,7 @@ export default createStore({
         contadorGrupos: 1,
         grupoSeleccionado: null,
         actividad: null,
+        tareasCreadas: [] // Lista de tareas creadas
     },
     mutations: {
         initializeStore(state) {
@@ -38,6 +39,9 @@ export default createStore({
         setActividad(state, actividad) {
             state.actividad = actividad;
         },
+        agregarTarea(state, tarea) {
+            state.tareasCreadas.push(tarea);
+        }
     },
     actions: {
         crearGrupo({ commit }, grupo) {
@@ -59,5 +63,8 @@ export default createStore({
         getActividad(state) {
             return state.actividad;
         },
+        getTareasCreadas(state) {
+            return state.tareasCreadas;
+        }
       }
 })
