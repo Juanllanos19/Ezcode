@@ -1,28 +1,36 @@
 <template>
   <div>
-    <div class="header mt-4">
-      <h2 class="mb-0">Lista de tareas creadas</h2>
-    </div>
-    <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
-      <div class="row d-flex justify-content-center px-3">
-        <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-        <button class="button-1" role="button" @click="navigateToListView">Crear Reactivo</button>
+    <header>
+      <NavInit />
+    </header>
+
+    <body style="padding-top: 6%;">
+      <div class="header mt-4">
+        <h2 class="mb-0">Lista de tareas creadas</h2>
       </div>
-      <div class="row d-flex justify-content-center px-3">
-        <div class="card">
-          <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
-          <p class="ml-auto mr-4 mb-0 med-font">Grupo 1</p>
-          <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
-          <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
-          <p class="ml-4 mb-4">Variables</p>
-          <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
+      <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+        <div class="row d-flex justify-content-center px-3">
+          <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
+          <button class="button-1" role="button" @click="navigateToListView">Crear Reactivo</button>
+        </div>
+        <div class="row d-flex justify-content-center px-3">
+          <div class="card">
+            <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
+            <p class="ml-auto mr-4 mb-0 med-font">Grupo 1</p>
+            <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
+            <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
+            <p class="ml-4 mb-4">Variables</p>
+            <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
+          </div>
         </div>
       </div>
-    </div>
+    </body>
   </div>
 </template>
 
 <script>
+import NavInit from '../components/NavInitProf.vue'
+
 export default {
   methods: {
     navigateToFormsView() {
@@ -32,6 +40,9 @@ export default {
       this.$router.push('/list'); // Assuming you have defined the route for ListView.vue
     },
   },
+  components: {
+        NavInit
+    },
 };
 </script>
 
