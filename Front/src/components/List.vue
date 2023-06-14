@@ -8,6 +8,22 @@ function goToTask(id){
   router.push({ name: 'task', params: { id: id } })
 }
 
+const estudianteGrupo = ref([{
+  estudiante: "",
+  grupo: ""
+}])
+
+onMounted(
+  axios.get('http://localhost:8000/api/estudianteGrupo')
+  .then((result) => {
+    console.log(result.data);
+    estudianteGrupo.value = result.data;
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+)
+
 const data = ref([{
   id: "",
   nombre: "",
@@ -26,39 +42,41 @@ onMounted(
   })
 )
 
-const estudianteGrupo = ref([{
-  estudiante: "",
-  grupo: ""
+const actGrupo = ref([{
+  id: "",
+  grupo: "",
+  actividad: ""
 }])
 
 onMounted(
-  axios.get('http://localhost:8000/api/estudianteGrupo')
+  axios.get('http://localhost:8000/api/actividaGrupo')
   .then((result) => {
     console.log(result.data);
-    estudianteGrupo.value = result.data;
+    actGrupo.value = result.data;
   })
   .catch((error) => {
     console.log(error);
   })
 )
-function buscarEstudiantePorId(data,id) {
-  const estudianteEncontrado = data.find(item => item.estudiante.id === id);
-}
+
 </script>
 
 <template>
-  <p>{{ idUsuario }}</p>
+  <div v-for="(item1,j) in estudianteGrupo" :key="j">
+  <div v-if="item1.estudiante.id === parseInt(idUsuario)">
     <ol class="list-group list-group-numbered">
-  <li class="list-group-item d-flex justify-content-between align-items-start" data-bs-theme="dark" v-for="(item,i) in data" :key="i" 
-      @click="goToTask(item.id)">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">{{ item.nombre }}</div>
-      <strong>Fecha de Inicio:</strong> {{ item.fechaInicio }} <br>
-      <strong>Duracion:</strong> {{ item.duracion }} <br>
-    </div>
-    <span class="badge bg-primary rounded-pill">{{ item.fechaFin }}</span>
-  </li>
-</ol>
+      <li class="list-group-item d-flex justify-content-between align-items-start" data-bs-theme="dark" v-for="(item2,k) in actGrupo" :key="k"
+          @click="goToTask(item2.id)">
+        <div class="ms-2 me-auto" v-if="item2.grupo.id === item1.grupo.id">
+          <div class="fw-bold">{{ item2.actividad.nombre }}</div>
+          <strong>Fecha de Inicio:</strong> {{ item2.actividad.fechaInicio }} <br>
+          <strong>Duracion:</strong> {{ item2.actividad.duracion }} <br>
+        </div>
+        <span class="badge bg-primary rounded-pill">{{ item2.actividad.fechaFin }}</span>
+      </li>
+    </ol>
+  </div>
+  </div>
 </template>
 
 <script>
