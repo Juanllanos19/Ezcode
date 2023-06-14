@@ -22,9 +22,9 @@ export default {
     <header>
       <NavInit />
     </header>
-    <p>{{ idUsuario }}</p>
-    <body style="display: flex; padding-top: 6.5%;">
-        <WindowDesempenio />
+    
+    <body style="display: flex; padding-top: 8%;">
+        <WindowDesempenio :idUsuario="idUsuario"/>
     </body>
     <RouterView />
   </div>

@@ -46,7 +46,6 @@ onMounted(() => {
 
 function agregaCalif() {
     console.log(preguntas.value.actividad.id);
-    console.log("Hola")
   var calificacion = {
     "actividad": preguntas.value.actividad.id,
     "estudiante": 1,
