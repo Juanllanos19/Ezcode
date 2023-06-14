@@ -1,6 +1,7 @@
 <script setup>
     import {onMounted, ref} from 'vue'
     import axios from 'axios'
+    import Chart from 'chart.js/auto'
 </script>
 
 <script>
@@ -14,6 +15,44 @@
         nombre: "",
         uf: ""
     });
+
+    const baseUrl = "http://127.0.0.1:8000";
+
+
+
+    import {
+        Chart as ChartJS,
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+    } from 'chart.js'
+    import { Line } from 'vue-chartjs'
+    var data = {
+        labels: [],
+        datasets: [
+
+        ]
+    }
+
+    var options = {
+        responsive: true,
+        maintainAspectRatio: true
+    }
+
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+    )
+
     //const grupoActividad = ref([{}]);
     onMounted(
         /*axios.get('http://localhost:8000/api/estudiante/')
@@ -37,37 +76,35 @@
 
         axios.get('http://localhost:8000/api/grupo/')
         .then((result) => {
-            console.log(result.data);
+            console.log("grupoimportado");
             grupo.value = result.data[0];
-        })
-        .then((result) => {
             axios.get('http://localhost:8000/api/actividaGrupo/')
             .then((result) => {
-                console.log(result.data);
+                console.log("actividadGrupo importado");
                 //grupoActividad.value = result.data;
                 dataActividades.value = filterActivities(result.data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
-        .then((result) => {
-            axios.get('http://localhost:8000/api/estudianteGrupo/')
-            .then((result) => {
-                console.log(result.data);
-                //grupoActividad.value = result.data;
-                dataAlumnos.value = filterStudents(result.data);
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        })
-        .then((result) => {
-            axios.get('http://localhost:8000/api/calificacion/')
-            .then((result) => {
-                console.log(result.data);
-                //dataCalificaciones.value = result.data;
-                dataCalificaciones.value = arrangeGrades(result.data);
+
+                axios.get('http://localhost:8000/api/estudianteGrupo/')
+                .then((result) => {
+                    console.log("estudianteGrupo imported");
+                    //grupoActividad.value = result.data;
+                    dataAlumnos.value = filterStudents(result.data);
+
+                    axios.get('http://localhost:8000/api/calificacion/')
+                    .then((result) => {
+                        console.log("calificacion importado");
+                        console.log(result.data);
+                        //dataCalificaciones.value = result.data;
+                        dataCalificaciones.value = arrangeGrades(result.data);
+                        loadGraph(dataCalificaciones.value, dataActividades.value);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
             })
             .catch((error) => {
                 console.log(error)
@@ -109,19 +146,72 @@
         let respuesta = {};
         for (var i = 0; i < listona.length; i++)
         {
+            console.log(i);
+            console.log(listona[i]);
             if (respuesta[listona[i].estudiante.matricula] == null)
             {
                 respuesta[listona[i].estudiante.matricula] = {}; 
             }
-            if (respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad.nombre] == null)
+            if (respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] == null)
             {
-                respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad.nombre] = 0;
+                respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] = 0;
             }
-            respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad.nombre] += (listona[i].ponderacion / listona[i].puntosTotal) * listona[i].actividad.valor; 
+            respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] += (listona[i].ponderacion / listona[i].puntosTotal) * listona[i].actividad.valor; 
 
         }
-        console.log(respuesta);
         return respuesta;
+    }
+
+    function loadLabels(lista)
+    {
+        console.log("tratando de cargar grafica");
+        console.log(lista.length);
+        //data.labels = [];
+        for (var i = 0; i < lista.length; i++)
+        {
+            data.labels.push(lista[i].nombre)
+        }
+    }
+
+    function loadGraph(calif, acti)
+    {
+        console.log("cali");
+        console.log(calif);
+        console.log("acti");
+        console.log(acti)
+        for (var i = 0; i < acti.length; i++)
+        {
+            data.labels.push(acti[i].nombre);
+        }
+
+        for (let matricula in calif)
+        {
+            var values = [];
+            for (var i = 0; i < acti.length; i++)
+            {
+                values.push(calif[matricula][acti[i].id]);
+            }
+            data.datasets.push({
+                label: matricula,
+                //backgroundColor: '',
+                data: values
+            })
+        }
+    }
+
+
+
+    
+
+    export default {
+        name: 'App',
+        components: {
+            Line
+        },
+        data() {
+            data,
+            options
+        }
     }
 </script>
 
@@ -155,7 +245,7 @@
                                             <th scope="row">{{item.matricula}}</th>
                                             <td>{{item.nombre + ' ' + item.apellidoPat + ' ' + item.apellidoMat}}</td>
                                             <template v-for="(act, index2) in dataActividades" :key="index2">
-                                                <td v-if="dataCalificaciones[item.matricula][act.nombre] != null" scope="col">{{ Math.round(dataCalificaciones[item.matricula][act.nombre]) }}</td>
+                                                <td v-if="dataCalificaciones[item.matricula][act.id] != null" scope="col">{{ Math.round(dataCalificaciones[item.matricula][act.id]) }}</td>
                                                 <td v-else scope="col">-</td>
                                             </template>
                                             </tr>
@@ -163,11 +253,21 @@
                                     </tbody>
                                 </table>
                             </div>
-                    </div>
+                        </div>
+            
+                        <div class="card" style="width: 100%; margin-top: 2%;">
+                            <div class="card-header">Grafica calificaciones alumnos</div>
+                            <div class="card-body" style="width: 90%; align-self: center;">
+                                <Line :data="data" :options="options" />
+                            </div>
+                        </div>
+                        
                 </div>
             </div>
         </body>
     </div>
+
+
 
 
 
