@@ -16,93 +16,119 @@ const outputs = ref([])
 const answer = ref('')
 const hints = ref(true)
 const options = ref([
-  { text: '', explanation: '', isAnswer: false },
-  { text: '', explanation: '', isAnswer: false },
-  { text: '', explanation: '', isAnswer: false },
-  { text: '', explanation: '', isAnswer: false }
+    { text: '', explanation: '', isAnswer: false },
+    { text: '', explanation: '', isAnswer: false },
+    { text: '', explanation: '', isAnswer: false },
+    { text: '', explanation: '', isAnswer: false }
 ])
 
 function addInputOutput() {
-  if (inputs.length < 4 && outputs.length < 4) {
-    inputs.push('')
-    outputs.push('')
-  }
+    if (inputs.value.length < 4 && outputs.value.length < 4) {
+        inputs.value.push('')
+        outputs.value.push('')
+    }
 }
 
 function generateJSON() {
-  if (questionType.value === 'codigo') {
-    const questionData = {
-      id: `TC1028_23_C_${Date.now()}`,
-      author: author.value,
-      title: title.value,
-      description: description.value,
-      topic: selectedTheme.value,
-      difficulty: selectedDifficulty.value,
-      driver: driver.value,
-      tests: []
+    if (questionType.value === 'codigo') {
+        const questionData = {
+            id: `TC1028_23_C_${Date.now()}`,
+            author: author.value,
+            title: title.value,
+            description: description.value,
+            topic: selectedTheme.value,
+            difficulty: selectedDifficulty.value,
+            driver: driver.value,
+            tests: []
+        }
+
+        for (let i = 0; i < inputs.value.length; i++) {
+            const test = {
+                testId: (i + 1).toString(),
+                input: inputs.value[i],
+                output: outputs.value[i]
+            }
+            questionData.tests.push(test)
+        }
+
+        const jsonData = JSON.stringify(questionData, null, 2)
+
+        const element = document.createElement('a')
+        const file = new Blob([jsonData], { type: 'application/json' })
+        element.href = URL.createObjectURL(file)
+        element.download = 'question.json'
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
+    } else if (questionType.value === 'multiple') {
+        const questionData = {
+            id: `TC1028_23_OM_${Date.now()}`,
+            author: author.value,
+            title: title.value,
+            description: description.value,
+            topic: selectedTheme.value,
+            difficulty: selectedDifficulty.value,
+            answer: answer.value,
+            hints: hints.value,
+            options: options.value
+        }
+
+        const jsonData = JSON.stringify(questionData, null, 2)
+
+        const element = document.createElement('a')
+        const file = new Blob([jsonData], { type: 'application/json' })
+        element.href = URL.createObjectURL(file)
+        element.download = 'question.json'
+        document.body.appendChild(element)
+        element.click()
+        document.body.removeChild(element)
     }
-
-    for (let i = 0; i < inputs.value.length; i++) {
-      const test = {
-        testId: (i + 1).toString(),
-        input: inputs.value[i],
-        output: outputs.value[i]
-      }
-      questionData.tests.push(test)
-    }
-
-    const jsonData = JSON.stringify(questionData, null, 2)
-
-    const element = document.createElement('a')
-    const file = new Blob([jsonData], { type: 'application/json' })
-    element.href = URL.createObjectURL(file)
-    element.download = 'question.json'
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
-  } else if (questionType.value === 'multiple') {
-    const questionData = {
-      id: `TC1028_23_OM_${Date.now()}`,
-      author: author.value,
-      title: title.value,
-      description: description.value,
-      topic: selectedTheme.value,
-      difficulty: selectedDifficulty.value,
-      answer: answer.value,
-      hints: hints.value,
-      options: options.value
-    }
-
-    const jsonData = JSON.stringify(questionData, null, 2)
-
-    const element = document.createElement('a')
-    const file = new Blob([jsonData], { type: 'application/json' })
-    element.href = URL.createObjectURL(file)
-    element.download = 'question.json'
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
-  }
 }
 
-function agregaPreguntaCodigo(){
-  var pregunta = {
-    "titulo": title.value,
-    "tema": selectedTheme.value,
-    "contenido": description.value,
-    "profesor": 1,
-    "tipoP": questionType.value,
-    "estado": false,
-    "dificultad": selectedDifficulty.value 
-  };
-  console.log(pregunta);
+function handleFileUpload(event) {
+  const file = event.target.files[0]
+  const reader = new FileReader()
+
+  reader.onload = (e) => {
+    const jsonData = e.target.result
+    // Aquí puedes realizar cualquier acción adicional con el archivo JSON,
+    // como mostrar los datos en la interfaz o enviarlos al servidor.
+
+    // Por ejemplo, podrías asignar el contenido del archivo a las propiedades
+    // del componente para mostrarlo o procesarlo más adelante.
+    const parsedData = JSON.parse(jsonData)
+    // Asignar los datos del archivo a las propiedades correspondientes
+    title.value = parsedData.title
+    author.value = parsedData.author
+    // ...
+
+    // También podrías enviar el archivo al servidor si es necesario.
+    // Puedes hacer una solicitud POST al servidor con axios o cualquier otra
+    // biblioteca de manejo de solicitudes HTTP.
+  }
+
+  reader.readAsText(file)
+}
+
+
+function agregaPreguntaCodigo() {
+    var pregunta = {
+        "titulo": title.value,
+        "tema": selectedTheme.value,
+        "contenido": description.value,
+        "profesor": 1,
+        "tipoP": questionType.value,
+        "estado": false,
+        "dificultad": selectedDifficulty.value
+    };
+    console.log(pregunta);
     axios.post('http://localhost:8000/api/pregunta/', pregunta)
-    .then(response => {
-      console.log('Solicitud exitosa:', response.data)
-    })
-    .catch(error => {
-      console.error('Error al realizar la solicitud:', error)
-    })
+        .then(response => {
+            console.log('Solicitud exitosa:', response.data)
+        })
+        .catch(error => {
+            console.error('Error al realizar la solicitud:', error)
+        })
 }
 
 const dificultad = ref([
@@ -169,7 +195,8 @@ onMounted(() => {
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <input id="titulo" class="form-control" type="text" placeholder="Titulo" v-model="title">
+                                        <input id="titulo" class="form-control" type="text" placeholder="Titulo"
+                                            v-model="title">
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +226,8 @@ onMounted(() => {
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{item.nombre + " " + item.tipo }} </option>
+                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.nombre + " " + item.tipo
+                                            }} </option>
                                         </select>
                                     </label>
                                 </div>
@@ -213,13 +241,18 @@ onMounted(() => {
                                             v-model="outputs[index]"></textarea>
                                     </div>
                                     <div>
-                                        <button class="btn btn-sm btn-primary ml-3" @click="addInputOutput">Agregar
-                                            caso</button>
+                                        <button class="btn btn-sm btn-primary ml-3"
+                                            @click="addInputOutput">Agregarcaso</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-3 d-flex justify-content-end">
                                 <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
+                            </div>
+                            <div>
+                                <label for="jsonFile">Subir archivo JSON:</label>
+                                <input id="jsonFile" class="form-control-file" type="file" accept=".json"
+                                    @change="handleFileUpload">
                             </div>
                         </div>
                         <div v-if="questionType === 'multiple'">
@@ -288,6 +321,11 @@ onMounted(() => {
                                 </div>
                             </div>
                             <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
+                            <div>
+                                <label for="jsonFile">Subir archivo JSON:</label>
+                                <input id="jsonFile" class="form-control-file" type="file" accept=".json"
+                                    @change="handleFileUpload">
+                            </div>
                         </div>
                     </div>
                 </div>

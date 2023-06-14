@@ -54,8 +54,9 @@ const router = createRouter({
             component: () => import('../views/FormsView.vue')
         },
         {
-            path: '/biblio',
+            path: '/biblio/:idUsuario',
             name: 'biblio',
+            props: true,
             component: () => import('../views/BiblioView.vue')
         },
         {

@@ -6,7 +6,7 @@
 
     <body style="padding-top: 6%;">
       <div class="header mt-4">
-        <h2 class="mb-0">Lista de tareas creadas</h2>
+        <h2 class="mb-0">Lista de tareas creadas por: {{ idUsuario }}</h2>
       </div>
       <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
         <div class="row d-flex justify-content-center px-3">
@@ -31,6 +31,7 @@
 
 <script>
 import NavInit from '../components/NavInitProf.vue'
+const {idUsuario} = defineProps(['idUsuario'])
 
 
 export default {
@@ -39,7 +40,8 @@ export default {
       titulo: { x: 'Título de ejemplo' },
       grupo: { x: 'Grupo de ejemplo' },
       fecha: { x: 'Fecha de ejemplo' },
-      tema: { x: 'Tema de ejemplo' }
+      tema: { x: 'Tema de ejemplo' },
+      nombre: '',
     };
   },
   components: {

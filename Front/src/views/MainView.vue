@@ -16,6 +16,18 @@ export default {
     AcordeonInit,
     List,
     Tarjeta
+  },
+  methods: {
+        created() {
+          const idUsuario = this.$route.params.idUsuario;
+          axios.get('http://127.0.0.1:8000/api/estudiante/${idUsuario}')
+              .then(response => {
+              console.log(response);
+              })
+              .catch(error => {
+              console.error(error);
+              });
+        }
   }
 }
 </script>

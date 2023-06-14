@@ -60,7 +60,7 @@ export default {
     created() {
       const idUsuario = this.$route.params.idUsuario;
 
-      axios.get(`http://127.0.0.1:8000/api/estudiante/${idUsuario}`)
+      axios.get('http://127.0.0.1:8000/api/profesor/${idUsuario}')
         .then(response => {
           this.nombre = response.data.nombre;
         })
