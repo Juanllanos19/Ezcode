@@ -88,6 +88,12 @@ const router = createRouter({
             props: true,
             component: () => import('../views/InfoView.vue')
         },
+        {
+            path: '/pregu',
+            name: 'pregu',
+            props: true,
+            component: () => import('../components/Pregunta.vue')
+        },
     ]
 })
 

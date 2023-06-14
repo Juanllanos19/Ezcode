@@ -60,6 +60,8 @@ function generateJSON() {
         document.body.appendChild(element)
         element.click()
         document.body.removeChild(element)
+
+        router.push('/pregu');
     } else if (questionType.value === 'multiple') {
         const questionData = {
             id: `TC1028_23_OM_${Date.now()}`,
@@ -82,6 +84,8 @@ function generateJSON() {
         document.body.appendChild(element)
         element.click()
         document.body.removeChild(element)
+
+        router.push('/pregu');
     }
 }
 
