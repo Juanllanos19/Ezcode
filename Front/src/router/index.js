@@ -86,8 +86,9 @@ const router = createRouter({
             component: () => import('../views/FormsView.vue')
         },
         {
-            path: '/biblio',
+            path: '/biblio/:idUsuario',
             name: 'biblio',
+            props: true,
             component: () => import('../views/BiblioView.vue')
         },
         {
@@ -106,7 +107,25 @@ const router = createRouter({
             name: 'vistapreviaEst',
             props: true,
             component: () => import('../views/VistaPreviaEstView.vue')
-        }
+        },
+        {
+            path: '/Cgrupo',
+            name: 'Cgrupo',
+            props: true,
+            component: () => import('../views/CreateGrupoView.vue')
+        },
+        {
+            path: '/info',
+            name: 'info',
+            props: true,
+            component: () => import('../views/InfoView.vue')
+        },
+        {
+            path: '/pregu',
+            name: 'pregu',
+            props: true,
+            component: () => import('../components/Pregunta.vue')
+        },
     ]
 })
 

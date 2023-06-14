@@ -1,63 +1,92 @@
 <template>
   <div>
-    <div class="header mt-4">
-      <h2 class="mb-0">Lista de tareas creadas</h2>
-    </div>
-    <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
-      <div class="row d-flex justify-content-center px-3">
-        <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-        <button class="button-1" role="button" @click="navigateToListView">Crear Reactivo</button>
+    <header>
+      <NavInit />
+    </header>
+
+    <body style="padding-top: 6%;">
+      <div class="header mt-4">
+        <h2 class="mb-0">Lista de tareas creadas por: {{ idUsuario }}</h2>
       </div>
-      <div class="row d-flex justify-content-center px-3">
-        <div class="card">
-          <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
-          <p class="ml-auto mr-4 mb-0 med-font">Grupo 1</p>
-          <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
-          <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
-          <p class="ml-4 mb-4">Variables</p>
-          <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
+      <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
+        <div class="row d-flex justify-content-center px-3">
+          <div class="text-center">
+            <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
+            <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center px-3">
+          <div class="card">
+            <h2 class="ml-auto mr-4 mt-3 mb-0">{{ titulo.x }}</h2>
+            <p class="ml-auto mr-4 mb-0 med-font">{{ grupo.x }}</p>
+            <p class="ml-4 mb-4">{{ fecha.x }}</p>
+            <p class="ml-4 mb-4">{{ tema.x }}</p>
+            <button type="button" class="btn btn-outline-light edit-button">Editar</button>
+          </div>
         </div>
       </div>
-    </div>
+    </body>
   </div>
 </template>
 
 <script>
+import NavInit from '../components/NavInitProf.vue'
+const {idUsuario} = defineProps(['idUsuario'])
+
+
 export default {
+  data() {
+    return {
+      titulo: { x: 'Título de ejemplo' },
+      grupo: { x: 'Grupo de ejemplo' },
+      fecha: { x: 'Fecha de ejemplo' },
+      tema: { x: 'Tema de ejemplo' },
+      nombre: '',
+    };
+  },
+  components: {
+    NavInit
+  },
   methods: {
     navigateToFormsView() {
       this.$router.push('/form'); // Assuming you have defined the route for FormsView.vue
     },
     navigateToListView() {
       this.$router.push('/list'); // Assuming you have defined the route for ListView.vue
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
+<style scoped>
 body {
   overflow-x: hidden;
   height: 100%;
-  background-image: url("https://i.imgur.com/uwZRmwg.png");
+  background-image: url("http://i.imgur.com/w16HASj.png");
 }
 
 .header {
   text-align: center;
-  color: aquamarine;
+  color: #00a9d4;
   margin-top: -10px;
 }
 
 .card {
-  color: aquamarine;
+  color: #00a9d4;
   background-image: url("http://i.imgur.com/w16HASj.png");
   background-size: cover;
-  width: 100%;
+  width: 80%;
   height: 400px;
   border-radius: 20px;
   margin-top: 10px;
   margin-bottom: 50px;
   padding-top: 20px;
+  position: relative;
+}
+
+.edit-button {
+  position: absolute;
+  bottom: 10px;
 }
 
 .time-font {
@@ -77,7 +106,7 @@ body {
 }
 
 .button-1 {
-  background-color: #EA4C89;
+  background-color: #00a9d4;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -106,6 +135,6 @@ body {
 
 .button-1:hover,
 .button-1:focus {
-  background-color: #F082AC;
+  background-color: #1c3166;
 }
 </style>

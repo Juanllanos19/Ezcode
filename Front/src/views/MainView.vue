@@ -18,6 +18,26 @@ import NavInit from '../components/NavInit.vue'
 import AcordeonInit from '../components/AcordeonTareasMain.vue'
 import List from '../components/List.vue'
 
+export default {
+  components: {
+    NavInit,
+    AcordeonInit,
+    List,
+    Tarjeta
+  },
+  methods: {
+        created() {
+          const idUsuario = this.$route.params.idUsuario;
+          axios.get('http://127.0.0.1:8000/api/estudiante/${idUsuario}')
+              .then(response => {
+              console.log(response);
+              })
+              .catch(error => {
+              console.error(error);
+              });
+        }
+  }
+}
 </script>
 
 <template>
