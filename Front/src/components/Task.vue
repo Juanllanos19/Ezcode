@@ -4,6 +4,7 @@ import axios from 'axios'
 import router from '../router';
 
 const props = defineProps(['id'])
+const idEstudiante = 1
 
 const preguntas = ref([
   {
@@ -48,7 +49,7 @@ function agregaCalif() {
     console.log(preguntas.value.actividad.id);
   var calificacion = {
     "actividad": preguntas.value.actividad.id,
-    "estudiante": 1,
+    "estudiante": idEstudiante,
     "ponderacion": preguntas.value.valor,
     "puntosTotal": preguntas.value.valor
   };
@@ -66,7 +67,7 @@ function agregaCalif() {
         var calificacion = 
         {
           "actividad": preguntas.actividad,
-          "estudiante": null,
+          "estudiante": idEstudiante,
           "ponderacion": 0,
           "puntosTotal": preguntas.valor 
         };
