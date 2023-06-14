@@ -27,7 +27,7 @@ import { RouterLink} from 'vue-router'
                 <button class="navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: transparent; width: 100%; border: transparent;">
                     <img id="logo-perfil" src="../assets/icon_profile.png" style="width: 80%;">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+                <ul class="dropdown-menu text-bg-dark" aria-labelledby="dropdownMenuButtonDark">
                     <li><a class="dropdown-item" href="#">Hola, {{ nombre }}</a></li>
                     <li><a class="dropdown-item" href="#">Configuración</a></li>
                     <li><a class="dropdown-item" @click="cerrarSesion" href="#">Cerrar sesion</a></li>
