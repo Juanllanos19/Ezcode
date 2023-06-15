@@ -5,7 +5,7 @@
     </header>
 
     <body style="padding-top: 6%;">
-    <div class="header mt-4">
+    <br><div class="header mt-4">
       <h2 class="mb-0">Lista de tareas creadas de {{ nombre }}</h2>
     </div>
 
@@ -14,11 +14,6 @@
         <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
         <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
       </div>
-      <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
-        <div class="row d-flex justify-content-center px-3">
-          <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-          <button class="button-1" role="button" @click="navigateToListView">Crear Reactivo</button>
-        </div>
         <div class="row d-flex justify-content-center px-3">
           <div class="card">
             <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
@@ -28,7 +23,6 @@
             <p class="ml-4 mb-4">Variables</p>
             <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
           </div>
-        </div>
       </div>
     </div>
     </body>

@@ -53,14 +53,14 @@ export default {
 
     methods: {
         cerrarSesion() {
-            this.$router.push('http://localhost:5173/');
+            window.location.href='http://localhost:5173/';
         },
     },
     
     created() {
       const idUsuario = this.$route.params.idUsuario;
 
-      axios.get('http://127.0.0.1:8000/api/profesor/${idUsuario}')
+      axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
         .then(response => {
           this.nombre = response.data.nombre;
         })

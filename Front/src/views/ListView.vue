@@ -55,6 +55,16 @@ onMounted(() => {
             console.log(error)
         })
 })
+
+const {idUsuario} = defineProps(['idUsuario'])
+const nombre = ref(null)
+axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+        .then(response => {
+          nombre.value = response.data.nombre;
+        })
+        .catch(error => {
+          console.error(error);
+        });
 </script>
 
 <template>
@@ -65,7 +75,7 @@ onMounted(() => {
 
         <body style="padding-top: 6%;">
 
-            <h2>{{ nombre }} Elija las preguntas para su Actividad</h2>
+            <br><br><h2>{{ nombre }} elige las preguntas para su Actividad</h2>
             <hr><br>
             <div>
                 <div class="container">
@@ -263,16 +273,6 @@ export default {
             // Al finalizar la subida de la actividad, actualiza el store de Vuex
             this.$store.commit('setActividad', actividad);
         },
-        created() {
-          const idUsuario = this.$route.query.idUsuario;
-          axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
-              .then(response => {
-              this.nombre = response.data.nombre;
-              })
-              .catch(error => {
-              console.error(error);
-              });
-        },
     },
     watch: {
         selectedTasks: {
@@ -289,6 +289,10 @@ body {
 }
 
 .blue-text {
+    color: white;
+}
+
+h2 {
     color: white;
 }
 
