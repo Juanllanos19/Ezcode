@@ -411,7 +411,7 @@ select {
     margin-bottom: 4vh;
     outline: none;
     width: 100%;
-    background-color: rgb(247, 247, 247);
+    background-color: #44749d;
 }
 
 input {
@@ -420,7 +420,7 @@ input {
     margin-bottom: 4vh;
     outline: none;
     width: 100%;
-    background-color: rgb(247, 247, 247);
+    background-color: #44749d;
 }
 
 input:focus::-webkit-input-placeholder {
