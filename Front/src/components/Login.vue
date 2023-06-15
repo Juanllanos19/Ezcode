@@ -1,15 +1,15 @@
 <template>
-    <div class="auth-container">
+    <div class="auth-container ">
       <div class="auth-content">
         <transition name="slide">
           <div v-if="activeForm === 'login'" class="auth-form">
             <h2 class="auth-title">Inicio de sesión</h2>
             <form @submit.prevent="login">
-              <div class="form-group">
+              <div class="form-group" style="color: black;">
                 <label for="matricula">Matricula o Nómina</label>
                 <input type="text" class="form-control" id="matricula" v-model="matricula" placeholder="Ingrese su matricula o nómina" required>
               </div>
-              <div class="form-group">
+              <div class="form-group" style="color: black;">
                 <label for="contrasena">Contraseña</label>
                 <input type="password" class="form-control" id="contrasena" v-model="contrasena" placeholder="Ingrese su contraseña" required>
               </div>

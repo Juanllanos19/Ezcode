@@ -4,7 +4,7 @@
       <NavInit />
     </header>
 
-    <body style="padding-top: 6%;">
+    <body style="padding-top: 6%; width: 60%; margin-left: 20%;">
     <br><div class="header mt-4">
       <h2 class="mb-0">Lista de tareas creadas de {{ nombre }}</h2>
     </div>
