@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer, ALL_FIELDS
+from rest_framework import serializers
 from .models import Departamento, Profesor, Periodo, Tema, Dificultad, Pregunta, Actividad, Uf, Grupo, Carrera, Estudiante, EstudianteGrupo, ActividadGrupo, ActividadPregunta, Calificacion
 class DepartamentoSerializer(ModelSerializer):
     class Meta:
@@ -30,6 +31,7 @@ class DificultadSerializer(ModelSerializer):
     class Meta:
         model = Dificultad
         fields = ALL_FIELDS
+        
 
 class PreguntaSerializer(ModelSerializer):
     class Meta:

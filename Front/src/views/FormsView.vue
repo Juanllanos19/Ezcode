@@ -30,7 +30,7 @@ function addInputOutput() {
 }
 
 function generateJSON() {
-    if (questionType.value === 'codigo') {
+    //if (questionType.value === 'codigo') {
         const questionData = {
             id: `TC1028_23_C_${Date.now()}`,
             author: author.value,
@@ -57,12 +57,54 @@ function generateJSON() {
         const file = new Blob([jsonData], { type: 'application/json' })
         element.href = URL.createObjectURL(file)
         element.download = 'question.json'
+
+
+        ///Hay que agregar que la info del profe sea automatica
+
+        /*var pregunta = {
+            "titulo": title.value,
+            "tema": selectedTheme.value,
+            "contenido": element,
+            "profesor": 1,
+            "tipoP": questionType.value,
+            "estado": false,
+            "dificultad": selectedDifficulty.value
+        };*/
+        let pregunta = new FormData();
+        pregunta.append("titulo", title.value);
+        pregunta.append("tema", selectedTheme.value);
+        pregunta.append("contenido", file);
+        pregunta.append("profesor", 1);
+
+        if (questionType.value == "codigo")
+        {
+            pregunta.append("tipoP", false);
+        }
+        else
+        {
+            pregunta.append("tipoP", true);
+        }
+    
+        pregunta.append("estado", false);
+        pregunta.append("dificultad", selectedDifficulty.value);
+
+
+        console.log(pregunta);
+        axios.post('http://localhost:8000/api/pregunta/', pregunta, {
+        headers: {"Content-Type": "multipart/form-data"},
+    })
+            .then(response => {
+                console.log('Solicitud exitosa:', response.data)
+            })
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error)
+            })
         document.body.appendChild(element)
         element.click()
         document.body.removeChild(element)
 
-        router.push('/pregu');
-    } else if (questionType.value === 'multiple') {
+        //router.push('/pregu');
+    /*} else if (questionType.value === 'multiple') {
         const questionData = {
             id: `TC1028_23_OM_${Date.now()}`,
             author: author.value,
@@ -86,7 +128,7 @@ function generateJSON() {
         document.body.removeChild(element)
 
         router.push('/pregu');
-    }
+    }*/
 }
 
 function handleFileUpload(event) {
@@ -137,7 +179,7 @@ function agregaPreguntaCodigo() {
 
 const dificultad = ref([
     {
-        id: "",
+        id: 0,
         rango: ""
     }
 ])
@@ -153,6 +195,8 @@ onMounted(() => {
         .then(result => {
             console.log(result.data)
             dificultad.value = result.data
+            console.log("PK?")
+            console.log(result.data[0].pk)
         })
         .catch(error => {
             console.log(error)
@@ -223,14 +267,14 @@ onMounted(() => {
                             <div class="d-flex flex-row">
                                 <label for="referrer"> ¿Cual es la dificultad?
                                     <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                        <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
+                                        <option v-for="(item, i) in dificultad" :key="i" :value="item.id"> {{ item.rango }}</option>
                                     </select>
                                 </label>
                                 &nbsp;&nbsp;
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.nombre + " " + item.tipo
+                                            <option v-for="(item, i) in modulos" :key="i" :value="item.id"> {{ item.nombre + " " + item.tipo
                                             }} </option>
                                         </select>
                                     </label>
@@ -287,14 +331,14 @@ onMounted(() => {
                             <div class="d-flex flex-row">
                                 <label for="referrer"> ¿Cual es la dificultad?
                                     <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                        <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
+                                        <option v-for="(item, i) in dificultad" :key="i" :value="item.id"> {{ item.rango }}</option>
                                     </select>
                                 </label>
                                 &nbsp;&nbsp;
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+                                            <option v-for="(item, i) in modulos" :key="i" :value="item.id"> {{ item.tipo }}</option>
                                         </select>
                                     </label>
                                 </div>

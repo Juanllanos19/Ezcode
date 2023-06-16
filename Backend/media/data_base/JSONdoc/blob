@@ -1,0 +1,16 @@
+{
+  "id": "TC1028_23_C_1686944149880",
+  "author": "",
+  "title": "Porfa dios",
+  "description": "dime que ya queda",
+  "topic": 8,
+  "difficulty": 1,
+  "driver": "te lo pido",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "te lo pido porfa",
+      "output": "dios"
+    }
+  ]
+}
