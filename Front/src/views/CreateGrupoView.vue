@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapActions } from 'vuex';
 import NavInit from '../components/NavInitProf.vue'
 
@@ -56,6 +57,10 @@ export default {
         // ... Agrega más alumnos según tus necesidades
       ]
     };
+  },
+  mounted() {
+    axios.get('http://127.0.0.1:8000/api/estudiante/')
+    .then(response => this.alumnos = response.data)
   },
   components: {
     NavInit
