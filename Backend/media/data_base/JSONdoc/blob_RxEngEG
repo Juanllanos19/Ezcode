@@ -1,0 +1,26 @@
+{
+  "id": "TC1028_23_C_1686944376980",
+  "author": "",
+  "title": "Pregunta prueba",
+  "description": "Aqqui hacemos una pequeña pregunta de prueba",
+  "topic": 10,
+  "difficulty": 3,
+  "driver": "Como estamos",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "25",
+      "output": "35"
+    },
+    {
+      "testId": "2",
+      "input": "10",
+      "output": "20"
+    },
+    {
+      "testId": "3",
+      "input": "30",
+      "output": "40"
+    }
+  ]
+}

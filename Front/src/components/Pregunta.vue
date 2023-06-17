@@ -17,8 +17,8 @@
                 <div class="form-group">
                     <label for="tipoP">Tipo de pregunta</label>
                     <select id="tipoP" class="form-control" v-model="tipoP" required>
-                        <option value="0">Abierta</option>
-                        <option value="1">Cerrada</option>
+                        <option value=false>Abierta</option>
+                        <option value=true>Cerrada</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                     <select id="inputState" class="form-select" v-model="tema">
                         <option v-for="(item, i) in modulos" :key="i" :value="item.id"> {{ item.nombre + " " + item.tipo
                         }} </option>
-                    </select>
+                    </select> 
                 </div>
                 <div class="form-group">
                     <label for="dificultad">Dificultad</label>
