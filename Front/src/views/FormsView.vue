@@ -320,9 +320,9 @@ onMounted(() => {
                                 <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
                             </div>
                             <div>
-                                <label for="jsonFile">Subir archivo JSON:</label>
+                                <!--<label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
-                                    @change="handleFileUpload">
+                                    @change="handleFileUpload"> -->
                             </div>
                         </div>
                         <div v-if="questionType === 'multiple'">
@@ -391,11 +391,11 @@ onMounted(() => {
                                 </div>
                             </div>
                             <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
-                            <div>
+                            <!--<div>
                                 <label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
                                     @change="handleFileUpload">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
