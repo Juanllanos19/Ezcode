@@ -6,7 +6,7 @@
 
     <body style="padding-top: 6%;">
       <h1 style="text-align: center;">Crea tu Grupo</h1>
-      <form @submit.prevent="crearGrupo">
+      <form>
         <label for="nombre">Nombre del grupo:</label>
         <input type="text" id="nombre" v-model="grupo.nombre" required>
 
@@ -32,7 +32,7 @@
           <option v-for="(item, i) in periodo" :key="i" :value="item.id"> {{ item.fechaInicio + " | " +  item.fechaFin }}</option>
         </select>
 
-        <button type="submit">Crear grupo</button>
+        <button type="submit" @click="crearGrupo">Crear grupo</button>
       </form>
     </body>
   </div>
@@ -94,16 +94,25 @@ const grupo = ref({
 });
 
 const crearGrupo = () => {
-  // Aquí puedes realizar las acciones necesarias para crear el grupo,
-  // como enviar los datos al servidor o ejecutar una función en tu aplicación.
+  // Crea un objeto con los datos del grupo
+  const nuevoGrupo = {
+    nombre: grupo.value.nombre,
+    uf: grupo.value.uf,
+    cupo: grupo.value.cupo,
+    estado: grupo.value.estado,
+    profesor: grupo.value.profesor,
+    periodo: grupo.value.periodo
+  };
 
-  // Ejemplo de cómo acceder a los datos del grupo:
-  console.log(grupo.value.nombre);
-  console.log(grupo.value.uf);
-  console.log(grupo.value.cupo);
-  console.log(grupo.value.estado);
-  console.log(grupo.value.profesor);
-  console.log(grupo.value.periodo);
+  // Realiza la solicitud POST utilizando Axios
+  axios
+    .post('http://127.0.0.1:8000/api/grupo/', nuevoGrupo)
+    .then(response => {
+      console.log(response.data); // Maneja la respuesta exitosa del servidor aquí
+    })
+    .catch(error => {
+      console.log(error); // Maneja el error de la solicitud aquí
+    });
 };
 </script>
 
