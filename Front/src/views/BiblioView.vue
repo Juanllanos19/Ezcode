@@ -21,7 +21,6 @@
             <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
             <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
             <p class="ml-4 mb-4">Variables</p>
-            <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
           </div>
       </div>
     </div>

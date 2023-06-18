@@ -13,7 +13,7 @@ import { RouterLink} from 'vue-router'
                 <RouterLink to="/biblio" class="nav-link text-white" id="menu-nav" >BIBLIOTECA</RouterLink>
             </li>
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large;" >
-                <RouterLink to="/info" class="nav-link text-white" id="desempenio-nav" >INFORMES</RouterLink>
+                <RouterLink to="/info" class="nav-link text-white" id="desempenio-nav" >CREAR GRUPO</RouterLink>
             </li>
             <li class="nav-item">
                 
