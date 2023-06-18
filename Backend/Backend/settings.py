@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'djoser',
     #'myapp',
     'corsheaders',
-    'document',
 ]
 
 MIDDLEWARE = [
