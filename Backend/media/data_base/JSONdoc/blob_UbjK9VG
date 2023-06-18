@@ -1,0 +1,16 @@
+{
+  "id": "TC1028_23_C_1687048996082",
+  "author": "",
+  "title": "hola",
+  "description": "estamos",
+  "topic": 4,
+  "difficulty": 2,
+  "driver": "como",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "1",
+      "output": "3"
+    }
+  ]
+}
