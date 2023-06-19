@@ -2,8 +2,7 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
-const props = defineProps(['id'])
-const idUsuario = 11
+const props = defineProps(['id', 'idUsuario'])
 
 const data = ref([{
   id: "",
@@ -65,9 +64,10 @@ export default {
   }
 }
 
-function goToPreguntaMultiple(id){
-  router.push({ path: `/question/${id}` });
+function goToPreguntaMultiple(id, idUsuario) {
+  router.push({ path: `/question/${id}/${idUsuario}` });
 }
+
 function goToPreguntaCode(id){
   router.push({ path: `/compiler/${id}` })
 }
@@ -87,7 +87,7 @@ function goToPreguntaCode(id){
             <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
             <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
             <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
-            <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id)">Responder</a>
+            <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
           </div>
         </div>
         <div v-else>

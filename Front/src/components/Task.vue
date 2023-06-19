@@ -3,8 +3,8 @@ import { createSlots, defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
 
-const props = defineProps(['id'])
-const idEstudiante = 1
+const props = defineProps(['id', 'idUsuario'])
+
 
 const preguntas = ref([
   {
@@ -46,10 +46,9 @@ onMounted(() => {
 })
 
 function agregaCalif() {
-    console.log(preguntas.value.actividad.id);
   var calificacion = {
     "actividad": preguntas.value.actividad.id,
-    "estudiante": idEstudiante,
+    "estudiante": props.idUsuario,
     "ponderacion": preguntas.value.valor,
     "puntosTotal": preguntas.value.valor
   };
@@ -63,24 +62,22 @@ function agregaCalif() {
     })
 }
 
-    function agregaCalif2(){
-        var calificacion = 
-        {
-          "actividad": preguntas.actividad,
-          "estudiante": idEstudiante,
-          "ponderacion": 0,
-          "puntosTotal": preguntas.valor 
-        };
-        var headers = {'Content-Type': 'application/json'};
-        axios.post('http://localhost:8000/api/calificacion/', calificacion,
-        headers)
-    .then(result => {
-        console.log(result.data)
+function agregaCalif2() {
+  var calificacion = {
+    "actividad": preguntas.value.actividad.id,
+    "estudiante": props.idUsuario,
+    "ponderacion": 0,
+    "puntosTotal": preguntas.value.valor
+  };
+  console.log(calificacion);
+    axios.post('http://localhost:8000/api/calificacion/', calificacion)
+    .then(response => {
+      console.log('Solicitud exitosa:', response.data)
     })
     .catch(error => {
-    console.log(error)
+      console.error('Error al realizar la solicitud:', error)
     })
-    }
+}
 
 const respuestaSeleccionada = ref(null)
 const respuestaCorrecta = ref(null);
@@ -94,11 +91,12 @@ async function enviarRespuesta(id) {
     respuestaCorrecta.value = true;
     agregaCalif()
     await delay(2000); // Esperar 3 segundos
-    router.push({ path: `/task/${id}` });
+    router.push({ path: `/task/${id}/${props.idUsuario}` });
   } else {
     respuestaCorrecta.value = false;
+    agregaCalif2()
     await delay(2000); // Esperar 3 segundos
-    router.push({ path: `/task/${id}` });
+    router.push({ path: `/task/${id}/${props.idUsuario}` });
   }
 }
 
@@ -127,7 +125,7 @@ async function enviarRespuesta(id) {
                     </label>
                     </li>
                 </ul>
-              <button class="btn btn-success" v-on:click="enviarRespuesta(preguntas.actividad.id)">Contestar</button>
+                <button class="btn btn-success" v-on:click="enviarRespuesta(preguntas.actividad.id,idUsuario)">Contestar</button>
                 </div>
                 <div v-if="respuestaCorrecta==null"></div>
                 <div v-else-if="!respuestaCorrecta">

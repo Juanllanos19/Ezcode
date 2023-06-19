@@ -2,7 +2,7 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
-const props = defineProps(['id'])
+const props = defineProps(['id', 'idUsuario'])
 </script>
 
 <script>
@@ -21,10 +21,10 @@ export default {
 <template>
   <div>
     <header>
-      <NavInit :id="id"/>
+      <NavInit :id="idUsuario"/>
     </header>
     <body>
-          <TaskMultiple :id="id"/>
+      <TaskMultiple :id="id" :idUsuario="idUsuario"/>
     </body>
     <RouterView />
   </div>

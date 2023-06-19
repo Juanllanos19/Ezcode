@@ -47,25 +47,19 @@ const router = createRouter({
             component: () => import('../views/MainView.vue')
         },
         {
-            path: "/task/:id",
-            name: 'task',
-            props: true,
-            component: () => import('../views/TaskView.vue')
-        },
-        {
             path: "/desempenio/:idUsuario",
             name: 'desempenio',
             props: true,
             component: () => import('../views/DesempenioView.vue')
         },
         {
-            path: "/task/:id",
+            path: "/task/:id/:idUsuario",
             name: 'task',
             props: true,
             component: () => import('../views/TaskView.vue')
         },
         {
-            path: "/question/:id",
+            path: "/question/:id/:idUsuario",
             name: 'question',
             props: true,
             component: () => import('../views/TaskMultView.vue')
