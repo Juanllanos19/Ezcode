@@ -70,8 +70,9 @@ const router = createRouter({
             component: () => import('../views/SettingsView.vue')
         },
         {
-            path: '/form',
+            path: '/form/:idUsuario',
             name: 'form',
+            props: true,
             component: () => import('../views/FormsView.vue')
         },
         {

@@ -1,8 +1,12 @@
 <script setup>
 import NavInit from '../components/NavInitProf.vue'
-import { onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
+
+const props = defineProps(['idUsuario'])
+
+console.log("Id del profesor es: " + props.idUsuario);
 
 const questionType = ref('codigo')
 const title = ref('')
@@ -38,7 +42,7 @@ function generateJSON() {
         {
             questionData = {
                 id: `TC1028_23_C_${Date.now()}`,
-                author: author.value,
+                author: props.idUsuario,
                 title: title.value,
                 description: description.value,
                 topic: selectedTheme.value,
@@ -61,7 +65,7 @@ function generateJSON() {
         {
             questionData = {
                 id: `TC1028_23_OM_${Date.now()}`,
-                author: author.value,
+                author: props.idUsuario,
                 title: title.value,
                 description: description.value,
                 topic: selectedTheme.value,
@@ -70,6 +74,8 @@ function generateJSON() {
                 hints: hints.value,
                 options: options.value
             }
+
+            questionData.options[answer.value].isAnswer = true;
         }
 
 
@@ -96,7 +102,7 @@ function generateJSON() {
         pregunta.append("titulo", title.value);
         pregunta.append("tema", selectedTheme.value);
         pregunta.append("contenido", file);
-        pregunta.append("profesor", 1);
+        pregunta.append("profesor", props.idUsuario);
 
         if (questionType.value == "codigo")
         {
@@ -334,6 +340,7 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -343,6 +350,7 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
+                            -->
                             <div class="row">
                                 <div class="input-group">
                                     <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"
@@ -366,11 +374,12 @@ onMounted(() => {
                                 </div>
                             </div>
                             <!-- Seleccion Input seccion -->
+                            <!--
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked
                                     v-model="hints" />
                                 <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar pista</label>
-                            </div>
+                            </div>-->
                             <div class="d-flex flex-row">
                                 <div class="row">
                                     <h6 class="mt-4">Opciones:</h6>
