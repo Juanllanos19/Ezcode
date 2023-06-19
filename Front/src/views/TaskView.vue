@@ -52,6 +52,15 @@ onMounted(() => {
     console.log(error)
   })
 })
+
+function checkCalif(item){
+  for (let j = 0; j < Object.keys(data).length; j++){
+    if(data.value[j]['estudiante']['id'] == props.idUsuario && item==data.value[j]['actividad']['id']){
+      return true
+    }
+  }
+  return false
+}
 </script>
 
 <script>
@@ -87,7 +96,14 @@ function goToPreguntaCode(id){
             <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
             <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
             <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
-            <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
+            <div v-if="!checkCalif(item.actividad.id)">
+              <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
+            </div>
+            <div v-else>
+              <div class="alert alert-warning" role="alert">
+                Contestada 
+              </div>
+            </div>
           </div>
         </div>
         <div v-else>
