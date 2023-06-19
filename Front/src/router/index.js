@@ -24,7 +24,7 @@ const router = createRouter({
             component: () => import('../views/RegisterEstView.vue')
         },
         {
-            path: '/compiler/:id',
+            path: '/compiler/:idUsuario/:id',
             name: 'compiler',
             props: true,
             component: () => import('../views/testView.vue')
