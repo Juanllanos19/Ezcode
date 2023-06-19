@@ -1,24 +1,28 @@
-<script setup>
-import {onMounted, ref} from 'vue'
-import axios from 'axios'
-</script>
-
-<script>
-import NavInit from '../components/NavInit.vue'
-import DesempenioView from './DesempenioView.vue';
-import { VAceEditor } from 'vue3-ace-editor';
+<!--<script setup>
+    import {defineProps, onMounted, ref} from 'vue'
+    import axios from 'axios'
+    import router from '../router';
 
 
-const data = ref([
-        {
-            titulo:"Titulo test",
-            tema:"tema test",
-            contenido:{}
-        }
-    ]);
-const contenido = ref([{}]);
+
+
+
+    const props = defineProps(['id']);
+    console.log("ID pasado: " + props.id);
+
+
+    /*
+    const data = ref([
+            {
+                titulo:"Titulo test",
+                tema:"tema test",
+                contenido:{}
+            }
+        ]);
+    const contenido = ref([{}]);
+
     onMounted(
-        axios.get('http://localhost:8000/api/pregunta/2/')
+        axios.get('http://localhost:8000/api/pregunta/'+ props.id + '/')
         .then((result) => {
             console.log(result.data);
             data.value = result.data;
@@ -36,197 +40,243 @@ const contenido = ref([{}]);
         .catch((error) => {
             console.log(error)
         }),
-    )
+    ) */
+
+
+</script>-->
+<script>
+import {defineProps, onMounted, ref} from 'vue'
+import axios from 'axios'
+import NavInit from '../components/NavInit.vue'
+import DesempenioView from './DesempenioView.vue';
+import { VAceEditor } from 'vue3-ace-editor';
 
 export default {
+    props: ['id'],
+    setup(props){
+
+
+        console.log("Id: " + props.id);
+    },
   components: {
     NavInit,
     VAceEditor,
-    DesempenioView
-},
-data() {
-    return {
-      editor: {
-        value: 'print("Hello world!")'
-      },
-      input_editor: {
-        value: '#Your inputs here!'
-      },
-      output: {
-        value: 'Your output will be generated here!'
-      },
-      testcases: {
-        value: [],
-        results: []
-      },
-    }
-  },
-  methods:{
-    execute(event){
-        console.log("Execute");
-        this.output.value = "Loading...";
-
-        const options = {
-        method: 'POST',
-        url: 'https://judge0-ce.p.rapidapi.com/submissions',
-        params: {
-            base64_encoded: 'true',
-            fields: '*'
-        },
-        headers: {
-            'content-type': 'application/json',
-            'Content-Type': 'application/json',
-            //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
-            'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
-            'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-        },
-        data: {
-            language_id: 92,
-            source_code: btoa(this.editor.value),
-            stdin: btoa(this.input_editor.value),
-            redirect_stderr_to_stdout: true,
-        }
-        };
-
-        const options2 = {
-            method: 'GET',
-            url: 'https://judge0-ce.p.rapidapi.com/submissions/2e979232-92fd-4012-97cf-3e9177257d10',
-            params: {
-                base64_encoded: 'true',
-                fields: '*'
+    DesempenioView,
+    },
+    data() {
+        return {
+            editor: {
+                value: 'print("Hello world!")'
             },
-            headers: {
-                //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
-                'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
-                'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+            input_editor: {
+                value: '#Your inputs here!'
+            },
+            output: {
+                value: 'Your output will be generated here!'
+            },
+            testcases: {
+                value: [],
+                results: []
+            },
+            data: {
+                titulo:"Titulo test",
+                tema:"tema test",
+                contenido:{}
+            },
+            contenido: {value: {}}
+        }
+    },
+    mounted()
+    {
+        axios.get('http://localhost:8000/api/pregunta/'+ this.id + '/')
+        .then((result) => {
+            console.log(result.data);
+            this.data.value = result.data;
+
+
+            axios.get(this.data.value.contenido)
+            .then((response) => {
+                this.contenido.value = response.data;
+                console.log(this.contenido.value.description);
             }
-        };
-
-        console.log(options);
-
-        const getData = async () => {
-            try {
-                const response = await axios.request(options);
-                console.log(response.data);
-                options2.url= 'https://judge0-ce.p.rapidapi.com/submissions/' + response.data.token;
-                getData2();
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        getData();
-
-
-
-        const getData2 = async () => {
-            try {
-                const response = await axios.request(options2);
-                console.log(response.data);
-                if (response.data.stdout == null)
-                {
-                    getData2();
-                }
-                else
-                {
-                    this.output.value = atob(response.data.stdout);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+            ).catch((error) => {
+                    console.log(error)
+                })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 
     },
-    test(event){
-        console.log("Testing")
-        this.testcases.value = [];
-        this.testcases.results = [];
-        const options = {
-        method: 'POST',
-        url: 'https://judge0-ce.p.rapidapi.com/submissions',
-        params: {
-            base64_encoded: 'true',
-            fields: '*'
-        },
-        headers: {
-            'content-type': 'application/json',
-            'Content-Type': 'application/json',
-            //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
-            'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
-            'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-        },
-        data: {
-            language_id: 92,
-            source_code: btoa(this.editor.value),
-            stdin: btoa(this.input_editor.value),
-            redirect_stderr_to_stdout: true,
-        }
-        };
+    methods:{
+        execute(event){
+            console.log("Execute");
+            this.output.value = "Loading...";
 
-        const options2 = {
-            method: 'GET',
-            url: 'https://judge0-ce.p.rapidapi.com/submissions/2e979232-92fd-4012-97cf-3e9177257d10',
+            const options = {
+            method: 'POST',
+            url: 'https://judge0-ce.p.rapidapi.com/submissions',
             params: {
                 base64_encoded: 'true',
                 fields: '*'
             },
             headers: {
+                'content-type': 'application/json',
+                'Content-Type': 'application/json',
                 //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
                 'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
                 'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+            },
+            data: {
+                language_id: 92,
+                source_code: btoa(this.editor.value),
+                stdin: btoa(this.input_editor.value),
+                redirect_stderr_to_stdout: true,
             }
-        };
-        
-        const getData = async (index) => {
-            try {
-                const response = await axios.request(options);
-                console.log(response.data);
-                options2.url= 'https://judge0-ce.p.rapidapi.com/submissions/' + response.data.token;
-                getData2(index);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+            };
 
-        const getData2 = async (index) => {
-            try {
-                const response = await axios.request(options2);
-                console.log(response.data);
-                if (response.data.stdout == null)
-                {
-                    getData2(index);
+            const options2 = {
+                method: 'GET',
+                url: 'https://judge0-ce.p.rapidapi.com/submissions/2e979232-92fd-4012-97cf-3e9177257d10',
+                params: {
+                    base64_encoded: 'true',
+                    fields: '*'
+                },
+                headers: {
+                    //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
+                    'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
+                    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
                 }
-                else
-                {
-                    var salida = atob(response.data.stdout);
-                    this.testcases.value[index] = "Output: " + salida;
-                    if (salida == atob(response.data.expected_output))
+            };
+
+            console.log(options);
+
+            const getData = async () => {
+                try {
+                    const response = await axios.request(options);
+                    console.log(response.data);
+                    options2.url= 'https://judge0-ce.p.rapidapi.com/submissions/' + response.data.token;
+                    getData2();
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            getData();
+
+
+
+            const getData2 = async () => {
+                try {
+                    const response = await axios.request(options2);
+                    console.log(response.data);
+                    if (response.data.stdout == null)
                     {
-                        this.testcases.results[index] = "checkmark";
+                        getData2();
                     }
-                    else{
-                        this.testcases.results[index] = "tacha";
+                    else
+                    {
+                        this.output.value = atob(response.data.stdout);
                     }
-
+                } catch (error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+            };
 
-        for (var i = 0; i < contenido.value.tests.length; i++)
-        {
-            options.data.stdin = btoa(contenido.value.tests[i].input);
-            options.data.expected_output = btoa(contenido.value.tests[i].output);
-            this.testcases.results.push(null);
-            this.testcases.value.push(null);
-            getData(i);
-            console.log(options.data.source_code );
-            console.log(atob(options.data.source_code));
+        },
+        test(event){
+            console.log("Testing")
+            this.testcases.value = [];
+            this.testcases.results = [];
+            const options = {
+            method: 'POST',
+            url: 'https://judge0-ce.p.rapidapi.com/submissions',
+            params: {
+                base64_encoded: 'true',
+                fields: '*'
+            },
+            headers: {
+                'content-type': 'application/json',
+                'Content-Type': 'application/json',
+                //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
+                'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
+                'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+            },
+            data: {
+                language_id: 92,
+                source_code: btoa(this.editor.value),
+                stdin: btoa(this.input_editor.value),
+                redirect_stderr_to_stdout: true,
+            }
+            };
+
+            const options2 = {
+                method: 'GET',
+                url: 'https://judge0-ce.p.rapidapi.com/submissions/2e979232-92fd-4012-97cf-3e9177257d10',
+                params: {
+                    base64_encoded: 'true',
+                    fields: '*'
+                },
+                headers: {
+                    //'X-RapidAPI-Key': '0ae7a38b45msh71c6a1fcbf098e2p1d5efbjsn3ccb076e28db',
+                    'X-RapidAPI-Key': '9e626646d1mshd9fd0c9fed686ecp1bbed0jsn8815f340f24a',
+                    'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+                }
+            };
+            
+            const getData = async (index) => {
+                try {
+                    const response = await axios.request(options);
+                    console.log(response.data);
+                    options2.url= 'https://judge0-ce.p.rapidapi.com/submissions/' + response.data.token;
+                    getData2(index);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            const getData2 = async (index) => {
+                try {
+                    const response = await axios.request(options2);
+                    console.log(response.data);
+                    if (response.data.stdout == null)
+                    {
+                        getData2(index);
+                    }
+                    else
+                    {
+                        var salida = atob(response.data.stdout);
+                        this.testcases.value[index] = "Output: " + salida;
+                        if (salida == atob(response.data.expected_output))
+                        {
+                            this.testcases.results[index] = "checkmark";
+                        }
+                        else{
+                            this.testcases.results[index] = "tacha";
+                        }
+
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            for (var i = 0; i < this.contenido.value.tests.length; i++)
+            {
+                options.data.stdin = btoa(this.contenido.value.tests[i].input);
+                options.data.expected_output = btoa(this.contenido.value.tests[i].output);
+                this.testcases.results.push(null);
+                this.testcases.value.push(null);
+                getData(i);
+                console.log(options.data.source_code );
+                console.log(atob(options.data.source_code));
+            }
         }
-    }
-  }
+    },
+    name: 'TaskCode'
 }
+
+
 
 </script>
 
@@ -241,8 +291,8 @@ data() {
                     <div class="card" style="width: 100%;">
                         <div class="card-header">Descripcion</div>
                             <div class="card-body">
-                                <h5 class="card-title" style="font-size: 32px;">{{contenido.title}}</h5>
-                                <p class="card-text" style="font-size: 20px;">{{ contenido.description }}</p>
+                                <h5 class="card-title" style="font-size: 32px;">{{contenido.value.title}}</h5>
+                                <p class="card-text" style="font-size: 20px;">{{ contenido.value.description }}</p>
                                 <v-ace-editor
                                 v-model:value="input_editor.value"
                                 @init="editorInit"
@@ -281,7 +331,7 @@ data() {
 
                             
                               <div class="accordion" id="accordionExample">
-                                <template v-for="(item, index) in contenido.tests" :key="index">
+                                <template v-for="(item, index) in contenido.value.tests" :key="index">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="'#collapse'+index">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse'+index" aria-expanded="false" :aria-controls="'collapse'+index">

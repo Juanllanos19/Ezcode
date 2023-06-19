@@ -69,7 +69,7 @@ function goToPreguntaMultiple(id){
   router.push({ path: `/question/${id}` });
 }
 function goToPreguntaCode(id){
-  router.push({ name: 'compiler', params: { id: id } })
+  router.push({ path: `/compiler/${id}` })
 }
 </script>
 
