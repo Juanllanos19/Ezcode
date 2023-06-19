@@ -77,8 +77,8 @@ function generateJSON() {
 
         const element = document.createElement('a')
         const file = new Blob([jsonData], { type: 'application/json' })
-        element.href = URL.createObjectURL(file)
-        element.download = 'question.json'
+        //element.href = URL.createObjectURL(file)
+        //element.download = 'question.json'
 
 
         ///Hay que agregar que la info del profe sea automatica

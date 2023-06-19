@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687151472881",
+  "author": "",
+  "title": "pruebajc",
+  "description": "algo",
+  "topic": 1,
+  "difficulty": 1,
+  "driver": "jc",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "5",
+      "output": "5"
+    },
+    {
+      "testId": "2",
+      "input": "1",
+      "output": "1"
+    }
+  ]
+}
