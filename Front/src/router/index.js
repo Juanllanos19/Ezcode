@@ -111,7 +111,7 @@ const router = createRouter({
             component: () => import('../views/CreateGrupoView.vue')
         },
         {
-            path: '/info',
+            path: '/info/:idUsuario',
             name: 'info',
             props: true,
             component: () => import('../views/InfoView.vue')
