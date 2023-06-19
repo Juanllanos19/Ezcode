@@ -10,7 +10,7 @@ import { RouterLink} from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large">
-                <RouterLink to="/biblio" class="nav-link text-white" id="menu-nav" >BIBLIOTECA</RouterLink>
+                <RouterLink to="/biblio" class="nav-link text-white" id="menu-nav" >INICIO</RouterLink>
             </li>
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large;" >
                 <RouterLink to="/info" class="nav-link text-white" id="desempenio-nav" >CREAR GRUPO</RouterLink>
@@ -27,7 +27,7 @@ import { RouterLink} from 'vue-router'
                 <button class="navbar-brand" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: transparent; width: 100%; border: transparent;">
                     <img id="logo-perfil" src="../assets/iconprofile.png" style="width: 80%;">
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonDark">
+                <ul class="dropdown-menu text-bg-dark" aria-labelledby="dropdownMenuButtonDark">
                     <li><a class="dropdown-item" href="#">Hola, {{ nombre }}</a></li>
                     <li><a class="dropdown-item" href="#">Configuración</a></li>
                     <li><a class="dropdown-item" @click="cerrarSesion" href="#">Cerrar sesion</a></li>

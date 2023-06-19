@@ -21,7 +21,7 @@ export default {
 <template>
   <div>
     <header>
-      <NavInit />
+      <NavInit :id="id"/>
     </header>
     <body>
           <TaskMultiple :id="id"/>

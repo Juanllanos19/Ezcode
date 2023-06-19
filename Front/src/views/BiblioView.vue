@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <NavInit />
+      <NavInit :idUsuario="idUsuario"/>
     </header>
 
     <body style="padding-top: 6%; width: 60%; margin-left: 20%;">
