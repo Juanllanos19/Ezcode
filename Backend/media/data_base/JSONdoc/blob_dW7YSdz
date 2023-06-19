@@ -1,0 +1,31 @@
+{
+  "id": "TC1028_23_C_1687144736109",
+  "author": "",
+  "title": "test josue",
+  "description": "josue description ",
+  "topic": 20,
+  "difficulty": 2,
+  "driver": "josue driver",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "12",
+      "output": "2"
+    },
+    {
+      "testId": "2",
+      "input": "2",
+      "output": "23"
+    },
+    {
+      "testId": "3",
+      "input": "21",
+      "output": "23"
+    },
+    {
+      "testId": "4",
+      "input": "1",
+      "output": "24"
+    }
+  ]
+}
