@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687163460702",
+  "author": "9",
+  "title": "Buenas",
+  "description": "Probando asi bien chido",
+  "topic": 9,
+  "difficulty": 2,
+  "driver": "Probando",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "Hola",
+      "output": "Hola"
+    },
+    {
+      "testId": "2",
+      "input": "Paracarmar",
+      "output": "Parcarmar"
+    }
+  ]
+}

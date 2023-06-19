@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687163619776",
+  "author": "9",
+  "title": "dfgh",
+  "description": "dfgh",
+  "topic": 6,
+  "difficulty": 2,
+  "answer": 1,
+  "hints": true,
+  "options": [
+    {
+      "text": "fghj",
+      "explanation": "ghj",
+      "isAnswer": false
+    },
+    {
+      "text": "fgh",
+      "explanation": "dfghj",
+      "isAnswer": true
+    },
+    {
+      "text": "hj",
+      "explanation": "fghj",
+      "isAnswer": false
+    },
+    {
+      "text": "dfghj",
+      "explanation": "safg",
+      "isAnswer": false
+    }
+  ]
+}

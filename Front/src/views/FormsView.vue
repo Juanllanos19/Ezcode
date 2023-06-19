@@ -3,10 +3,17 @@ import NavInit from '../components/NavInitProf.vue'
 import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
+import Popup from '../components/Popup.vue'
 
 const props = defineProps(['idUsuario'])
 
 console.log("Id del profesor es: " + props.idUsuario);
+
+
+const showPopup = ref({
+    exito: false,
+    error: false
+});
 
 const questionType = ref('codigo')
 const title = ref('')
@@ -25,6 +32,28 @@ const options = ref([
     { text: '', explanation: '', isAnswer: false },
     { text: '', explanation: '', isAnswer: false }
 ])
+
+function summonExito(){
+    showPopup.value.exito = true;
+}
+
+function summonError(){
+    showPopup.value.error = true;
+}
+
+function closeError(){
+    console.log("Cerrando popup");
+    showPopup.value.error = false;
+}
+
+function goToMenu(){
+    router.push({ path: `/biblio/${props.idUsuario}` })
+}
+
+function newQuestion(){
+    window.location.reload();
+}
+
 
 function addInputOutput() {
     if (inputs.value.length < 4 && outputs.value.length < 4) {
@@ -122,10 +151,12 @@ function generateJSON() {
         headers: {"Content-Type": "multipart/form-data"},
     })
             .then(response => {
-                console.log('Solicitud exitosa:', response.data)
+                console.log('Solicitud exitosa:', response.data),
+                summonExito()
             })
             .catch(error => {
-                console.error('Error al realizar la solicitud:', error)
+                console.error('Error al realizar la solicitud:', error),
+                summonError()
             })
         document.body.appendChild(element)
         element.click()
@@ -251,6 +282,17 @@ onMounted(() => {
         </header>
 
         <body style="padding-top: 6%;">
+            <Popup v-if="showPopup.exito">
+                <h2>¡Se ha subido la pregunta con exito!</h2>
+                <button type="button" class="btn btn-primary" @click="newQuestion" style="width: 100%; margin-top: 3%;">Subir otra pregunta</button> 
+                <button type="button" class="btn btn-secondary" @click="goToMenu" style="width: 100%; margin-top: 3%;">Salir al menu</button> 
+            </Popup>
+            <Popup v-if="showPopup.error">
+                <h2>Ha habido un error :(</h2>
+                Favor de revisar bien los valores, si el problema persiste <br> 
+                favor de ponerse en contacto con el administrador.
+                <button type="button" class="btn btn-primary" @click="closeError()" style="width: 100%; margin-top: 3%;">Ok</button> 
+            </Popup>
             <div class="container mt-5 mb-5 d-flex justify-content-center">
                 <div class="card px-1 py-4">
                     <div class="card-body">
@@ -323,7 +365,7 @@ onMounted(() => {
                                 </div>
                             </div>
                             <div class="mt-3 d-flex justify-content-end">
-                                <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
+                                <button class="btn btn-primary" @click="generateJSON">Subir la pregunta</button>
                             </div>
                             <div>
                                 <!--<label for="jsonFile">Subir archivo JSON:</label>
@@ -399,7 +441,7 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
+                            <button class="btn btn-primary" @click="generateJSON">Subir la pregunta</button>
                             <!--<div>
                                 <label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
