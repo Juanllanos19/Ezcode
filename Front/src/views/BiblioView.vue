@@ -12,7 +12,7 @@
     <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
       <div class="row d-flex justify-content-center px-3">
         <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-        <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+        <button class="button-1" role="button" @click="navigateToListView" style="margin-top: 1%;">Crear Actividad</button>
       </div>
         <div class="row d-flex justify-content-center px-3">
           <div class="card">
@@ -35,6 +35,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 export default {
+  props: ['idUsuario'],
   data() {
       return {
         nombre: '',
@@ -42,8 +43,7 @@ export default {
     },
 
     created() {
-          const idUsuario = this.$route.params.idUsuario;
-          axios.get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+          axios.get(`http://127.0.0.1:8000/api/profesor/${this.idUsuario}`)
               .then(response => {
                 this.nombre = response.data.nombre;
               })
@@ -55,11 +55,10 @@ export default {
 
   methods: {
       navigateToFormsView() {
-        this.$router.push('/form'); // Assuming you have defined the route for FormsView.vue
+        this.$router.push(`/form/${this.idUsuario}`); // Assuming you have defined the route for FormsView.vue
       },
       navigateToListView() {
-        const idUsuario = this.$route.params.idUsuario;
-        this.$router.push(`/list/${idUsuario}`); // Assuming you have defined the route for ListView.vue
+        this.$router.push(`/list/${this.idUsuario}`); // Assuming you have defined the route for ListView.vue
       },
     },
     components: {

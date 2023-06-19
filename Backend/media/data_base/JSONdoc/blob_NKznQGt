@@ -1,0 +1,16 @@
+{
+  "id": "TC1028_23_C_1687196626380",
+  "author": "1",
+  "title": "Prueba popup",
+  "description": "Probando el popup",
+  "topic": 10,
+  "difficulty": 2,
+  "driver": "popup",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "1",
+      "output": "2"
+    }
+  ]
+}

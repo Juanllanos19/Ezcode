@@ -1,0 +1,16 @@
+{
+  "id": "TC1028_23_C_1687163515575",
+  "author": "9",
+  "title": "Pruebita",
+  "description": "Poco a poco",
+  "topic": 6,
+  "difficulty": 2,
+  "driver": "Aqui probando unas cosa",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "hola",
+      "output": "hola"
+    }
+  ]
+}

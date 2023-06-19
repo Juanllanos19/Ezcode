@@ -50,9 +50,11 @@ import axios from 'axios'
 import NavInit from '../components/NavInit.vue'
 import DesempenioView from './DesempenioView.vue';
 import { VAceEditor } from 'vue3-ace-editor';
+import Popup from '../components/Popup.vue';
+import router from '../router';
 
 export default {
-    props: ['id'],
+    props: ['idUsuario', 'id'],
     setup(props){
 
 
@@ -62,6 +64,7 @@ export default {
     NavInit,
     VAceEditor,
     DesempenioView,
+    Popup,
     },
     data() {
         return {
@@ -83,20 +86,33 @@ export default {
                 tema:"tema test",
                 contenido:{}
             },
-            contenido: {value: {}}
+            contenido: {value: {}},
+            score: {
+                numerador: 0,
+                denominador: 0
+            },
+            showPopup: {
+                value: true
+            },
+            actId: {
+                value: -1
+            },
         }
     },
     mounted()
     {
-        axios.get('http://localhost:8000/api/pregunta/'+ this.id + '/')
+        axios.get('http://localhost:8000/api/actividaPregunta/'+ this.id + '/')
         .then((result) => {
             console.log(result.data);
-            this.data.value = result.data;
+            console.log(result.data.pregunta);
+            this.actId.value = result.data.actividad.id;
+            this.data.value = result.data.pregunta;
 
 
             axios.get(this.data.value.contenido)
             .then((response) => {
                 this.contenido.value = response.data;
+                this.score.denominador  = this.contenido.value.tests.length
                 console.log(this.contenido.value.description);
             }
             ).catch((error) => {
@@ -109,6 +125,14 @@ export default {
 
     },
     methods:{
+        summonPopup(event)
+        {
+            this.showPopup.value = true;
+        },
+        closePopup(event)
+        {
+            this.showPopup.value = false;
+        },
         execute(event){
             console.log("Execute");
             this.output.value = "Loading...";
@@ -188,6 +212,7 @@ export default {
             console.log("Testing")
             this.testcases.value = [];
             this.testcases.results = [];
+            this.score.numerador = 0;
             const options = {
             method: 'POST',
             url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -250,6 +275,7 @@ export default {
                         if (salida == atob(response.data.expected_output))
                         {
                             this.testcases.results[index] = "checkmark";
+                            this.score.numerador++;
                         }
                         else{
                             this.testcases.results[index] = "tacha";
@@ -271,6 +297,23 @@ export default {
                 console.log(options.data.source_code );
                 console.log(atob(options.data.source_code));
             }
+        },
+        submit(event){
+            axios.post('http://127.0.0.1:8000/api/calificacion/',
+                {
+                    actividad: this.id,
+                    estudiante: this.idUsuario,
+                    ponderacion: this.score.numerador,
+                    puntosTotal: this.score.denominador
+                }
+            )
+            .then((response) => {
+                console.log("Subido exitosamente: ", response.data);
+                router.push({ path: `/task/${this.actId}/${this.idUsuario}` })
+            }
+            ).catch((error) => {
+                    console.log(error)
+                })
         }
     },
     name: 'TaskCode'
@@ -286,6 +329,12 @@ export default {
             <NavInit />
         </header>
         <body style="display: flex; padding-top: 8% width: 100%;">
+            <Popup v-if="showPopup.value">
+                <h2>¿Quieres terminar el ejercicio?</h2>
+                Haz resulto correctamente {{ score.numerador }} de {{ score.denominador }} casos de prueba.
+                <button type="button" class="btn btn-primary" @click="submit" style="width: 100%; margin-top: 3%;">Terminar ejercicio</button> 
+                <button type="button" class="btn btn-secondary" @click="closePopup" style="width: 100%; margin-top: 3%;">Regresar al ejercicio</button> 
+            </Popup>
             <div id="compilador" style="display: flex; width: 100%;">
                 <div id="description" style="width: 25%; padding-top: 8%; padding-left: 0.5%;">
                     <div class="card" style="width: 100%;">
@@ -336,7 +385,7 @@ export default {
                                         <h2 class="accordion-header" id="'#collapse'+index">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse'+index" aria-expanded="false" :aria-controls="'collapse'+index">
                                                 Test: {{ item.testId }}
-                                                <img v-if="testcases.results[index] != null" :src="'../src/assets/' + testcases.results[index]+'.png'" style="max-width: 8%; margin-left: 75%;">
+                                                <img v-if="testcases.results[index] != null" :src="'http://localhost:8000/media/assets/' + testcases.results[index]+'.png'" style="max-width: 8%; margin-left: 75%;">
                                             </button>
                                         </h2>
                                         <div :id="'collapse'+index" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -352,6 +401,7 @@ export default {
                                 </template>
                                
                             </div>
+                            <button type="button" class="btn btn-success" @click="summonPopup" style="width: 100%; margin-top: 3%;">Subir ejercicio</button> 
                         </div>
                     </div>
                 </div>

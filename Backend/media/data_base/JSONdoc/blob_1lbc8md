@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687157787058",
+  "author": "9",
+  "title": "Ahora si redux profesor",
+  "description": "Pequeña prueba a ver si es que si nos sirve esto",
+  "topic": 6,
+  "difficulty": 2,
+  "driver": "Ojala salga Alba",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "Hola como estas",
+      "output": "Mi nombre es iker"
+    },
+    {
+      "testId": "2",
+      "input": "Muy buenas",
+      "output": "Tardes"
+    }
+  ]
+}
