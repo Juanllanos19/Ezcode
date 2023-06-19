@@ -6,7 +6,7 @@
   
       <body style="padding-top: 6%;">
         <h2>{{ nombre }} elige las preguntas para su Actividad</h2>
-        <div>
+        <div class="centered-table">
           <table>
             <thead>
               <tr>
@@ -322,6 +322,15 @@ h5 {
 
 hr {
     margin-top: 1.25rem;
+}
+
+.centered-table {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 form {
