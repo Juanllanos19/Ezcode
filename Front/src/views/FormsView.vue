@@ -31,25 +31,47 @@ function addInputOutput() {
 
 function generateJSON() {
     //if (questionType.value === 'codigo') {
-        const questionData = {
-            id: `TC1028_23_C_${Date.now()}`,
-            author: author.value,
-            title: title.value,
-            description: description.value,
-            topic: selectedTheme.value,
-            difficulty: selectedDifficulty.value,
-            driver: driver.value,
-            tests: []
+
+        var questionData = {};
+
+        if (questionType.value == "codigo")
+        {
+            questionData = {
+                id: `TC1028_23_C_${Date.now()}`,
+                author: author.value,
+                title: title.value,
+                description: description.value,
+                topic: selectedTheme.value,
+                difficulty: selectedDifficulty.value,
+                driver: driver.value,
+                tests: []
+            }
+
+            for (let i = 0; i < inputs.value.length; i++) 
+            {
+                const test = {
+                    testId: (i + 1).toString(),
+                    input: inputs.value[i],
+                    output: outputs.value[i]
+                }
+                questionData.tests.push(test)
+            }
+        }
+        else
+        {
+            questionData = {
+                id: `TC1028_23_OM_${Date.now()}`,
+                author: author.value,
+                title: title.value,
+                description: description.value,
+                topic: selectedTheme.value,
+                difficulty: selectedDifficulty.value,
+                answer: answer.value,
+                hints: hints.value,
+                options: options.value
+            }
         }
 
-        for (let i = 0; i < inputs.value.length; i++) {
-            const test = {
-                testId: (i + 1).toString(),
-                input: inputs.value[i],
-                output: outputs.value[i]
-            }
-            questionData.tests.push(test)
-        }
 
         const jsonData = JSON.stringify(questionData, null, 2)
 
@@ -298,9 +320,9 @@ onMounted(() => {
                                 <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
                             </div>
                             <div>
-                                <label for="jsonFile">Subir archivo JSON:</label>
+                                <!--<label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
-                                    @change="handleFileUpload">
+                                    @change="handleFileUpload"> -->
                             </div>
                         </div>
                         <div v-if="questionType === 'multiple'">
@@ -369,11 +391,11 @@ onMounted(() => {
                                 </div>
                             </div>
                             <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
-                            <div>
+                            <!--<div>
                                 <label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
                                     @change="handleFileUpload">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
