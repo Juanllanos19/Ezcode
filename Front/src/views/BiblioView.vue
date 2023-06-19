@@ -12,7 +12,7 @@
     <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
       <div class="row d-flex justify-content-center px-3">
         <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-        <button class="button-1" role="button" @click="navigateToListView">Crear Actividad</button>
+        <button class="button-1" role="button" @click="navigateToListView" style="margin-top: 1%;">Crear Actividad</button>
       </div>
         <div class="row d-flex justify-content-center px-3">
           <div class="card">
