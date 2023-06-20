@@ -24,13 +24,15 @@ const router = createRouter({
             component: () => import('../views/RegisterEstView.vue')
         },
         {
-            path: '/compiler',
+            path: '/compiler/:idUsuario/:id',
             name: 'compiler',
+            props: true,
             component: () => import('../views/testView.vue')
         },
         {
-            path: '/stats',
+            path: '/stats/:idUsuario/:idGrupo',
             name: 'stats',
+            props: true,
             component: () => import('../views/StatsView.vue')
         },
         {
@@ -46,31 +48,19 @@ const router = createRouter({
             component: () => import('../views/MainView.vue')
         },
         {
-            path: "/task/:id",
-            name: 'task',
-            props: true,
-            component: () => import('../views/TaskView.vue')
-        },
-        {
             path: "/desempenio/:idUsuario",
             name: 'desempenio',
             props: true,
             component: () => import('../views/DesempenioView.vue')
         },
         {
-            path: "/inicio/:idUsuario",
-            name: 'main',
-            props: true,
-            component: () => import('../views/MainView.vue')
-        },
-        {
-            path: "/task/:id",
+            path: "/task/:id/:idUsuario",
             name: 'task',
             props: true,
             component: () => import('../views/TaskView.vue')
         },
         {
-            path: "/question/:id",
+            path: "/question/:id/:idUsuario",
             name: 'question',
             props: true,
             component: () => import('../views/TaskMultView.vue')
@@ -81,8 +71,9 @@ const router = createRouter({
             component: () => import('../views/SettingsView.vue')
         },
         {
-            path: '/form',
+            path: '/form/:idUsuario',
             name: 'form',
+            props: true,
             component: () => import('../views/FormsView.vue')
         },
         {
@@ -92,8 +83,9 @@ const router = createRouter({
             component: () => import('../views/BiblioView.vue')
         },
         {
-            path: '/list',
+            path: '/list/:idUsuario',
             name: 'list',
+            props: true,
             component: () => import('../views/ListView.vue')
         },
         {
@@ -109,13 +101,13 @@ const router = createRouter({
             component: () => import('../views/VistaPreviaEstView.vue')
         },
         {
-            path: '/Cgrupo',
+            path: '/Cgrupo/:idUsuario',
             name: 'Cgrupo',
             props: true,
             component: () => import('../views/CreateGrupoView.vue')
         },
         {
-            path: '/info',
+            path: '/info/:idUsuario',
             name: 'info',
             props: true,
             component: () => import('../views/InfoView.vue')

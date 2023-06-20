@@ -1,39 +1,96 @@
 <template>
   <div>
-    <div class="header mt-4">
-      <h2 class="mb-0">Lista de tareas creadas</h2>
+    <header>
+      <NavInit :idUsuario="idUsuario"/>
+    </header>
+
+    <body style="padding-top: 6%; width: 60%; margin-left: 20%;">
+    <br><div class="header mt-4">
+      <h2 class="mb-0">Lista de tareas creadas de {{ nombre }}</h2>
     </div>
+
     <div class="container-fluid px-1 px-md-4 py-5 mx-auto">
       <div class="row d-flex justify-content-center px-3">
         <button class="button-1" role="button" @click="navigateToFormsView">Crear Pregunta</button>
-        <button class="button-1" role="button" @click="navigateToListView">Crear Reactivo</button>
+        <button class="button-1" role="button" @click="navigateToListView" style="margin-top: 1%;">Crear Actividad</button>
       </div>
-      <div class="row d-flex justify-content-center px-3">
-        <div class="card">
-          <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
-          <p class="ml-auto mr-4 mb-0 med-font">Grupo 1</p>
-          <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
-          <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
-          <p class="ml-4 mb-4">Variables</p>
-          <button type="button" class="btn btn-outline-light" style="z-index: 1;">Editar</button>
-        </div>
+        <div class="row d-flex justify-content-center px-3">
+          <div class="card" style="width: 100%;" v-for="grupo in this.grupos" @click="goGrupo(grupo.id)">
+                <div class="card-body">
+                    <h2 class="card-title" style="font-size: 48px;">{{ grupo.nombre }}</h2>
+                    <p class="card-text" style="font-size: 32px;">{{ grupo.uf.siglas }}</p> 
+                </div>
+          </div>
       </div>
     </div>
+    </body>
   </div>
 </template>
 
 <script>
+import NavInit from '../components/NavInitProf.vue'
+import router from '../router';
+import { ref } from 'vue';
+import axios from 'axios';
+
 export default {
+  props: ['idUsuario'],
+  data() {
+      return {
+        nombre: '',
+        grupos: [{}]
+      }
+    },
+
+    created() {
+          axios.get(`http://127.0.0.1:8000/api/profesor/${this.idUsuario}`)
+            .then(response => {
+              this.nombre = response.data.nombre;
+            })
+            .catch(error => {
+              console.error(error);
+            });
+
+          axios.get(`http://127.0.0.1:8000/api/grupo/`)
+            .then(response => {
+              this.grupos = this.filterGroups(response.data);
+              console.log("Grupos: ", this.grupos);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        },
+
+
   methods: {
-    navigateToFormsView() {
-      this.$router.push('/form'); // Assuming you have defined the route for FormsView.vue
+      navigateToFormsView() {
+        this.$router.push(`/form/${this.idUsuario}`); // Assuming you have defined the route for FormsView.vue
+      },
+      navigateToListView() {
+        this.$router.push(`/list/${this.idUsuario}`); // Assuming you have defined the route for ListView.vue
+      },
+      filterGroups(lista)
+      {
+        var respuesta = [];
+        for (var i = 0; i < lista.length; i++){
+          if (lista[i].profesor.id == this.idUsuario)
+          {
+            respuesta.push(lista[i])
+          }
+        }
+        return respuesta;
+      },
+      goGrupo(id)
+      {
+        this.$router.push(`/stats/${this.idUsuario}/${id}`)
+      }
     },
-    navigateToListView() {
-      this.$router.push('/list'); // Assuming you have defined the route for ListView.vue
+    components: {
+        NavInit
     },
-  },
 };
 </script>
+
 
 <style>
 body {
@@ -53,11 +110,11 @@ body {
   background-image: url("http://i.imgur.com/w16HASj.png");
   background-size: cover;
   width: 100%;
-  height: 400px;
+  height: auto;
   border-radius: 20px;
-  margin-top: 10px;
-  margin-bottom: 50px;
-  padding-top: 20px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  padding-top: 0px;
 }
 
 .time-font {

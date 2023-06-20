@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687227583508",
+  "author": "15",
+  "title": "Encuentra el impostor",
+  "description": "de las siguientes palabras elige la que no sea una palabra reservada en python",
+  "topic": 3,
+  "difficulty": 1,
+  "answer": 3,
+  "hints": true,
+  "options": [
+    {
+      "text": "print",
+      "explanation": "imprime en consola",
+      "isAnswer": false
+    },
+    {
+      "text": "for",
+      "explanation": "ciclo de 0 a un valor dado",
+      "isAnswer": false
+    },
+    {
+      "text": "if",
+      "explanation": "condicional simple",
+      "isAnswer": false
+    },
+    {
+      "text": "switch",
+      "explanation": "cambio de casos en condiciones en c++",
+      "isAnswer": true
+    }
+  ]
+}

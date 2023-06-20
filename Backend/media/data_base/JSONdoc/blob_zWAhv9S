@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687157879379",
+  "author": "9",
+  "title": "A ver que onda",
+  "description": "Por si es que si se arma",
+  "topic": 4,
+  "difficulty": 2,
+  "answer": 2,
+  "hints": true,
+  "options": [
+    {
+      "text": "a",
+      "explanation": "fghj",
+      "isAnswer": false
+    },
+    {
+      "text": "b",
+      "explanation": "dfghj",
+      "isAnswer": false
+    },
+    {
+      "text": "c",
+      "explanation": "rtyuj",
+      "isAnswer": true
+    },
+    {
+      "text": "d",
+      "explanation": "ertyj",
+      "isAnswer": false
+    }
+  ]
+}

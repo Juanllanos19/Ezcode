@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687157669128",
+  "author": "9",
+  "title": "Pruebita nueva profesor",
+  "description": "Una pequeña prueba realizada para ver si se pasa bien el de profesor",
+  "topic": 13,
+  "difficulty": 2,
+  "driver": "Preubitisima",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "a ver",
+      "output": "que pei"
+    },
+    {
+      "testId": "2",
+      "input": "por",
+      "output": "si acaso"
+    }
+  ]
+}

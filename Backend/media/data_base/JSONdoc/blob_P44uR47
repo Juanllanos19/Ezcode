@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687049027498",
+  "author": "",
+  "title": "hola",
+  "description": "estamos",
+  "topic": 4,
+  "difficulty": 2,
+  "answer": 1,
+  "hints": true,
+  "options": [
+    {
+      "text": "dfghjm,",
+      "explanation": "thjkl",
+      "isAnswer": false
+    },
+    {
+      "text": "dfghj",
+      "explanation": "dfgh",
+      "isAnswer": false
+    },
+    {
+      "text": "sdfgh",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "dfgh",
+      "explanation": "ertgh",
+      "isAnswer": false
+    }
+  ]
+}

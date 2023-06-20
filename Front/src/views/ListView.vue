@@ -1,282 +1,220 @@
-<script setup>
-import { onMounted, ref } from 'vue'
-import axios from 'axios'
-import router from '../router';
-
-const dificultad = ref([
-    {
-        id: "",
-        rango: ""
-    }
-])
-
-const modulos = ref([{
-    id: "",
-    nombre: "",
-    tipo: ""
-}])
-
-const profesor = ref([{
-    id: "",
-    nombre: "",
-    apellidoPat: "",
-    apellidoMat: ""
-}])
-
-onMounted(() => {
-    axios.get('http://localhost:8000/api/dificultad/')
-        .then(result => {
-            console.log(result.data)
-            dificultad.value = result.data
-        })
-        .catch(error => {
-            console.log(error)
-        })
-})
-
-onMounted(
-    axios.get('http://localhost:8000/api/tema')
-        .then((result) => {
-            console.log(result.data);
-            modulos.value = result.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-)
-
-onMounted(() => {
-    axios.get('http://localhost:8000/api/profesor/')
-        .then(result => {
-            console.log(result.data)
-            profesor.value = result.data
-        })
-        .catch(error => {
-            console.log(error)
-        })
-})
-</script>
-
 <template>
     <div>
-        <header>
-            <NavInit />
-        </header>
-
-        <body style="padding-top: 6%;">
-
-            <h2>Elija las preguntas para su Actividad</h2>
-            <hr><br>
-            <div>
-                <div class="container">
-                    <div class="row">
-                        <table class="table">
-                            <thead class="blue-text">
-                                <tr class="filters">
-                                    <th>Autor
-                                        <select id="autor-filter" class="form-control" v-model="filters.autor"
-                                            @change="changeFilter('autor')">
-                                            <option v-for="(item, i) in profesor" :key="i"> {{ item.nombre }}</option>
-                                        </select>
-                                    </th>
-                                    <th>Tema
-                                        <select id="tema-filter" class="form-control" v-model="filters.tema"
-                                            @change="changeFilter('tema')">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
-
-                                        </select>
-                                    </th>
-                                    <th>Dificultad
-                                        <select id="dificultad-filter" class="form-control" v-model="filters.dificultad"
-                                            @change="changeFilter('dificultad')">
-                                            <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
-                                        </select>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <div class="panel panel-primary filterable">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Preguntas</h3>
-                                <div class="pull-right"></div>
-                            </div>
-
-                            <table id="task-list-tbl" class="table">
-                                <thead>
-                                    <tr class="blue-text">
-                                        <th>Check</th>
-                                        <th>Title</th>
-                                        <th>Dificultad</th>
-                                        <th>Tema</th>
-                                        <th>Autor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="color: white;" v-for="task in filteredTasks" :key="task.id"
-                                        class="task-list-row" :data-task-id="task.id" :data-autor="task.autor"
-                                        :data-tema="task.tema" :data-dificultad="task.dificultad">
-                                        <td>
-                                            <input type="checkbox" :value="task.id" v-model="selectedTasks">
-                                        </td>
-                                        <td>{{ task.title }}</td>
-                                        <td>{{ task.dificultad }}</td>
-                                        <td>{{ task.tema }}</td>
-                                        <td>{{ task.autor }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
+      <header>
+        <NavInit />
+      </header>
+  
+      <body style="padding-top: 6%;">
+        <h2>{{ nombre }} elige las preguntas para su Actividad</h2>
+        <div class="centered-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Check</th>
+                <th>Título</th>
+                <th>Tema</th>
+                <th>Dificultad</th>
+                <th>Profesor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in items" :key="item.id">
+                <td>
+                  <input type="checkbox" v-model="item.checked" @change="updateSelectedQuestions(item)" />
+                </td>
+                <td>{{ item.titulo }}</td>
+                <td>{{ item.tema }}</td>
+                <td>{{ item.dificultad }}</td>
+                <td>{{ item.nombreProfesor }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="card">
+          <div class="row">
+            <div class="col-md-8 cart">
+              <div class="title">
                 <div class="row">
-                    <div class="col-md-8 cart">
-                        <div class="title">
-                            <div class="col">
-                                <h4><b>previsualizar Actividad</b></h4>
-                            </div>
-                        </div>
-                        <div class="row border-top border-bottom" v-for="(taskTitle, index) in selectedTaskTitles"
-                            :key="index">
-                            <div class="row main align-items-center">
-                                <div class="col">
-                                    <div class="row">{{ taskTitle }}</div>
-                                </div>
-                                <div class="col">
-                                    <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 summary">
-                        <div>
-                            <h5><b>Configuración</b></h5>
-                        </div>
-                        <hr>
-                        <form>
-                            <p>Tiempo Limite</p>
-                            <input type="date" id="date" placeholder="Select a date">
-                            <input type="time" id="time" placeholder="Select a time">
-                            <p>Titulo</p>
-                            <input placeholder="Tiutlo de la Actividad">
-                            <p>Grupo</p>
-                            <select id="grupo-filter" class="form-control" v-model="filters.grupo"
-                                @change="changeFilter('grupo')">
-                                <option v-for="(item, i) in grupo" :key="i"> {{ item.grupo }}</option>
-                            </select>
-                        </form>
-                        <button class="btn">Subir Actividad</button>
-                    </div>
+                  <div class="col">
+                    <h4><b>Previsualizador de Actividad</b></h4>
+                  </div>
                 </div>
+              </div>
+              <div class="row border-top border-bottom" v-for="(task, index) in selectedTasks" :key="index">
+                <div class="row main align-items-center">
+                  <div class="col">
+                    <div class="row">{{ task.titulo }}</div>
+                  </div>
+                  <div class="col">
+                    <input type="number" id="typeNumber" class="form-control-sm" placeholder="0.0" v-model="task.valor" />
+                  </div>
+                </div>
+              </div>
             </div>
-        </body>
+            <div class="col-md-4 summary">
+              <div>
+                <h5><b>Configuración</b></h5>
+              </div>
+              <hr>
+              <form>
+                <p>FechaInicio</p>
+                <input type="date" id="date" v-model="fechaInicio" placeholder="Seleccione una fecha">
+                <p>FechaLimite</p>
+                <input type="date" id="date" v-model="fechaFin" placeholder="Seleccione una fecha">
+                <p>Duracion</p>
+                <input type="time" id="time" v-model="duracion" placeholder="Seleccione una hora">
+                <p>Título</p>
+                <input v-model="tituloActividad" placeholder="Título de la Actividad">
+                <p>Grupo</p>
+                <select id="grupo-filter" class="form-control" v-model="selectedGroupId">
+                  <option v-for="(item, i) in selectedGroup" :key="i" :value="item.id">{{ item.nombre }}</option>
+                </select>
+              </form>
+              <button class="btn" @click="subirActividad">Subir Actividad</button>
+            </div>
+          </div>
+        </div>
+      </body>
     </div>
-</template>
+  </template>
   
-<script>
-import NavInit from '../components/NavInitProf.vue'
-
-export default {
-    data() {
-        return {
-            filters: {
-                autor: null,
-                tema: null,
-                dificultad: null,
-            },
-            tasks: [
-                {
-                    id: 1,
-                    title: 'title 1',
-                    dificultad: 'Difícil',
-                    tema: 'Variables',
-                    autor: 'Larry',
-                },
-                {
-                    id: 2,
-                    title: 'title 2',
-                    dificultad: 'Fácil',
-                    tema: 'If',
-                    autor: 'Larry',
-                },
-                {
-                    id: 3,
-                    title: 'title 3',
-                    dificultad: 'Normal',
-                    tema: 'Arrays',
-                    autor: 'Jesús',
-                },
-                {
-                    id: 4,
-                    title: 'title 4',
-                    dificultad: 'Difícil',
-                    tema: 'Variables',
-                    autor: 'Donald',
-                }
-            ],
-            selectedTasks: [],
-            selectedTaskTitles: [],
-        };
-    },
-    components: {
-        NavInit
-    },
-    computed: {
-        filteredTasks() {
-            return this.tasks.filter(task => {
-                let result = true; // not guilty until proven guilty
-
-                Object.keys(this.filters).forEach(filter => {
-                    if (
-                        this.filters[filter] &&
-                        this.filters[filter] !== 'None' &&
-                        this.filters[filter] !== 'Any'
-                    ) {
-                        result = result && this.filters[filter] === task[filter];
-                    }
+  <script setup>
+  import { onMounted, ref, defineProps } from 'vue';
+  import axios from 'axios';
+  import NavInit from '../components/NavInitProf.vue';
+  
+  const items = ref([]);
+  const selectedTasks = ref([]); // Tareas seleccionadas en la card
+  const nombre = ref(null);
+  const selectedGroup = ref(''); // Grupo seleccionado en el formulario
+  const tituloActividad = ref('');
+  const fechaInicio = ref('');
+  const fechaFin = ref('');
+  const duracion = ref('');
+  const selectedGroupId = ref(0);
+  const pregunta = ref(0);
+  const valor = ref(0);
+  
+  onMounted(() => {
+    axios
+      .get('http://127.0.0.1:8000/api/pregunta/')
+      .then((result) => {
+        const data = result.data.map((item) => ({
+          titulo: item.titulo,
+          dificultad: item.dificultad.rango,
+          tema: item.tema.tipo,
+          nombreProfesor: item.profesor.nombre,
+          pregunta: item, // Incluye la propiedad pregunta con el objeto completo
+          checked: false,
+          valor: 0, // Nuevo valor inicial
+        }));
+        items.value = data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  
+  onMounted(() => {
+    axios
+      .get('http://127.0.0.1:8000/api/grupo/')
+      .then((result) => {
+        console.log(result.data);
+        selectedGroup.value = result.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  
+  const { idUsuario } = defineProps(['idUsuario']);
+  
+  axios
+    .get(`http://127.0.0.1:8000/api/profesor/${idUsuario}`)
+    .then((response) => {
+      nombre.value = response.data.nombre;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
+  function subirActividad() {
+    // Realizar POST de la actividad
+    axios
+      .post('http://127.0.0.1:8000/api/actividad/', {
+        nombre: tituloActividad.value,
+        fechaInicio: fechaInicio.value,
+        fechaFin: fechaFin.value,
+        duracion: duracion.value,
+      })
+      .then((response) => {
+        console.log('Actividad creada:', response.data);
+  
+        // Obtener el ID de la actividad creada
+        const actividadId = response.data.id;
+        console.log(response.data.id);
+        console.log(selectedGroupId.value);
+  
+        // Realizar POST de actividadGrupo
+        axios
+          .post('http://127.0.0.1:8000/api/actividaGrupo/', {
+            grupo: selectedGroupId.value,
+            actividad: actividadId,
+          })
+          .then((response) => {
+            console.log('ActividadGrupo creada:', response.data);
+  
+            // Realizar POST de actividaPregunta para cada pregunta seleccionada
+            selectedTasks.value.forEach((task) => {
+              axios
+                .post('http://127.0.0.1:8000/api/actividaPregunta/', {
+                  actividad: actividadId,
+                  pregunta: task.pregunta.id,
+                  valor: task.valor, // Utilizar el valor correspondiente a cada pregunta
+                })
+                .catch((error) => {
+                  console.error('Error al crear actividaPregunta:', error);
+                  // Manejar el error de acuerdo a tus necesidades
                 });
-
-                return result;
             });
-        }
-    },
-    methods: {
-        changeFilter(filterName) {
-            this.updateFilters();
-        },
-        updateFilters() {
-            // No es necesario hacer nada aquí, ya que computed 'filteredTasks' se actualiza automáticamente
-        },
-        handleTaskSelection() {
-            this.selectedTaskTitles = this.selectedTasks.map(taskId => {
-                const task = this.tasks.find(t => t.id === taskId);
-                return task ? task.title : '';
-            });
-        },
-        subirActividad() {
-            // ... lógica para subir la actividad
-
-            // Al finalizar la subida de la actividad, actualiza el store de Vuex
-            this.$store.commit('setActividad', actividad);
-        },
-    },
-    watch: {
-        selectedTasks: {
-            handler: 'handleTaskSelection',
-            deep: true,
-        },
-    },
-};
-</script>
   
+            // Realizar cualquier acción adicional después de crear la actividadGrupo
+          })
+          .catch((error) => {
+            console.error('Error al crear la actividad o actividadGrupo:', error);
+            // Manejar el error de acuerdo a tus necesidades
+          });
+      })
+      .catch((error) => {
+        console.error('Error al crear la actividad:', error);
+        // Manejar el error de acuerdo a tus necesidades
+      });
+  }
+  
+  function updateSelectedQuestions(item) {
+    if (item.checked) {
+      selectedTasks.value.push(item);
+    } else {
+      const index = selectedTasks.value.findIndex((task) => task.titulo === item.titulo);
+      if (index !== -1) {
+        selectedTasks.value.splice(index, 1);
+      }
+    }
+  }
+  </script>
+
 <style scoped>
 body {
     background-image: url("http://i.imgur.com/w16HASj.png");
+    color: white;
 }
 
 .blue-text {
+    color: white;
+}
+
+h2 {
     color: white;
 }
 
@@ -323,7 +261,7 @@ body {
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
     padding: 4vh;
-    color: rgb(65, 65, 65);
+    color: white;
 }
 
 @media(max-width:767px) {
@@ -343,6 +281,7 @@ body {
 
 .row {
     margin: 0;
+    color: white;
 }
 
 .title b {
@@ -385,17 +324,26 @@ hr {
     margin-top: 1.25rem;
 }
 
+.centered-table {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 form {
     padding: 2vh 0;
 }
 
 select {
     border: 1px solid rgba(0, 0, 0, 0.137);
-    padding: 1.5vh 1vh;
+    padding: 1vh 1vh;
     margin-bottom: 4vh;
     outline: none;
     width: 100%;
-    background-color: rgb(247, 247, 247);
+    background-color: #44749d;
 }
 
 input {
@@ -404,7 +352,7 @@ input {
     margin-bottom: 4vh;
     outline: none;
     width: 100%;
-    background-color: rgb(247, 247, 247);
+    background-color: #44749d;
 }
 
 input:focus::-webkit-input-placeholder {

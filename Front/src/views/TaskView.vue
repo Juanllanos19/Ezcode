@@ -2,8 +2,9 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
-const props = defineProps(['id'])
-const idUsuario = 11
+import NavInit from '../components/NavInit.vue'
+
+const props = defineProps(['id', 'idUsuario'])
 
 const data = ref([{
   id: "",
@@ -42,36 +43,49 @@ const preguntas = ref([
   }
 ])
 
+function goToPreguntaMultiple(id, idUsuario) {
+  router.push({ path: `/question/${id}/${idUsuario}` });
+}
+
+function goToPreguntaCode(id){
+  router.push({ path: `/compiler/${props.idUsuario}/${id}` })
+}
+
 
 onMounted(() => {
   axios.get('http://localhost:8000/api/actividaPregunta/')
   .then(result => {
     console.log(result.data)
-    preguntas.value = result.data
+    preguntas.value = filterPreguntas(result.data)
   })
   .catch(error => {
     console.log(error)
   })
 })
-</script>
 
-<script>
-import NavInit from '../components/NavInit.vue'
-
-
-export default {
-  components: {
-    NavInit
+function filterPreguntas(lista){
+  var respuesta = [];
+  for (var i = 0; i < lista.length; i++){
+    console.log("id?: ", lista[i].id)
+    console.log("props: ", props.id)
+    if(lista[i].actividad.id==props.id){
+      respuesta.push(lista[i])
+    }
   }
+  console.log(respuesta)
+  return respuesta
 }
 
-function goToPreguntaMultiple(id){
-  router.push({ path: `/question/${id}` });
-}
-function goToPreguntaCode(id){
-  router.push({ name: 'compiler', params: { id: id } })
+function checkCalif(item){
+  for (let j = 0; j < Object.keys(data.value).length; j++){
+    if(data.value[j]['estudiante']['id'] == parseInt(props.idUsuario) && item==data.value[j]['actividad']['pregunta'] && data.value[j]['actividad']['actividad']==props.id){
+      return true
+    }
+  }
+  return false
 }
 </script>
+
 
 <template>
   <div>
@@ -81,34 +95,42 @@ function goToPreguntaCode(id){
     <body style="padding-top: 8%; width: 80%; margin-left: 10%;">
       <div class="container">
         <h1 style="text-align: center;">{{preguntas[0].actividad.nombre}}</h1>
-        <div style="width: 60%; margin-left: 20%;" class="card mb-3" v-for="(item1,i) in data" :key="i">
-        <div v-for="(item) in preguntas" :key="j">
-          <div v-if="item.pregunta.tipoP && idUsuario != item1.estudiante.id">
-            <div class="card-body text-bg-dark">
-              <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
-              <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
-              <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
-              <a style="margin-left:42%;" href="#" class="btn btn-primary" v-on:click="goToPreguntaMultiple(item.id)">Responder</a>
+        <div style="width: 60%; margin-left: 20%;" class="card mb-3" v-for="(item,i) in preguntas" :key="i">
+        <div v-if="item.pregunta.tipoP">
+          <div class="card-body text-bg-dark">
+            <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
+            <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
+            <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
+            <div v-if="!checkCalif(item.pregunta.id)">
+              <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
+            </div>
+            <div v-else>
+              <div class="alert alert-warning" role="alert" style="text-align: center;">
+                Contestada
+              </div>
             </div>
           </div>
-          <div v-else-if="!item.pregunta.tipoP && idUsuario != item1.estudiante.id">
-            <div class="card-body text-bg-dark">
-              <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
-              <p style="text-align: center;" class="card-text"> Tipo: Coding challenge</p>
-              <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
-              <a style="margin-left:42%;" href="#" class="btn btn-primary" v-on:click="goToPreguntaCode(item.id)">Responder</a>
+        </div>
+        <div v-else>
+          <div class="card-body text-bg-dark">
+            <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
+            <p style="text-align: center;" class="card-text"> Tipo: Coding challenge</p>
+            <p style="text-align: center;" lass="card-text"> Valor: {{ item.valor}}</p>
+            <div v-if="!checkCalif(item.pregunta.id)">
+              <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaCode(item.id)">Responder</a>
             </div>
-          </div>
-          <div v-if="idUsuario == item1.estudiante.id">
-            <div class="card-body text-bg-dark">
-              <h5 style="text-align: center;" class="card-title">NO PUEDES VOLVER A RESPONDER LA PREGUNTA {{ i +1 }}</h5>
-              <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
-              <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
+            <div v-else>
+              <div class="alert alert-warning" role="alert" style="text-align: center;">
+                Contestada
+              </div>
             </div>
+            
           </div>
         </div>
       </div>
     </div>
+    
+    <router-link :to="`/inicio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="menu-nav"><button style="margin-left:80%;" type="button" class="btn btn-success">ENTREGAR</button></router-link>
     </body>
     <RouterView />
   </div>

@@ -5,114 +5,154 @@
     </header>
 
     <body style="padding-top: 6%;">
-      <h1 style="text-align: center;">Lista de Alumnos</h1>
-      <div class="table-container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Grupo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="alumno in alumnos" :key="alumno.id">
-              <td>{{ alumno.nombre }}</td>
-              <td>
-                <input type="checkbox" v-model="alumno.enGrupo" @change="verificarGrupo" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="table-container">
-        <div v-if="alumnosEnGrupo.length > 0" class="card">
-          <div class="card-header">
-            <h2>Alumnos en el Grupo:</h2>
-            <button class="btn btn-primary" @click="crearGrupo">Crear Grupo</button>
-          </div>
-          <div class="card-body">
-            <ul>
-              <li v-for="alumno in alumnosEnGrupo" :key="alumno.id">{{ alumno.nombre }}</li>
-            </ul>
-          </div>
+      <h1 style="text-align: center;">Crea tu Grupo</h1>
+      <form>
+        <div class="form-group">
+          <label for="nombre">Nombre del grupo:</label>
+          <input type="text" id="nombre" v-model="grupo.nombre" required class="form-control">
         </div>
-      </div>
+
+        <div class="form-group">
+          <label for="uf">UF:</label>
+          <select id="uf" class="form-select-sm form-control" v-model="grupo.uf" required>
+            <option v-for="(item, i) in uf" :key="i" :value="item.id">{{ item.siglas }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cupo">Cupo límite:</label>
+          <input type="number" id="cupo" v-model="grupo.cupo" required class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="estado">Estado del grupo:</label>
+          <input type="checkbox" id="estado" v-model="grupo.estado">
+        </div>
+
+        <div class="form-group">
+          <label for="profesor">Profesor:</label>
+          <select id="profesor" class="form-select-sm form-control" v-model="grupo.profesor" required>
+            <option v-for="(item, i) in profesor" :key="i" :value="item.id"> {{ item.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="periodo">Periodo:</label>
+          <select id="periodo" class="form-select-sm form-control" v-model="grupo.periodo" required>
+            <option v-for="(item, i) in periodo" :key="i" :value="item.id"> {{ item.fechaInicio + " | " + item.fechaFin }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" @click="crearGrupo" class="confirm-button">Crear grupo</button>
+      </form>
     </body>
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex';
-import NavInit from '../components/NavInitProf.vue'
+<script setup>
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
 
-export default {
-  data() {
-    return {
-      alumnos: [
-        { id: 1, nombre: 'Alumno 1', enGrupo: false },
-        { id: 2, nombre: 'Alumno 2', enGrupo: false },
-        { id: 3, nombre: 'Alumno 3', enGrupo: false },
-        // ... Agrega más alumnos según tus necesidades
-      ]
-    };
-  },
-  components: {
-    NavInit
-  },
-  computed: {
-    alumnosEnGrupo() {
-      return this.alumnos.filter(alumno => alumno.enGrupo);
-    }
-  },
-  methods: {
-    verificarGrupo() {
-      // Aquí puedes agregar lógica adicional para manejar la verificación del grupo
-      // Por ejemplo, puedes mostrar una alerta o realizar una llamada a una API
-    },
-    crearGrupo() {
-      // Aquí puedes agregar la lógica para crear el grupo
-      // Por ejemplo, puedes guardar los alumnos seleccionados en una base de datos o realizar alguna acción específica
-      console.log('Grupo creado');
-    },
-    ...mapActions(['crearGrupo']),
-    crearNuevoGrupo() {
-      // Lógica para crear el grupo
-      const nuevoGrupo = { x: 'Nuevo Grupo' };
-      this.crearGrupo(nuevoGrupo);
-    }
-  }
+import NavInit from '../components/NavInitProf.vue';
+
+const uf = ref([]);
+
+const profesor = ref([]);
+
+const periodo = ref([]);
+
+
+onMounted(() => {
+  axios
+    .get('http://127.0.0.1:8000/api/uf/')
+    .then(response => {
+      uf.value = response.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+onMounted(() => {
+  axios.get('http://localhost:8000/api/profesor/')
+    .then(result => {
+      console.log(result.data)
+      profesor.value = result.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
+})
+
+onMounted(() => {
+  axios.get('http://127.0.0.1:8000/api/periodo/')
+    .then(result => {
+      console.log(result.data)
+      periodo.value = result.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
+})
+
+const grupo = ref({
+  nombre: '',
+  uf: '',
+  cupo: null,
+  estado: false,
+  profesor: '',
+  periodo: ''
+});
+
+const crearGrupo = () => {
+  // Crea un objeto con los datos del grupo
+  const nuevoGrupo = {
+    nombre: grupo.value.nombre,
+    uf: grupo.value.uf,
+    cupo: grupo.value.cupo,
+    estado: grupo.value.estado,
+    profesor: grupo.value.profesor,
+    periodo: grupo.value.periodo
+  };
+
+  // Realiza la solicitud POST utilizando Axios
+  axios
+    .post('http://127.0.0.1:8000/api/grupo/', nuevoGrupo)
+    .then(response => {
+      console.log(response.data); // Maneja la respuesta exitosa del servidor aquí
+    })
+    .catch(error => {
+      console.log(error); // Maneja el error de la solicitud aquí
+    });
 };
 </script>
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background-image: url("http://i.imgur.com/w16HASj.png");
-  color: #00a9d4;
-}
 
-.table-container {
+<style scoped>
+body {
+  background-image: url("http://i.imgur.com/w16HASj.png");
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 }
 
-.table {
-  width: 80%;
-  border-collapse: collapse;
-  background-color: #ffffff;
+.form-control {
+  margin-top: 10px;
+  height: 48px;
+  width: 150%;
+  border: 2px solid #eee;
+  border-radius: 10px;
 }
 
-.card {
-  width: 80%;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+.form-control:focus {
+  box-shadow: none;
+  border: 2px solid #039BE5;
 }
 
-
+.confirm-button {
+  height: 50px;
+  border-radius: 10px;
+}
 </style>

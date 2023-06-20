@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687152388358",
+  "author": "jesus",
+  "title": "cual de estas palabras no están refervadas en python",
+  "description": "encuentra la incorrecta",
+  "topic": 14,
+  "difficulty": 2,
+  "answer": 3,
+  "hints": true,
+  "options": [
+    {
+      "text": "if",
+      "explanation": "1",
+      "isAnswer": false
+    },
+    {
+      "text": "while",
+      "explanation": "2",
+      "isAnswer": false
+    },
+    {
+      "text": "for",
+      "explanation": "3",
+      "isAnswer": false
+    },
+    {
+      "text": "switch",
+      "explanation": "4",
+      "isAnswer": false
+    }
+  ]
+}

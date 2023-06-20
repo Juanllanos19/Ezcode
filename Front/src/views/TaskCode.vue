@@ -2,18 +2,19 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
-const props = defineProps(['id', 'idUsuario'])
+const props = defineProps(['id']);
+console.log("Prueba: " + props.id);
 </script>
 
 <script>
 import NavInit from '../components/NavInit.vue'
-import TaskMultiple from '../components/Task.vue'
+import TaskCode from '../views/testView.vue'
 
 
 export default {
   components: {
     NavInit,
-    TaskMultiple
+    TaskCode
   }
 }
 </script>
@@ -21,10 +22,9 @@ export default {
 <template>
   <div>
     <header>
-      <NavInit :id="idUsuario"/>
     </header>
     <body>
-      <TaskMultiple :id="id" :idUsuario="idUsuario"/>
+          <TaskCode :id="id"/>
     </body>
     <RouterView />
   </div>

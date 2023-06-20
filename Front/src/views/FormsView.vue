@@ -1,8 +1,19 @@
 <script setup>
 import NavInit from '../components/NavInitProf.vue'
-import { onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref } from 'vue'
 import axios from 'axios'
 import router from '../router';
+import Popup from '../components/Popup.vue'
+
+const props = defineProps(['idUsuario'])
+
+console.log("Id del profesor es: " + props.idUsuario);
+
+
+const showPopup = ref({
+    exito: false,
+    error: false
+});
 
 const questionType = ref('codigo')
 const title = ref('')
@@ -22,6 +33,28 @@ const options = ref([
     { text: '', explanation: '', isAnswer: false }
 ])
 
+function summonExito(){
+    showPopup.value.exito = true;
+}
+
+function summonError(){
+    showPopup.value.error = true;
+}
+
+function closeError(){
+    console.log("Cerrando popup");
+    showPopup.value.error = false;
+}
+
+function goToMenu(){
+    router.push({ path: `/biblio/${props.idUsuario}` })
+}
+
+function newQuestion(){
+    window.location.reload();
+}
+
+
 function addInputOutput() {
     if (inputs.value.length < 4 && outputs.value.length < 4) {
         inputs.value.push('')
@@ -30,39 +63,107 @@ function addInputOutput() {
 }
 
 function generateJSON() {
-    if (questionType.value === 'codigo') {
-        const questionData = {
-            id: `TC1028_23_C_${Date.now()}`,
-            author: author.value,
-            title: title.value,
-            description: description.value,
-            topic: selectedTheme.value,
-            difficulty: selectedDifficulty.value,
-            driver: driver.value,
-            tests: []
+    //if (questionType.value === 'codigo') {
+
+        var questionData = {};
+
+        if (questionType.value == "codigo")
+        {
+            questionData = {
+                id: `TC1028_23_C_${Date.now()}`,
+                author: props.idUsuario,
+                title: title.value,
+                description: description.value,
+                topic: selectedTheme.value,
+                difficulty: selectedDifficulty.value,
+                driver: driver.value,
+                tests: []
+            }
+
+            for (let i = 0; i < inputs.value.length; i++) 
+            {
+                const test = {
+                    testId: (i + 1).toString(),
+                    input: inputs.value[i],
+                    output: outputs.value[i]
+                }
+                questionData.tests.push(test)
+            }
+        }
+        else
+        {
+            questionData = {
+                id: `TC1028_23_OM_${Date.now()}`,
+                author: props.idUsuario,
+                title: title.value,
+                description: description.value,
+                topic: selectedTheme.value,
+                difficulty: selectedDifficulty.value,
+                answer: answer.value,
+                hints: hints.value,
+                options: options.value
+            }
+
+            questionData.options[answer.value].isAnswer = true;
         }
 
-        for (let i = 0; i < inputs.value.length; i++) {
-            const test = {
-                testId: (i + 1).toString(),
-                input: inputs.value[i],
-                output: outputs.value[i]
-            }
-            questionData.tests.push(test)
-        }
 
         const jsonData = JSON.stringify(questionData, null, 2)
 
         const element = document.createElement('a')
         const file = new Blob([jsonData], { type: 'application/json' })
-        element.href = URL.createObjectURL(file)
-        element.download = 'question.json'
+        //element.href = URL.createObjectURL(file)
+        //element.download = 'question.json'
+
+
+        ///Hay que agregar que la info del profe sea automatica
+
+        /*var pregunta = {
+            "titulo": title.value,
+            "tema": selectedTheme.value,
+            "contenido": element,
+            "profesor": 1,
+            "tipoP": questionType.value,
+            "estado": false,
+            "dificultad": selectedDifficulty.value
+        };*/
+        let pregunta = new FormData();
+        pregunta.append("titulo", title.value);
+        pregunta.append("tema", selectedTheme.value);
+        pregunta.append("contenido", file);
+        pregunta.append("profesor", props.idUsuario);
+
+        if (questionType.value == "codigo")
+        {
+            pregunta.append("tipoP", false);
+        }
+        else
+        {
+            pregunta.append("tipoP", true);
+        }
+    
+        pregunta.append("estado", false);
+        pregunta.append("dificultad", selectedDifficulty.value);
+
+
+        console.log(pregunta);
+        axios.post('http://localhost:8000/api/pregunta/', pregunta, {
+        headers: {"Content-Type": "multipart/form-data"},
+    })
+            .then(response => {
+                console.log('Solicitud exitosa:', response.data),
+                summonExito()
+            })
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error),
+                summonError()
+            })
         document.body.appendChild(element)
         element.click()
         document.body.removeChild(element)
 
-        router.push('/pregu');
-    } else if (questionType.value === 'multiple') {
+        //router.push('/pregu');
+    /*} else if (questionType.value === 'multiple') {
         const questionData = {
             id: `TC1028_23_OM_${Date.now()}`,
             author: author.value,
@@ -86,7 +187,7 @@ function generateJSON() {
         document.body.removeChild(element)
 
         router.push('/pregu');
-    }
+    }*/
 }
 
 function handleFileUpload(event) {
@@ -137,7 +238,7 @@ function agregaPreguntaCodigo() {
 
 const dificultad = ref([
     {
-        id: "",
+        id: 0,
         rango: ""
     }
 ])
@@ -153,6 +254,8 @@ onMounted(() => {
         .then(result => {
             console.log(result.data)
             dificultad.value = result.data
+            console.log("PK?")
+            console.log(result.data[0].pk)
         })
         .catch(error => {
             console.log(error)
@@ -179,6 +282,17 @@ onMounted(() => {
         </header>
 
         <body style="padding-top: 6%;">
+            <Popup v-if="showPopup.exito">
+                <h2>¡Se ha subido la pregunta con exito!</h2>
+                <button type="button" class="btn btn-primary" @click="newQuestion" style="width: 100%; margin-top: 3%;">Subir otra pregunta</button> 
+                <button type="button" class="btn btn-secondary" @click="goToMenu" style="width: 100%; margin-top: 3%;">Salir al menu</button> 
+            </Popup>
+            <Popup v-if="showPopup.error">
+                <h2>Ha habido un error :(</h2>
+                Favor de revisar bien los valores, si el problema persiste <br> 
+                favor de ponerse en contacto con el administrador.
+                <button type="button" class="btn btn-primary" @click="closeError()" style="width: 100%; margin-top: 3%;">Ok</button> 
+            </Popup>
             <div class="container mt-5 mb-5 d-flex justify-content-center">
                 <div class="card px-1 py-4">
                     <div class="card-body">
@@ -223,14 +337,14 @@ onMounted(() => {
                             <div class="d-flex flex-row">
                                 <label for="referrer"> ¿Cual es la dificultad?
                                     <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                        <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
+                                        <option v-for="(item, i) in dificultad" :key="i" :value="item.id"> {{ item.rango }}</option>
                                     </select>
                                 </label>
                                 &nbsp;&nbsp;
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.nombre + " " + item.tipo
+                                            <option v-for="(item, i) in modulos" :key="i" :value="item.id"> {{ item.nombre + " " + item.tipo
                                             }} </option>
                                         </select>
                                     </label>
@@ -251,12 +365,12 @@ onMounted(() => {
                                 </div>
                             </div>
                             <div class="mt-3 d-flex justify-content-end">
-                                <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
+                                <button class="btn btn-primary" @click="generateJSON">Subir la pregunta</button>
                             </div>
                             <div>
-                                <label for="jsonFile">Subir archivo JSON:</label>
+                                <!--<label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
-                                    @change="handleFileUpload">
+                                    @change="handleFileUpload"> -->
                             </div>
                         </div>
                         <div v-if="questionType === 'multiple'">
@@ -268,6 +382,7 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -277,6 +392,7 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
+                            -->
                             <div class="row">
                                 <div class="input-group">
                                     <textarea class="form-control" aria-label="With textarea" placeholder="Descripción"
@@ -287,24 +403,25 @@ onMounted(() => {
                             <div class="d-flex flex-row">
                                 <label for="referrer"> ¿Cual es la dificultad?
                                     <select id="inputState" class="form-select" v-model="selectedDifficulty">
-                                        <option v-for="(item, i) in dificultad" :key="i"> {{ item.rango }}</option>
+                                        <option v-for="(item, i) in dificultad" :key="i" :value="item.id"> {{ item.rango }}</option>
                                     </select>
                                 </label>
                                 &nbsp;&nbsp;
                                 <div class="col-md-4">
                                     <label for="referrer"> ¿Cual es el tema?
                                         <select id="inputState" class="form-select" v-model="selectedTheme">
-                                            <option v-for="(item, i) in modulos" :key="i"> {{ item.tipo }}</option>
+                                            <option v-for="(item, i) in modulos" :key="i" :value="item.id"> {{ item.tipo }}</option>
                                         </select>
                                     </label>
                                 </div>
                             </div>
                             <!-- Seleccion Input seccion -->
+                            <!--
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked
                                     v-model="hints" />
                                 <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar pista</label>
-                            </div>
+                            </div>-->
                             <div class="d-flex flex-row">
                                 <div class="row">
                                     <h6 class="mt-4">Opciones:</h6>
@@ -324,12 +441,12 @@ onMounted(() => {
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" @click="generateJSON">Generar JSON</button>
-                            <div>
+                            <button class="btn btn-primary" @click="generateJSON">Subir la pregunta</button>
+                            <!--<div>
                                 <label for="jsonFile">Subir archivo JSON:</label>
                                 <input id="jsonFile" class="form-control-file" type="file" accept=".json"
                                     @change="handleFileUpload">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

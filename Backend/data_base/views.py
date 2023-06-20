@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
 from .models import Departamento, Profesor, Periodo, Tema, Dificultad, Pregunta, Actividad, Uf, Grupo, Carrera, Estudiante, EstudianteGrupo, ActividadGrupo, ActividadPregunta, Calificacion
 from .serializers import DepartamentoSerializer, ProfesorSerializer, ProfesorGetSerializer, PeriodoSerializer, TemaSerializer, DificultadSerializer, PreguntaSerializer, PreguntaGetSerializer
 from .serializers import ActividadSerializer, UfSerializer, GrupoSerializer, GrupoGetSerializer, CarreraSerializer, EstudianteSerializer, EstudianteGetSerializer, EstudianteGrupoSerializer
@@ -27,6 +28,7 @@ class TemaViewSet(ModelViewSet):
 class DificultadViewSet(ModelViewSet):
     queryset = Dificultad.objects.all()
     serializer_class = DificultadSerializer
+
 
 class PreguntaViewSet(ModelViewSet):
     queryset = Pregunta.objects.all()
