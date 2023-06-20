@@ -78,7 +78,7 @@ function filterPreguntas(lista){
 
 function checkCalif(item){
   for (let j = 0; j < Object.keys(data.value).length; j++){
-    if(data.value[j]['estudiante']['id'] == parseInt(props.idUsuario) && item==data.value[j]['actividad']['pregunta']){
+    if(data.value[j]['estudiante']['id'] == parseInt(props.idUsuario) && item==data.value[j]['actividad']['pregunta'] && data.value[j]['actividad']['actividad']==props.id){
       return true
     }
   }
