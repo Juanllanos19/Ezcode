@@ -55,6 +55,12 @@ onMounted(() => {
 
 function checkCalif(item){
   for (let j = 0; j < Object.keys(data).length; j++){
+    console.log("----------------")
+    console.log(data.value[j]['estudiante']['id'])
+    console.log(props.idUsuario)
+    console.log(data.value[j]['actividad']['id'])
+    console.log(item)
+    console.log("----------------")
     if(data.value[j]['estudiante']['id'] == props.idUsuario && item==data.value[j]['actividad']['id']){
       return true
     }
