@@ -309,7 +309,7 @@ export default {
             )
             .then((response) => {
                 console.log("Subido exitosamente: ", response.data);
-                router.push({ path: `/task/${this.actId}/${this.idUsuario}` })
+                router.push({ path: `/task/${this.actId.value}/${this.idUsuario}` })
             }
             ).catch((error) => {
                     console.log(error)
