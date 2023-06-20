@@ -54,8 +54,9 @@ onMounted(() => {
 })
 
 function checkCalif(item){
-  for (let j = 0; j < Object.keys(data).length; j++){
-    console.log("----------------")
+  for (let j = 0; j < Object.keys(data.value).length; j++){
+    console.log(j)
+    console.log("---------------")
     console.log(data.value[j]['estudiante']['id'])
     console.log(props.idUsuario)
     console.log(data.value[j]['actividad']['id'])
