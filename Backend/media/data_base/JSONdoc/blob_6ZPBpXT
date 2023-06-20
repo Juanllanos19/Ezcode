@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687285440405",
+  "author": "17",
+  "title": "Mostrar saludo",
+  "description": "Muestra un saludo de bienvenida al usuario",
+  "topic": 5,
+  "difficulty": 1,
+  "driver": "Impresiones en pantalla",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "Alba",
+      "output": "Bienvenido Alba\n"
+    },
+    {
+      "testId": "2",
+      "input": "Juan Carlos",
+      "output": "Bienvenido Juan Carlos\n"
+    }
+  ]
+}
