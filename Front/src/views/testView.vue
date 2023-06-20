@@ -92,7 +92,7 @@ export default {
                 denominador: 0
             },
             showPopup: {
-                value: true
+                value: false
             },
             actId: {
                 value: -1
@@ -127,7 +127,7 @@ export default {
     methods:{
         summonPopup(event)
         {
-            this.showPopup.value = false;
+            this.showPopup.value = true;
         },
         closePopup(event)
         {
