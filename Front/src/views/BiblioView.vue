@@ -96,7 +96,7 @@ export default {
 body {
   overflow-x: hidden;
   height: 100%;
-  background-image: url("https://i.imgur.com/uwZRmwg.png");
+  background-image: url("http://i.imgur.com/w16HASj.png");
 }
 
 .header {
@@ -106,8 +106,8 @@ body {
 }
 
 .card {
+  background-image: url("https://i.imgur.com/uwZRmwg.png");
   color: aquamarine;
-  background-image: url("http://i.imgur.com/w16HASj.png");
   background-size: cover;
   width: 100%;
   height: auto;

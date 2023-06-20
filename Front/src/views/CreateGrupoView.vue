@@ -44,8 +44,17 @@
           </select>
         </div>
 
-        <button type="submit" @click="crearGrupo" class="confirm-button">Crear grupo</button>
+        <button type="submit" @click="crearGrupo" @submit="crearGrupo" class="confirm-button">Crear grupo</button>
       </form>
+
+      <!-- Popup -->
+      <div class="popup" v-if="showPopup">
+        <div class="popup-content">
+          <h2>{{ popupTitle }}</h2>
+          <p>{{ popupMessage }}</p>
+          <button @click="closePopup">Cerrar</button>
+        </div>
+      </div>
     </body>
   </div>
 </template>
@@ -57,11 +66,11 @@ import { ref, onMounted } from 'vue'
 import NavInit from '../components/NavInitProf.vue';
 
 const uf = ref([]);
-
 const profesor = ref([]);
-
 const periodo = ref([]);
-
+const showPopup = ref(false);
+const popupTitle = ref('');
+const popupMessage = ref('');
 
 onMounted(() => {
   axios
@@ -105,7 +114,7 @@ const grupo = ref({
   periodo: ''
 });
 
-const crearGrupo = () => {
+const crearGrupo = (event) => {
   // Crea un objeto con los datos del grupo
   const nuevoGrupo = {
     nombre: grupo.value.nombre,
@@ -115,17 +124,33 @@ const crearGrupo = () => {
     profesor: grupo.value.profesor,
     periodo: grupo.value.periodo
   };
+  event.preventDefault();
 
   // Realiza la solicitud POST utilizando Axios
   axios
     .post('http://127.0.0.1:8000/api/grupo/', nuevoGrupo)
     .then(response => {
+      // Mostrar el popup después de crear el grupo
+      showPopup.value = true;
+      popupTitle.value = 'Grupo creado';
+      popupMessage.value = 'El grupo se ha creado con éxito.';
       console.log(response.data); // Maneja la respuesta exitosa del servidor aquí
     })
     .catch(error => {
+      // Mostrar el popup en caso de error
+      showPopup.value = true;
+      popupTitle.value = 'Error';
+      popupMessage.value = 'No se pudo crear el grupo. Por favor, inténtalo nuevamente.';
       console.log(error); // Maneja el error de la solicitud aquí
     });
 };
+
+const closePopup = () => {
+  if (showPopup.value) {
+    showPopup.value = false;
+  }
+};
+
 </script>
 
 
@@ -154,5 +179,45 @@ body {
 .confirm-button {
   height: 50px;
   border-radius: 10px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.popup p {
+  margin-bottom: 20px;
+}
+
+.popup button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #039be5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0277bd;
 }
 </style>
