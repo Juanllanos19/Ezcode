@@ -236,6 +236,7 @@
                         <div class="card-header">Descripcion</div>
                             <div class="card-body">
                                 <h5 class="card-title" style="font-size: 32px;">{{grupo.uf.siglas + ': ' + grupo.nombre}}</h5>
+                                <h5 class="card-title" style="font-size: 20px;">{{'Codigo para unirse: ' + grupo.id}}</h5>
                                 <table class="table table">
                                     <thead>
                                         <tr>
