@@ -127,7 +127,7 @@ export default {
     methods:{
         summonPopup(event)
         {
-            this.showPopup.value = true;
+            this.showPopup.value = false;
         },
         closePopup(event)
         {
