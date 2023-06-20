@@ -100,8 +100,8 @@ function goToPreguntaCode(id){
               <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
             </div>
             <div v-else>
-              <div class="alert alert-warning" role="alert">
-                Contestada 
+              <div class="alert alert-warning" role="alert" style="text-align: center;">
+                Contestada
               </div>
             </div>
           </div>
