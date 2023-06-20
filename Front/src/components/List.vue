@@ -66,7 +66,7 @@ onMounted(
   <div v-if="item1.estudiante.id === parseInt(idUsuario)">
     <ol class="list-group list-group-numbered text-bg-primary">
       <li style="margin-bottom: 1%;" class="list-group-item d-flex justify-content-between align-items-start text-bg-primary" data-bs-theme="dark" v-for="(item2,k) in actGrupo" :key="k"
-        @click="goToTask(item2.id,idUsuario)">
+        @click="goToTask(item2.actividad.id,idUsuario)">
         <div class="ms-2 me-auto" v-if="item2.grupo.id === item1.grupo.id">
           <div class="fw-bold">{{ item2.actividad.nombre }}</div>
           <strong>Fecha de Inicio:</strong> {{ item2.actividad.fechaInicio }} <br>

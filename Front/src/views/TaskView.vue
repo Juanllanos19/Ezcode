@@ -46,12 +46,25 @@ onMounted(() => {
   axios.get('http://localhost:8000/api/actividaPregunta/')
   .then(result => {
     console.log(result.data)
-    preguntas.value = result.data
+    preguntas.value = filterPreguntas(result.data)
   })
   .catch(error => {
     console.log(error)
   })
 })
+
+function filterPreguntas(lista){
+  var respuesta = [];
+  for (var i = 0; i < lista.length; i++){
+    console.log("id?: ", lista[i].id)
+    console.log("props: ", props.id)
+    if(lista[i].actividad.id==props.id){
+      respuesta.push(lista[i])
+    }
+  }
+  console.log(respuesta)
+  return respuesta
+}
 
 function checkCalif(item){
   for (let j = 0; j < Object.keys(data.value).length; j++){
