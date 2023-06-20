@@ -10,10 +10,10 @@ import { RouterLink} from 'vue-router'
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large">
-                <router-link :to="`/biblio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="menu-nav" >INICIO</router-link>
+                <div  class="nav-link text-white" id="menu-nav" @click="goInicio">INICIO</div>
             </li>
             <li class="nav-item" style="padding-right: 10%; font-family: 'Russo One', sans-serif; font-size: large;" >
-                <router-link :to="`/info/${this.$route.params.idUsuario}`" class="nav-link text-white" id="desempenio-nav" >CREAR GRUPO</router-link>
+                <div class="nav-link text-white" id="desempenio-nav" @click="goCreateGrupo">CREAR GRUPO</div>
             </li>
             <li class="nav-item">
                 
@@ -55,6 +55,14 @@ export default {
         cerrarSesion() {
             window.location.href='http://localhost:5173/';
         },
+        goInicio(){
+            const idUsuario = this.$route.params.idUsuario;
+            this.$router.push(`/biblio/${idUsuario}`);
+        },
+        goCreateGrupo(){
+            const idUsuario = this.$route.params.idUsuario;
+            this.$router.push(`/Cgrupo/${idUsuario}`);
+        }
     },
     
     created() {

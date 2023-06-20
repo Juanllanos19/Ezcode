@@ -30,8 +30,9 @@ const router = createRouter({
             component: () => import('../views/testView.vue')
         },
         {
-            path: '/stats',
+            path: '/stats/:idUsuario/:idGrupo',
             name: 'stats',
+            props: true,
             component: () => import('../views/StatsView.vue')
         },
         {
@@ -100,7 +101,7 @@ const router = createRouter({
             component: () => import('../views/VistaPreviaEstView.vue')
         },
         {
-            path: '/Cgrupo',
+            path: '/Cgrupo/:idUsuario',
             name: 'Cgrupo',
             props: true,
             component: () => import('../views/CreateGrupoView.vue')

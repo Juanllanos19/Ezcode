@@ -15,12 +15,11 @@
         <button class="button-1" role="button" @click="navigateToListView" style="margin-top: 1%;">Crear Actividad</button>
       </div>
         <div class="row d-flex justify-content-center px-3">
-          <div class="card">
-            <h2 class="ml-auto mr-4 mt-3 mb-0">Tarea variables 1</h2>
-            <p class="ml-auto mr-4 mb-0 med-font">Grupo 1</p>
-            <p class="time-font mb-0 ml-4 mt-auto">10 preguntas</p>
-            <p class="ml-4 mb-4">Miércoles, 18 de octubre de 2023</p>
-            <p class="ml-4 mb-4">Variables</p>
+          <div class="card" style="width: 100%;" v-for="grupo in this.grupos" @click="goGrupo(grupo.id)">
+                <div class="card-body">
+                    <h2 class="card-title" style="font-size: 48px;">{{ grupo.nombre }}</h2>
+                    <p class="card-text" style="font-size: 32px;">{{ grupo.uf.siglas }}</p> 
+                </div>
           </div>
       </div>
     </div>
@@ -39,17 +38,27 @@ export default {
   data() {
       return {
         nombre: '',
+        grupos: [{}]
       }
     },
 
     created() {
           axios.get(`http://127.0.0.1:8000/api/profesor/${this.idUsuario}`)
-              .then(response => {
-                this.nombre = response.data.nombre;
-              })
-              .catch(error => {
+            .then(response => {
+              this.nombre = response.data.nombre;
+            })
+            .catch(error => {
               console.error(error);
-              });
+            });
+
+          axios.get(`http://127.0.0.1:8000/api/grupo/`)
+            .then(response => {
+              this.grupos = this.filterGroups(response.data);
+              console.log("Grupos: ", this.grupos);
+            })
+            .catch(error => {
+              console.error(error);
+            });
         },
 
 
@@ -60,6 +69,21 @@ export default {
       navigateToListView() {
         this.$router.push(`/list/${this.idUsuario}`); // Assuming you have defined the route for ListView.vue
       },
+      filterGroups(lista)
+      {
+        var respuesta = [];
+        for (var i = 0; i < lista.length; i++){
+          if (lista[i].profesor.id == this.idUsuario)
+          {
+            respuesta.push(lista[i])
+          }
+        }
+        return respuesta;
+      },
+      goGrupo(id)
+      {
+        this.$router.push(`/stats/${this.idUsuario}/${id}`)
+      }
     },
     components: {
         NavInit
@@ -86,11 +110,11 @@ body {
   background-image: url("http://i.imgur.com/w16HASj.png");
   background-size: cover;
   width: 100%;
-  height: 400px;
+  height: auto;
   border-radius: 20px;
-  margin-top: 10px;
-  margin-bottom: 50px;
-  padding-top: 20px;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+  padding-top: 0px;
 }
 
 .time-font {

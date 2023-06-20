@@ -1,20 +1,13 @@
-<script setup>
+
+
+<script>
+    import NavInit from '../components/NavInitProf.vue'
+    import DesempenioView from './DesempenioView.vue';
     import {onMounted, ref} from 'vue'
     import axios from 'axios'
     import Chart from 'chart.js/auto'
-</script>
 
-<script>
-    import NavInit from '../components/NavInit.vue'
-    import DesempenioView from './DesempenioView.vue';
-
-    const dataAlumnos = ref([{}]);
-    const dataActividades = ref([{}]);
-    const dataCalificaciones = ref([{}]);
-    const grupo = ref({
-        nombre: "",
-        uf: ""
-    });
+    
 
     const baseUrl = "http://127.0.0.1:8000";
 
@@ -31,72 +24,188 @@
         Legend
     } from 'chart.js'
     import { Line } from 'vue-chartjs'
-    var data = {
-        labels: [],
-        datasets: [
-
-        ]
-    }
-
-    var options = {
-        responsive: true,
-        maintainAspectRatio: true
-    }
-
-    ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend
-    )
-
-    //const grupoActividad = ref([{}]);
-    onMounted(
-        /*axios.get('http://localhost:8000/api/estudiante/')
-        .then((result) => {
-            console.log(result.data);
-            dataAlumnos.value = result.data;
-        })
-        .catch((error) => {
-            console.log(error)
-        }),*/
-
-        /*axios.get('http://localhost:8000/api/actividad/')
-        .then((result) => {
-            console.log(result.data);
-            dataActividades.value = result.data;
-        })
-        .catch((error) => {
-            console.log(error)
-        }),*/
 
 
-        axios.get('http://localhost:8000/api/grupo/')
-        .then((result) => {
-            console.log("grupoimportado");
-            grupo.value = result.data[0];
-            axios.get('http://localhost:8000/api/actividaGrupo/')
+        
+
+
+
+
+
+    function loadLabels(lista)
+    {
+        console.log("tratando de cargar grafica");
+        console.log(lista.length);
+        //data.labels = [];
+        for (var i = 0; i < lista.length; i++)
+        {
+            data.labels.push(lista[i].nombre)
+        }
+    };
+
+
+
+    
+
+    export default {
+        name: 'Stats',
+        props: ['idUsuario','idGrupo'],
+        components: {
+            Line,
+            NavInit
+        },
+        data() {
+            return{
+                dataAlumnos: [{matricula: "a00830026"}],
+                dataActividades: [{id: 2}],
+                dataCalificaciones: [{'a00830026': {0: null}}],
+                grupo: {
+                    uf: {siglas: "hjm,"},
+                    nombre: "esperando respuesta"
+                },
+                data: {},
+                options: {}
+            };
+        },
+        methods: {
+        filterActivities(listona)
+        {
+            var respuesta = [];
+            for (var i = 0; i < listona.length; i++)
+            {
+                if (listona[i].grupo.id == this.idGrupo)
+                {
+                    respuesta.push(listona[i].actividad)
+                }
+            }
+            return respuesta;
+        },
+        filterStudents(listona)
+        {
+            var respuesta = [];
+            for (var i = 0; i < listona.length; i++)
+            {
+                if (listona[i].grupo.id == this.idGrupo)
+                {
+                    respuesta.push(listona[i].estudiante);
+                }
+            }
+            console.log("Estudiantes: ", respuesta)
+            return respuesta;
+        },
+        arrangeGrades(listona)
+        {
+            let respuesta = {};
+            for (var i = 0; i < this.dataAlumnos.length; i++)
+            {
+                respuesta[this.dataAlumnos[i].matricula] = {};  
+            }
+            console.log("Respuesta interina", respuesta);
+            for (var i = 0; i < listona.length; i++)
+            {
+                console.log(i);
+                console.log(listona[i]);
+                if (respuesta[listona[i].estudiante.matricula] != null)
+                {
+                    if (respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] == null)
+                    {
+                        respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] = 0;
+                    }
+
+                    respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] += (listona[i].ponderacion / listona[i].puntosTotal) * listona[i].actividad.valor; 
+                }
+            
+                
+            }
+            return respuesta;
+        },
+        loadGraph(calif, acti)
+        {
+            console.log("cali");
+            console.log(calif);
+            console.log("acti");
+            console.log(acti)
+            for (var i = 0; i < acti.length; i++)
+            {
+                this.data.labels.push(acti[i].nombre);
+            }
+
+            for (let matricula in calif)
+            {
+                var values = [];
+                for (var i = 0; i < acti.length; i++)
+                {
+                    values.push(calif[matricula][acti[i].id]);
+                }
+                this.data.datasets.push({
+                    label: matricula,
+                    //backgroundColor: '',
+                    data: values
+                })
+            }
+        }
+        },
+        created(){
+            console.log("Grupo Id= ", this.idGrupo);
+
+            this.data = {
+                labels: [],
+                datasets: [
+
+                ]
+            }
+
+            this.options = {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+
+            ChartJS.register(
+                CategoryScale,
+                LinearScale,
+                PointElement,
+                LineElement,
+                Title,
+                Tooltip,
+                Legend
+            )
+            this.grupo = {
+                uf: {siglas: "hjm,"},
+                nombre: "esperando respuesta"
+            };
+            axios.get('http://localhost:8000/api/grupo/' + this.idGrupo)
             .then((result) => {
-                console.log("actividadGrupo importado");
-                //grupoActividad.value = result.data;
-                dataActividades.value = filterActivities(result.data);
-
-                axios.get('http://localhost:8000/api/estudianteGrupo/')
+                console.log("grupoimportado");
+                this.grupo = result.data;
+                console.log("Grupo: ", this.grupo);
+                axios.get('http://localhost:8000/api/actividaGrupo/')
                 .then((result) => {
-                    console.log("estudianteGrupo imported");
+                    console.log("actividadGrupo importado");
                     //grupoActividad.value = result.data;
-                    dataAlumnos.value = filterStudents(result.data);
+                    this.dataActividades = this.filterActivities(result.data);
 
-                    axios.get('http://localhost:8000/api/calificacion/')
+                    axios.get('http://localhost:8000/api/estudianteGrupo/')
                     .then((result) => {
-                        console.log("calificacion importado");
-                        console.log(result.data);
-                        //dataCalificaciones.value = result.data;
-                        dataCalificaciones.value = arrangeGrades(result.data);
-                        loadGraph(dataCalificaciones.value, dataActividades.value);
+                        console.log("estudianteGrupo imported");
+                        //grupoActividad.value = result.data;
+                        this.dataAlumnos = this.filterStudents(result.data);
+                        console.log("Alumnos v1.5", result.data);
+                        console.log("Alumnos v2", this.dataAlumnos);
+
+                        axios.get('http://localhost:8000/api/calificacion/')
+                        .then((result) => {
+                            console.log("calificacion importado");
+                            console.log(result.data);
+                            //dataCalificaciones.value = result.data;
+                            this.dataCalificaciones = this.arrangeGrades(result.data);
+                            console.log("Estudiantes: ", this.dataAlumnos);
+                            console.log("Calis: ", this.dataCalificaciones);
+                            console.log("Act: ", this.dataActividades);
+                            this.loadGraph(this.dataCalificaciones, this.dataActividades);
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
                     })
                     .catch((error) => {
                         console.log(error)
@@ -109,109 +218,7 @@
             .catch((error) => {
                 console.log(error)
             })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    )
-
-    function filterActivities(listona)
-    {
-        var respuesta = [];
-        for (var i = 0; i < listona.length; i++)
-        {
-            if (listona[i].grupo.nombre == grupo.value.nombre)
-            {
-                respuesta.push(listona[i].actividad)
-            }
-        }
-        return respuesta;
-    }
-
-    function filterStudents(listona)
-    {
-        var respuesta = [];
-        for (var i = 0; i < listona.length; i++)
-        {
-            if (listona[i].grupo.nombre == grupo.value.nombre)
-            {
-                respuesta.push(listona[i].estudiante)
-            }
-        }
-        return respuesta;
-    }
-
-    function arrangeGrades(listona)
-    {
-        let respuesta = {};
-        for (var i = 0; i < listona.length; i++)
-        {
-            console.log(i);
-            console.log(listona[i]);
-            if (respuesta[listona[i].estudiante.matricula] == null)
-            {
-                respuesta[listona[i].estudiante.matricula] = {}; 
-            }
-            if (respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] == null)
-            {
-                respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] = 0;
-            }
-            respuesta[listona[i].estudiante.matricula][listona[i].actividad.actividad] += (listona[i].ponderacion / listona[i].puntosTotal) * listona[i].actividad.valor; 
-
-        }
-        return respuesta;
-    }
-
-    function loadLabels(lista)
-    {
-        console.log("tratando de cargar grafica");
-        console.log(lista.length);
-        //data.labels = [];
-        for (var i = 0; i < lista.length; i++)
-        {
-            data.labels.push(lista[i].nombre)
-        }
-    }
-
-    function loadGraph(calif, acti)
-    {
-        console.log("cali");
-        console.log(calif);
-        console.log("acti");
-        console.log(acti)
-        for (var i = 0; i < acti.length; i++)
-        {
-            data.labels.push(acti[i].nombre);
-        }
-
-        for (let matricula in calif)
-        {
-            var values = [];
-            for (var i = 0; i < acti.length; i++)
-            {
-                values.push(calif[matricula][acti[i].id]);
-            }
-            data.datasets.push({
-                label: matricula,
-                //backgroundColor: '',
-                data: values
-            })
-        }
-    }
-
-
-
-    
-
-    export default {
-        name: 'App',
-        components: {
-            Line
         },
-        data() {
-            data,
-            options
-        }
     }
 </script>
 
