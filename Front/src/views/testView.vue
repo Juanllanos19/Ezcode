@@ -92,7 +92,7 @@ export default {
                 denominador: 0
             },
             showPopup: {
-                value: true
+                value: false
             },
             actId: {
                 value: -1

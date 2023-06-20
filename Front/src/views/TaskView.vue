@@ -2,6 +2,8 @@
 import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import router from '../router';
+import NavInit from '../components/NavInit.vue'
+
 const props = defineProps(['id', 'idUsuario'])
 
 const data = ref([{
@@ -41,6 +43,14 @@ const preguntas = ref([
   }
 ])
 
+function goToPreguntaMultiple(id, idUsuario) {
+  router.push({ path: `/question/${id}/${idUsuario}` });
+}
+
+function goToPreguntaCode(id){
+  router.push({ path: `/compiler/${props.idUsuario}/${id}` })
+}
+
 
 onMounted(() => {
   axios.get('http://localhost:8000/api/actividaPregunta/')
@@ -76,24 +86,6 @@ function checkCalif(item){
 }
 </script>
 
-<script>
-import NavInit from '../components/NavInit.vue'
-
-
-export default {
-  components: {
-    NavInit
-  }
-}
-
-function goToPreguntaMultiple(id, idUsuario) {
-  router.push({ path: `/question/${id}/${idUsuario}` });
-}
-
-function goToPreguntaCode(id){
-  router.push({ path: `/compiler/${props.idUsuario}/${id}` })
-}
-</script>
 
 <template>
   <div>
