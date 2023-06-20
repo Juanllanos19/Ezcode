@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687241705902",
+  "author": "15",
+  "title": "Generadores en python",
+  "description": "¿Cuál de las siguientes afirmaciones es verdadera sobre los generadores en Python?",
+  "topic": 20,
+  "difficulty": 3,
+  "answer": 3,
+  "hints": true,
+  "options": [
+    {
+      "text": " Los generadores son estructuras de datos inmutables.",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "Los generadores son una forma de crear funciones anónimas en Python.",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "Los generadores solo pueden ser utilizados para la generación de números aleatorios.",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "Los generadores permiten la generación perezosa de valores, ahorrando memoria.",
+      "explanation": "",
+      "isAnswer": true
+    }
+  ]
+}

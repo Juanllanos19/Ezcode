@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687241542300",
+  "author": "15",
+  "title": "Eliminar en listas",
+  "description": "¿Cuál de las siguientes opciones es un método para eliminar un elemento de una lista en Python?",
+  "topic": 21,
+  "difficulty": 2,
+  "answer": 3,
+  "hints": true,
+  "options": [
+    {
+      "text": "delete()",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "remove()",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "discard()",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "pop()",
+      "explanation": "",
+      "isAnswer": true
+    }
+  ]
+}

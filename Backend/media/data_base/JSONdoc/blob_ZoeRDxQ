@@ -1,0 +1,21 @@
+{
+  "id": "TC1028_23_C_1687240802474",
+  "author": "15",
+  "title": "Generación de números primos",
+  "description": "Escribe una función en Python que genere una lista con los primeros N números primos, donde N es un número entero dado.",
+  "topic": 21,
+  "difficulty": 2,
+  "driver": "generar_numeros_primos",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "7",
+      "output": "2 3 5 7 11 13 17\n"
+    },
+    {
+      "testId": "2",
+      "input": "3",
+      "output": "2 3 5\n"
+    }
+  ]
+}

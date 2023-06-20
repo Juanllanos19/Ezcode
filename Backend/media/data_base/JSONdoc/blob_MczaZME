@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687241337249",
+  "author": "15",
+  "title": "¿Cuál es el resultado de la siguiente operación en Python?",
+  "description": "3 + 5 * 2",
+  "topic": 7,
+  "difficulty": 1,
+  "answer": 1,
+  "hints": true,
+  "options": [
+    {
+      "text": "13",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "16",
+      "explanation": "",
+      "isAnswer": true
+    },
+    {
+      "text": "11",
+      "explanation": "",
+      "isAnswer": false
+    },
+    {
+      "text": "10",
+      "explanation": "",
+      "isAnswer": false
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "TC1028_23_OM_1687241251648",
+  "author": "15",
+  "title": "Hola mundo",
+  "description": "¿Cuál es la forma correcta de imprimir \"Hola, mundo!\" en Python?",
+  "topic": 4,
+  "difficulty": 1,
+  "answer": 0,
+  "hints": true,
+  "options": [
+    {
+      "text": "print(\"Hola, mundo!\")",
+      "explanation": "Correcto",
+      "isAnswer": true
+    },
+    {
+      "text": "print(\"Hola, mundo!\");",
+      "explanation": "¿Seguro que lleva ;?",
+      "isAnswer": false
+    },
+    {
+      "text": "print<<Hola, mundo!<<endl;",
+      "explanation": "creo haber visto esto por otro lado",
+      "isAnswer": false
+    },
+    {
+      "text": "print(Hola, mundo!)",
+      "explanation": "De seguro estoy olvidando algo",
+      "isAnswer": false
+    }
+  ]
+}

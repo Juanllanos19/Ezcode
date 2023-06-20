@@ -1,0 +1,26 @@
+{
+  "id": "TC1028_23_C_1687240472489",
+  "author": "15",
+  "title": "Verificación de palíndromo",
+  "description": "Escribe una función en Python que verifique si una cadena de texto dada es un palíndromo, es decir, si se lee de la misma forma de izquierda a derecha y de derecha a izquierda.",
+  "topic": 21,
+  "difficulty": 2,
+  "driver": "verificar_palindromo",
+  "tests": [
+    {
+      "testId": "1",
+      "input": "radar",
+      "output": "es un palindromo\n"
+    },
+    {
+      "testId": "2",
+      "input": "python",
+      "output": "no es un palindromo\n"
+    },
+    {
+      "testId": "3",
+      "input": "anita lava la tina",
+      "output": "es un palindromo\n"
+    }
+  ]
+}
