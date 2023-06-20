@@ -7,30 +7,43 @@
     <body style="padding-top: 6%;">
       <h1 style="text-align: center;">Crea tu Grupo</h1>
       <form>
-        <label for="nombre">Nombre del grupo:</label>
-        <input type="text" id="nombre" v-model="grupo.nombre" required>
+        <div class="form-group">
+          <label for="nombre">Nombre del grupo:</label>
+          <input type="text" id="nombre" v-model="grupo.nombre" required>
+        </div>
 
-        <label for="uf">UF:</label>
-        <select id="uf" class="form-select" v-model="grupo.uf" required>
-          <option v-for="(item, i) in uf" :key="i" :value="item.id">{{ item.siglas }}</option>
-          <!-- Agrega las opciones de UF que necesites -->
-        </select>
+        <div class="form-group">
+          <label for="uf">UF:</label>
+          <select id="uf" class="form-select-sm" v-model="grupo.uf" required>
+            <option v-for="(item, i) in uf" :key="i" :value="item.id">{{ item.siglas }}</option>
+            <!-- Agrega las opciones de UF que necesites -->
+          </select>
+        </div>
 
-        <label for="cupo">Cupo límite:</label>
-        <input type="number" id="cupo" v-model="grupo.cupo" required>
+        <div class="form-group">
+          <label for="cupo">Cupo límite:</label>
+          <input type="number" id="cupo" v-model="grupo.cupo" required>
+        </div>
 
-        <label for="estado">Estado del grupo:</label>
-        <input type="checkbox" id="estado" v-model="grupo.estado">
+        <div class="form-group">
+          <label for="estado">Estado del grupo:</label>
+          <input type="checkbox" id="estado" v-model="grupo.estado">
+        </div>
 
-        <label for="profesor">Profesor:</label>
-        <select id="profesor" class="form-select" v-model="grupo.profesor" required>
-          <option v-for="(item, i) in profesor" :key="i" :value="item.id"> {{ item.nombre }}</option>
-        </select>
+        <div class="form-group">
+          <label for="profesor">Profesor:</label>
+          <select id="profesor" class="form-select-sm" v-model="grupo.profesor" required>
+            <option v-for="(item, i) in profesor" :key="i" :value="item.id"> {{ item.nombre }}</option>
+          </select>
+        </div>
 
-        <label for="periodo">Periodo:</label>
-        <select id="periodo" class="form-select" v-model="grupo.periodo" required>
-          <option v-for="(item, i) in periodo" :key="i" :value="item.id"> {{ item.fechaInicio + " | " +  item.fechaFin }}</option>
-        </select>
+        <div class="form-group">
+          <label for="periodo">Periodo:</label>
+          <select id="periodo" class="form-select-sm" v-model="grupo.periodo" required>
+            <option v-for="(item, i) in periodo" :key="i" :value="item.id"> {{ item.fechaInicio + " | " + item.fechaFin }}
+            </option>
+          </select>
+        </div>
 
         <button type="submit" @click="crearGrupo">Crear grupo</button>
       </form>
@@ -63,25 +76,25 @@ onMounted(() => {
 });
 
 onMounted(() => {
-    axios.get('http://localhost:8000/api/profesor/')
-        .then(result => {
-            console.log(result.data)
-            profesor.value = result.data
-        })
-        .catch(error => {
-            console.log(error)
-        })
+  axios.get('http://localhost:8000/api/profesor/')
+    .then(result => {
+      console.log(result.data)
+      profesor.value = result.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
 })
 
 onMounted(() => {
-    axios.get('http://127.0.0.1:8000/api/periodo/')
-        .then(result => {
-            console.log(result.data)
-            periodo.value = result.data
-        })
-        .catch(error => {
-            console.log(error)
-        })
+  axios.get('http://127.0.0.1:8000/api/periodo/')
+    .then(result => {
+      console.log(result.data)
+      periodo.value = result.data
+    })
+    .catch(error => {
+      console.log(error)
+    })
 })
 
 const grupo = ref({
@@ -117,32 +130,14 @@ const crearGrupo = () => {
 </script>
 
 
-<style>
+<style scoped>
 body {
-  font-family: Arial, sans-serif;
-  background-image: url("http://i.imgur.com/w16HASj.png");
-  color: #00a9d4;
+    background-image: url("http://i.imgur.com/w16HASj.png");
+    
 }
 
-.table-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.table {
-  width: 80%;
-  border-collapse: collapse;
-  background-color: #ffffff;
-}
-
-.card {
-  width: 80%;
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+.form-select-sm {
+  height: 30px;
+  font-size: 12px;
 }
 </style>

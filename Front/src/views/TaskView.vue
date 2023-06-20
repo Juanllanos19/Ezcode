@@ -65,7 +65,7 @@ onMounted(() => {
 
 function checkCalif(item){
   for (let j = 0; j < Object.keys(data.value).length; j++){
-    if(data.value[j]['estudiante']['id'] == parseInt(props.idUsuario) && item==data.value[j]['actividad']['actividad']){
+    if(data.value[j]['estudiante']['id'] == parseInt(props.idUsuario) && item==data.value[j]['actividad']['pregunta']){
       return true
     }
   }
@@ -88,7 +88,7 @@ function checkCalif(item){
             <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
             <p style="text-align: center;" class="card-text"> Tipo: Opción Múltiple</p>
             <p style="text-align: center;" class="card-text"> Valor: {{ item.valor }}</p>
-            <div v-if="!checkCalif(item.actividad.id)">
+            <div v-if="!checkCalif(item.pregunta.id)">
               <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaMultiple(item.id,idUsuario)">Responder</a>
             </div>
             <div v-else>
@@ -103,7 +103,15 @@ function checkCalif(item){
             <h5 style="text-align: center;" class="card-title">Pregunta {{ i +1 }}</h5>
             <p style="text-align: center;" class="card-text"> Tipo: Coding challenge</p>
             <p style="text-align: center;" lass="card-text"> Valor: {{ item.valor}}</p>
-            <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaCode(item.id)">Responder</a>
+            <div v-if="!checkCalif(item.pregunta.id)">
+              <a style="margin-left:42%;" href="#" class="btn btn-primary" @click="goToPreguntaCode(item.id)">Responder</a>
+            </div>
+            <div v-else>
+              <div class="alert alert-warning" role="alert" style="text-align: center;">
+                Contestada
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
