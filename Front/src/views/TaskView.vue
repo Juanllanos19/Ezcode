@@ -116,6 +116,8 @@ function goToPreguntaCode(id){
         </div>
       </div>
     </div>
+    
+    <router-link :to="`/inicio/${this.$route.params.idUsuario}`" class="nav-link text-white" id="menu-nav"><button style="margin-left:80%;" type="button" class="btn btn-success">ENTREGAR</button></router-link>
     </body>
     <RouterView />
   </div>
