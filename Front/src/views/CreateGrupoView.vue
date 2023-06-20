@@ -9,20 +9,19 @@
       <form>
         <div class="form-group">
           <label for="nombre">Nombre del grupo:</label>
-          <input type="text" id="nombre" v-model="grupo.nombre" required>
+          <input type="text" id="nombre" v-model="grupo.nombre" required class="form-control">
         </div>
 
         <div class="form-group">
           <label for="uf">UF:</label>
-          <select id="uf" class="form-select-sm" v-model="grupo.uf" required>
+          <select id="uf" class="form-select-sm form-control" v-model="grupo.uf" required>
             <option v-for="(item, i) in uf" :key="i" :value="item.id">{{ item.siglas }}</option>
-            <!-- Agrega las opciones de UF que necesites -->
           </select>
         </div>
 
         <div class="form-group">
           <label for="cupo">Cupo límite:</label>
-          <input type="number" id="cupo" v-model="grupo.cupo" required>
+          <input type="number" id="cupo" v-model="grupo.cupo" required class="form-control">
         </div>
 
         <div class="form-group">
@@ -32,20 +31,20 @@
 
         <div class="form-group">
           <label for="profesor">Profesor:</label>
-          <select id="profesor" class="form-select-sm" v-model="grupo.profesor" required>
+          <select id="profesor" class="form-select-sm form-control" v-model="grupo.profesor" required>
             <option v-for="(item, i) in profesor" :key="i" :value="item.id"> {{ item.nombre }}</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="periodo">Periodo:</label>
-          <select id="periodo" class="form-select-sm" v-model="grupo.periodo" required>
+          <select id="periodo" class="form-select-sm form-control" v-model="grupo.periodo" required>
             <option v-for="(item, i) in periodo" :key="i" :value="item.id"> {{ item.fechaInicio + " | " + item.fechaFin }}
             </option>
           </select>
         </div>
 
-        <button type="submit" @click="crearGrupo">Crear grupo</button>
+        <button type="submit" @click="crearGrupo" class="confirm-button">Crear grupo</button>
       </form>
     </body>
   </div>
@@ -132,12 +131,28 @@ const crearGrupo = () => {
 
 <style scoped>
 body {
-    background-image: url("http://i.imgur.com/w16HASj.png");
-    
+  background-image: url("http://i.imgur.com/w16HASj.png");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.form-select-sm {
-  height: 30px;
-  font-size: 12px;
+.form-control {
+  margin-top: 10px;
+  height: 48px;
+  width: 150%;
+  border: 2px solid #eee;
+  border-radius: 10px;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 2px solid #039BE5;
+}
+
+.confirm-button {
+  height: 50px;
+  border-radius: 10px;
 }
 </style>
