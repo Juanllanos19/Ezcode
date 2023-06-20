@@ -202,10 +202,14 @@ body {
 
 .popup h2 {
   margin-top: 0;
+  color: #000000;
+
 }
 
 .popup p {
   margin-bottom: 20px;
+  color: #000000;
+
 }
 
 .popup button {
