@@ -47,11 +47,12 @@ onMounted(() => {
 
 function agregaCalif() {
   var calificacion = {
-    "actividad": preguntas.value.actividad.id,
+    "actividad": preguntas.value.id,
     "estudiante": props.idUsuario,
     "ponderacion": preguntas.value.valor,
     "puntosTotal": preguntas.value.valor
   };
+
   console.log(calificacion);
     axios.post('http://localhost:8000/api/calificacion/', calificacion)
     .then(response => {
