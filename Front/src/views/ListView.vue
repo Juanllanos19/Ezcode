@@ -5,6 +5,11 @@
       </header>
   
       <body style="padding-top: 6%;">
+        <Popup v-if="showPopup">
+          <h2 style="color: black;">¡Se ha subido la actividad con exito!</h2>
+                <button type="button" class="btn btn-primary" @click="refresca" style="width: 100%; margin-top: 3%;">Subir otra actividad</button> 
+                <button type="button" class="btn btn-secondary" @click="goToMenu" style="width: 100%; margin-top: 3%;">Salir al menu</button> 
+        </Popup>
         <h2>{{ nombre }} elige las preguntas para su Actividad</h2>
         <div class="centered-table">
           <table>
@@ -83,6 +88,9 @@
   import { onMounted, ref, defineProps } from 'vue';
   import axios from 'axios';
   import NavInit from '../components/NavInitProf.vue';
+  import Popup from '../components/Popup.vue';
+  import router from '../router';
+
   
   const items = ref([]);
   const selectedTasks = ref([]); // Tareas seleccionadas en la card
@@ -164,6 +172,7 @@
           })
           .then((response) => {
             console.log('ActividadGrupo creada:', response.data);
+            showPopup.value = true
   
             // Realizar POST de actividaPregunta para cada pregunta seleccionada
             selectedTasks.value.forEach((task) => {
@@ -172,6 +181,9 @@
                   actividad: actividadId,
                   pregunta: task.pregunta.id,
                   valor: task.valor, // Utilizar el valor correspondiente a cada pregunta
+                })
+                .then((response) => {
+                  console.log('ActividadPregunta creada:', response.data);
                 })
                 .catch((error) => {
                   console.error('Error al crear actividaPregunta:', error);
@@ -201,6 +213,16 @@
         selectedTasks.value.splice(index, 1);
       }
     }
+  }
+
+  const showPopup = ref(false)
+
+  function goToMenu(){
+    router.push({ path: `/biblio/${idUsuario}` })
+}
+
+  function refresca(){
+    window.location.reload();
   }
   </script>
 
@@ -359,7 +381,7 @@ input:focus::-webkit-input-placeholder {
     color: transparent;
 }
 
-.btn {
+/* .btn {
     background-color: #000;
     border-color: #000;
     color: white;
@@ -381,7 +403,7 @@ input:focus::-webkit-input-placeholder {
 
 .btn:hover {
     color: white;
-}
+} */
 
 a {
     color: black;
