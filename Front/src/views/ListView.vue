@@ -250,6 +250,8 @@ h2 {
 
 .card {
     margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
     max-width: 950px;
     width: 90%;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -352,7 +354,17 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #44749d;
+  color: white;
 }
 
 form {
